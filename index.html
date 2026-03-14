@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jardim Urbano — Jogo Narrativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       BOTÃO MUDO — fixo, fora do HUD, canto superior direito
+  ═══════════════════════════════════════════════════ -->
+  <button id="mute-btn"
+          aria-pressed="false"
+          aria-label="Silenciar trilha sonora"
+          title="Silenciar">
+    <span id="mute-icon" aria-hidden="true">🔊</span>
+    <span id="mute-label">Mudo</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════════════
+       HUD GLOBAL
+  ═══════════════════════════════════════════════════ -->
+  <div id="hud">
+    <span id="hud-stage-label">Estágio 1</span>
+    <span class="hud-sep">·</span>
+    <span id="hud-icon">🌿</span>
+    <span id="hud-count">0</span><span id="hud-total"> / 4</span>
+    <span id="hud-inv-wrapper" class="hud-sep hidden" aria-label="Inventário">
+      🎒 <span id="hud-inv-items"></span>
+    </span>
+  </div>
+
+  <div id="scene-wrapper">
+
+    <!-- ══════════════════════════════════════════════
+         ESTÁGIO 1 — O APARTAMENTO
+    ═════════════════════════════════════════════════ -->
+    <div id="scene-stage1" class="scene active">
+      <div id="room" class="room room-stage1">
+        <div class="window s1-window"><div class="window-cross-h"></div><div class="window-cross-v"></div></div>
+        <div class="lamp"><div class="lamp-shade"></div><div class="lamp-pole"></div><div class="lamp-base"></div></div>
+        <div class="wall-art"><div class="wall-art-inner"></div></div>
+        <div class="sofa">
+          <div class="sofa-back"><div class="sofa-cushion"></div><div class="sofa-cushion"></div><div class="sofa-cushion"></div></div>
+          <div class="sofa-seat"></div>
+          <div class="sofa-arm left"></div><div class="sofa-arm right"></div>
+          <div class="sofa-leg left"></div><div class="sofa-leg right"></div>
+        </div>
+        <div class="coffee-table"><div class="coffee-table-top"></div><div class="coffee-table-leg left"></div><div class="coffee-table-leg right"></div></div>
+        <div class="rug"></div>
+        <!-- PLANTA 1 — Maranta-zebrina -->
+        <div class="plant" id="plant-maranta" data-plant="maranta" role="button" tabindex="0" aria-label="Cuidar da Maranta-zebrina">
+          <div class="plant-need-indicator" id="need-maranta">💧</div>
+          <div class="plant-label">Maranta-zebrina</div>
+          <div class="foliage foliage-maranta">
+            <div class="leaf leaf-maranta l1"></div><div class="leaf leaf-maranta l2"></div>
+            <div class="leaf leaf-maranta l3"></div><div class="leaf leaf-maranta l4"></div>
+          </div>
+          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+        <!-- PLANTA 2 — Samambaia-asplênio -->
+        <div class="plant" id="plant-samambaia" data-plant="samambaia" role="button" tabindex="0" aria-label="Cuidar da Samambaia-asplênio">
+          <div class="plant-need-indicator" id="need-samambaia">🌿</div>
+          <div class="plant-label">Samambaia-asplênio</div>
+          <div class="foliage foliage-samambaia">
+            <div class="frond frond-1"></div><div class="frond frond-2"></div><div class="frond frond-3"></div>
+            <div class="frond frond-4"></div><div class="frond frond-5"></div>
+          </div>
+          <div class="pot-assembly pot-assembly--tall"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+        <!-- PLANTA 3 — Palmeira-juçara -->
+        <div class="plant" id="plant-palmeira" data-plant="palmeira" role="button" tabindex="0" aria-label="Cuidar da Palmeira-juçara">
+          <div class="plant-need-indicator" id="need-palmeira">☀️</div>
+          <div class="plant-label">Palmeira-juçara</div>
+          <div class="foliage foliage-palmeira">
+            <div class="palm-trunk"></div>
+            <div class="palm-leaf pl-1"></div><div class="palm-leaf pl-2"></div><div class="palm-leaf pl-3"></div>
+            <div class="palm-leaf pl-4"></div><div class="palm-leaf pl-5"></div><div class="palm-leaf pl-6"></div>
+          </div>
+          <div class="pot-assembly pot-assembly--wide"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+        <!-- PLANTA 4 — Bromélia-gusmânia -->
+        <div class="plant" id="plant-bromelia" data-plant="bromelia" role="button" tabindex="0" aria-label="Cuidar da Bromélia-gusmânia">
+          <div class="plant-need-indicator" id="need-bromelia">🌺</div>
+          <div class="plant-label">Bromélia-gusmânia</div>
+          <div class="foliage foliage-bromelia">
+            <div class="bract bract-1"></div><div class="bract bract-2"></div>
+            <div class="bract bract-3"></div><div class="bract bract-4"></div>
+            <div class="bromelia-flower"></div>
+          </div>
+          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body pot-body--terracotta"></div><div class="pot-saucer"></div></div>
+        </div>
+      </div>
+    </div><!-- /#scene-stage1 -->
+
+
+    <!-- ══════════════════════════════════════════════
+         ESTÁGIO 2 — JARDIM DO CONDOMÍNIO
+    ═════════════════════════════════════════════════ -->
+    <div id="scene-stage2" class="scene hidden">
+      <div id="room2" class="room room-stage2">
+        <div class="condo-gate"><div class="gate-frame"><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div><div class="gate-bar"></div></div><div class="gate-handle"></div></div>
+        <div class="concrete-wall left-wall"></div><div class="concrete-wall right-wall"></div>
+        <div class="ceiling-light left-light"><div class="cl-body"></div><div class="cl-glow"></div></div>
+        <div class="ceiling-light right-light"><div class="cl-body"></div><div class="cl-glow"></div></div>
+        <div class="condo-bench"><div class="bench-top"></div><div class="bench-leg left"></div><div class="bench-leg right"></div></div>
+        <div class="floor-tiles"></div>
+        <div class="planter-box left-planter"></div><div class="planter-box right-planter"></div>
+        <!-- PLANTA 5 — Ipê-amarelo -->
+        <div class="plant plant-s2" id="plant-ipe" data-plant="ipe" role="button" tabindex="0" aria-label="Cuidar do Ipê-amarelo">
+          <div class="plant-need-indicator" id="need-ipe">💧</div>
+          <div class="plant-label">Ipê-amarelo</div>
+          <div class="foliage foliage-ipe"><div class="ipe-trunk"></div><div class="ipe-canopy"></div><div class="ipe-flower if-1"></div><div class="ipe-flower if-2"></div><div class="ipe-flower if-3"></div></div>
+          <div class="ground-planted"></div>
+        </div>
+        <!-- PLANTA 6 — Manacá-da-serra -->
+        <div class="plant plant-s2" id="plant-manaca" data-plant="manaca" role="button" tabindex="0" aria-label="Cuidar do Manacá-da-serra">
+          <div class="plant-need-indicator" id="need-manaca">✂️</div>
+          <div class="plant-label">Manacá-da-serra</div>
+          <div class="foliage foliage-manaca"><div class="manaca-stem ms-1"></div><div class="manaca-stem ms-2"></div><div class="manaca-stem ms-3"></div><div class="manaca-bloom mb-1"></div><div class="manaca-bloom mb-2"></div><div class="manaca-bloom mb-3"></div></div>
+          <div class="pot-assembly pot-assembly--concrete"><div class="pot-rim"></div><div class="pot-body pot-body--gray"></div><div class="pot-saucer pot-saucer--gray"></div></div>
+        </div>
+        <!-- PLANTA 7 — Quaresmeira -->
+        <div class="plant plant-s2" id="plant-quaresmeira" data-plant="quaresmeira" role="button" tabindex="0" aria-label="Cuidar da Quaresmeira">
+          <div class="plant-need-indicator" id="need-quaresmeira">🌸</div>
+          <div class="plant-label">Quaresmeira</div>
+          <div class="foliage foliage-quaresmeira"><div class="quar-trunk"></div><div class="quar-branch qb-1"></div><div class="quar-branch qb-2"></div><div class="quar-branch qb-3"></div><div class="quar-petal qp-1"></div><div class="quar-petal qp-2"></div><div class="quar-petal qp-3"></div><div class="quar-petal qp-4"></div></div>
+          <div class="ground-planted ground-planted--wide"></div>
+        </div>
+        <!-- PLANTA 8 — Jabuticabeira (ESPECIAL) -->
+        <div class="plant plant-s2 plant--locked" id="plant-jabuticabeira" data-plant="jabuticabeira" role="button" tabindex="0" aria-label="Jabuticabeira — cuide das outras primeiro">
+          <div class="plant-need-indicator" id="need-jabuticabeira">🔒</div>
+          <div class="plant-label">Jabuticabeira</div>
+          <div class="foliage foliage-jabuticabeira"><div class="jabuti-trunk"></div><div class="jabuti-canopy"></div><div class="jabuti-fruit jf-1 hidden"></div><div class="jabuti-fruit jf-2 hidden"></div><div class="jabuti-fruit jf-3 hidden"></div><div class="jabuti-fruit jf-4 hidden"></div></div>
+          <div class="ground-planted"></div>
+          <div class="lock-overlay" id="lock-overlay-jabuticabeira"><span>Cuide das<br>outras primeiro</span></div>
+        </div>
+      </div>
+    </div><!-- /#scene-stage2 -->
+
+
+    <!-- ══════════════════════════════════════════════
+         ESTÁGIO 3 — A RUA DE SÃO PAULO
+    ═════════════════════════════════════════════════ -->
+    <div id="scene-stage3" class="scene hidden">
+      <div id="room3" class="room room-stage3">
+        <div id="rain-overlay" aria-hidden="true"></div>
+        <div class="s3-sky"></div>
+        <div class="s3-building b1"></div><div class="s3-building b2"></div>
+        <div class="s3-building b3"></div><div class="s3-building b4"></div>
+        <div class="s3-windows w1"><div class="s3-win"></div><div class="s3-win lit"></div><div class="s3-win"></div><div class="s3-win lit"></div><div class="s3-win"></div><div class="s3-win lit"></div></div>
+        <div class="s3-windows w2"><div class="s3-win lit"></div><div class="s3-win"></div><div class="s3-win lit"></div><div class="s3-win"></div><div class="s3-win lit"></div><div class="s3-win"></div></div>
+        <div class="s3-sidewalk"></div><div class="s3-curb"></div><div class="s3-asphalt"></div>
+        <div class="s3-pavement-pattern"></div>
+        <div class="s3-pole"><div class="s3-pole-arm"></div><div class="s3-pole-lamp"><div class="s3-pole-glow"></div></div></div>
+        <div class="s3-manhole"></div>
+        <div class="s3-puddle p1"></div><div class="s3-puddle p2"></div>
+        <div class="s3-crosswalk"><div class="cw-stripe"></div><div class="cw-stripe"></div><div class="cw-stripe"></div><div class="cw-stripe"></div></div>
+        <!-- PLANTA 9 — Íris-da-praia -->
+        <div class="plant plant-s3" id="plant-iris" data-plant="iris" role="button" tabindex="0" aria-label="Conversar com a Íris-da-praia">
+          <div class="plant-need-indicator" id="need-iris">☔</div>
+          <div class="plant-label">Íris-da-praia</div>
+          <div class="foliage foliage-iris"><div class="iris-leaf il-1"></div><div class="iris-leaf il-2"></div><div class="iris-leaf il-3"></div><div class="iris-bloom ib-1"></div><div class="iris-bloom ib-2"></div></div>
+          <div class="ground-planted ground-planted--street"></div>
+        </div>
+        <!-- PLANTA 10 — Guaivira -->
+        <div class="plant plant-s3" id="plant-guaivira" data-plant="guaivira" role="button" tabindex="0" aria-label="Conversar com a Guaivira">
+          <div class="plant-need-indicator" id="need-guaivira">☔</div>
+          <div class="plant-label">Guaivira</div>
+          <div class="foliage foliage-guaivira"><div class="guai-trunk"></div><div class="guai-canopy"></div><div class="guai-petal gp-1"></div><div class="guai-petal gp-2"></div><div class="guai-petal gp-3"></div></div>
+          <div class="ground-planted ground-planted--street"></div>
+        </div>
+        <!-- PLANTA 11 — Ingá-feijão -->
+        <div class="plant plant-s3" id="plant-inga" data-plant="inga" role="button" tabindex="0" aria-label="Conversar com o Ingá-feijão">
+          <div class="plant-need-indicator" id="need-inga">☔</div>
+          <div class="plant-label">Ingá-feijão</div>
+          <div class="foliage foliage-inga"><div class="inga-trunk"></div><div class="inga-canopy c1"></div><div class="inga-canopy c2"></div><div class="inga-pod ip-1"></div><div class="inga-pod ip-2"></div></div>
+          <div class="ground-planted ground-planted--street"></div>
+        </div>
+        <!-- PLANTA 12 — Taboa -->
+        <div class="plant plant-s3" id="plant-taboa" data-plant="taboa" role="button" tabindex="0" aria-label="Conversar com a Taboa">
+          <div class="plant-need-indicator" id="need-taboa">☔</div>
+          <div class="plant-label">Taboa</div>
+          <div class="foliage foliage-taboa"><div class="taboa-stem ts-1"></div><div class="taboa-stem ts-2"></div><div class="taboa-stem ts-3"></div><div class="taboa-cattail tc-1"></div><div class="taboa-cattail tc-2"></div><div class="taboa-cattail tc-3"></div></div>
+          <div class="ground-planted ground-planted--wet"></div>
+        </div>
+      </div>
+    </div><!-- /#scene-stage3 -->
+
+
+    <!-- ══════════════════════════════════════════════
+         ESTÁGIO 4 — O RETORNO TRANSFORMADOR
+    ═════════════════════════════════════════════════ -->
+    <div id="scene-stage4" class="scene hidden">
+      <div id="room4" class="room room-stage4">
+
+        <!-- Luz dourada de fim de tarde entra pela janela -->
+        <div class="s4-afternoon-light"></div>
+        <div class="s4-light-beam lb1"></div>
+        <div class="s4-light-beam lb2"></div>
+        <div class="s4-light-beam lb3"></div>
+
+        <!-- Janela — igual ao Estágio 1, mas com céu dourado -->
+        <div class="window s4-window">
+          <div class="window-cross-h"></div>
+          <div class="window-cross-v"></div>
+        </div>
+
+        <!-- Abajur aceso com halo mais quente -->
+        <div class="lamp s4-lamp">
+          <div class="lamp-shade"></div>
+          <div class="lamp-pole"></div>
+          <div class="lamp-base"></div>
+        </div>
+
+        <!-- Quadro — agora mais colorido -->
+        <div class="wall-art s4-wall-art">
+          <div class="wall-art-inner"></div>
+        </div>
+
+        <!-- Sofá -->
+        <div class="sofa">
+          <div class="sofa-back"><div class="sofa-cushion"></div><div class="sofa-cushion"></div><div class="sofa-cushion"></div></div>
+          <div class="sofa-seat"></div>
+          <div class="sofa-arm left"></div><div class="sofa-arm right"></div>
+          <div class="sofa-leg left"></div><div class="sofa-leg right"></div>
+        </div>
+
+        <!-- Mesa de centro com a jabuticaba em destaque -->
+        <div class="coffee-table s4-coffee-table">
+          <div class="coffee-table-top"></div>
+          <div class="coffee-table-leg left"></div>
+          <div class="coffee-table-leg right"></div>
+          <!-- Prato com jabuticaba sobre a mesa -->
+          <div class="s4-fruit-display" id="s4-jabuticaba-display" role="button" tabindex="0"
+               aria-label="Jabuticaba — clique para a mensagem final">
+            <div class="s4-plate"></div>
+            <div class="s4-fruit-pile">
+              <div class="s4-fruit sf1"></div>
+              <div class="s4-fruit sf2"></div>
+              <div class="s4-fruit sf3"></div>
+              <div class="s4-fruit sf4"></div>
+              <div class="s4-fruit sf5"></div>
+            </div>
+            <div class="s4-fruit-label">Jabuticaba</div>
+          </div>
+        </div>
+
+        <div class="rug s4-rug"></div>
+
+        <!-- PLANTA 1 — Maranta-zebrina (happy) -->
+        <div class="plant plant-happy s4-plant" id="s4-plant-maranta" data-plant="s4maranta"
+             role="button" tabindex="0" aria-label="Maranta-zebrina — feliz">
+          <div class="plant-need-indicator" id="need-s4maranta">🌿</div>
+          <div class="plant-label">Maranta-zebrina</div>
+          <div class="foliage foliage-maranta foliage--lush">
+            <div class="leaf leaf-maranta l1"></div><div class="leaf leaf-maranta l2"></div>
+            <div class="leaf leaf-maranta l3"></div><div class="leaf leaf-maranta l4"></div>
+          </div>
+          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+
+        <!-- PLANTA 2 — Samambaia-asplênio (happy) -->
+        <div class="plant plant-happy s4-plant" id="s4-plant-samambaia" data-plant="s4samambaia"
+             role="button" tabindex="0" aria-label="Samambaia-asplênio — feliz">
+          <div class="plant-need-indicator" id="need-s4samambaia">🌿</div>
+          <div class="plant-label">Samambaia-asplênio</div>
+          <div class="foliage foliage-samambaia foliage--lush">
+            <div class="frond frond-1"></div><div class="frond frond-2"></div><div class="frond frond-3"></div>
+            <div class="frond frond-4"></div><div class="frond frond-5"></div>
+          </div>
+          <div class="pot-assembly pot-assembly--tall"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+
+        <!-- PLANTA 3 — Palmeira-juçara (happy) -->
+        <div class="plant plant-happy s4-plant" id="s4-plant-palmeira" data-plant="s4palmeira"
+             role="button" tabindex="0" aria-label="Palmeira-juçara — feliz">
+          <div class="plant-need-indicator" id="need-s4palmeira">🌴</div>
+          <div class="plant-label">Palmeira-juçara</div>
+          <div class="foliage foliage-palmeira foliage--lush">
+            <div class="palm-trunk"></div>
+            <div class="palm-leaf pl-1"></div><div class="palm-leaf pl-2"></div><div class="palm-leaf pl-3"></div>
+            <div class="palm-leaf pl-4"></div><div class="palm-leaf pl-5"></div><div class="palm-leaf pl-6"></div>
+          </div>
+          <div class="pot-assembly pot-assembly--wide"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+        </div>
+
+        <!-- PLANTA 4 — Bromélia-gusmânia (happy) -->
+        <div class="plant plant-happy s4-plant" id="s4-plant-bromelia" data-plant="s4bromelia"
+             role="button" tabindex="0" aria-label="Bromélia-gusmânia — feliz">
+          <div class="plant-need-indicator" id="need-s4bromelia">🌺</div>
+          <div class="plant-label">Bromélia-gusmânia</div>
+          <div class="foliage foliage-bromelia foliage--lush">
+            <div class="bract bract-1"></div><div class="bract bract-2"></div>
+            <div class="bract bract-3"></div><div class="bract bract-4"></div>
+            <div class="bromelia-flower"></div>
+          </div>
+          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body pot-body--terracotta"></div><div class="pot-saucer"></div></div>
+        </div>
+
+        <!-- Partículas de poeira dourada (CSS puro) -->
+        <div class="s4-particle p1"></div>
+        <div class="s4-particle p2"></div>
+        <div class="s4-particle p3"></div>
+        <div class="s4-particle p4"></div>
+        <div class="s4-particle p5"></div>
+        <div class="s4-particle p6"></div>
+
+      </div>
+    </div><!-- /#scene-stage4 -->
+
+  </div><!-- /#scene-wrapper -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       BOTÕES DE AÇÃO FINAL (aparecem no Estágio 4)
+  ═══════════════════════════════════════════════════ -->
+  <div id="next-stage-wrapper">
+    <button id="next-stage-btn" aria-hidden="true">🚪 Seguir para o Jardim</button>
+  </div>
+
+  <div id="final-actions" class="hidden">
+    <button id="btn-restart" class="final-btn btn-restart">
+      🌱 Recomeçar a Jornada
+    </button>
+    <button id="btn-guide" class="final-btn btn-guide">
+      📖 Guia de Cuidados
+    </button>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       MODAL: GUIA DE CUIDADOS
+  ═══════════════════════════════════════════════════ -->
+  <div id="guide-overlay" role="dialog" aria-modal="true" aria-labelledby="guide-title" aria-hidden="true">
+    <div id="guide-box">
+      <button id="guide-close" aria-label="Fechar guia">✕</button>
+      <div id="guide-header">
+        <div id="guide-icon">🌿</div>
+        <h2 id="guide-title">Guia de Cuidados</h2>
+        <p id="guide-subtitle">As plantas da sua jornada</p>
+      </div>
+      <div id="guide-tabs" role="tablist">
+        <button class="gtab active" data-tab="s1" role="tab" aria-selected="true">Apartamento</button>
+        <button class="gtab" data-tab="s2" role="tab" aria-selected="false">Jardim</button>
+        <button class="gtab" data-tab="s3" role="tab" aria-selected="false">Rua</button>
+      </div>
+      <div id="guide-content">
+        <!-- Conteúdo injetado por JS -->
+      </div>
+      <div id="guide-footer">
+        <p>🌿 Plantar é um ato político. Cada espécie nativa é memória da paisagem brasileira.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       INVENTÁRIO — pop-up de item coletado
+  ═══════════════════════════════════════════════════ -->
+  <div id="item-acquired-popup" class="hidden" role="alert" aria-live="assertive">
+    <div id="item-acquired-box">
+      <div id="iap-icon"></div>
+      <div id="iap-name"></div>
+      <div id="iap-desc"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       DIÁLOGO / MODAL (compartilhado)
+  ═══════════════════════════════════════════════════ -->
+  <div id="dialog-overlay" role="dialog" aria-modal="true"
+       aria-labelledby="dlg-title" aria-hidden="true">
+    <div id="dialog-box">
+      <div id="dlg-plant-icon"></div>
+      <h2 id="dlg-title"></h2>
+      <p id="dlg-body"></p>
+      <div id="dlg-btn-row">
+        <button id="dlg-action-btn"></button>
+        <button id="dlg-close-btn" aria-label="Fechar diálogo">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       TELA DE ENCERRAMENTO — overlay final
+  ═══════════════════════════════════════════════════ -->
+  <div id="ending-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ending-headline">
+
+    <!-- Folhas caindo (geradas por JS) -->
+    <div id="leaves-container" aria-hidden="true"></div>
+
+    <!-- Conteúdo central -->
+    <div id="ending-content">
+
+      <!-- Ícones decorativos de flora -->
+      <div id="ending-flora" aria-hidden="true">
+        <span class="flora-icon fi-1">🌿</span>
+        <span class="flora-icon fi-2">🌺</span>
+        <span class="flora-icon fi-3">🍃</span>
+        <span class="flora-icon fi-4">🌸</span>
+        <span class="flora-icon fi-5">🌿</span>
+      </div>
+
+      <!-- Supertítulo -->
+      <p id="ending-supertitle">Jornada concluída</p>
+
+      <!-- Headline com efeito de máquina de escrever -->
+      <!-- A frase é dividida em duas linhas:
+           linha 1: texto fixo antes do nome
+           linha 2: nome com typewriter + texto fixo depois -->
+      <h1 id="ending-headline">
+        <span id="ending-line1" class="ending-line"></span>
+        <span id="ending-line2" class="ending-line">
+          <span id="ending-name" aria-label="Cunan"></span><span
+            id="ending-cursor" aria-hidden="true">|</span><span
+            id="ending-suffix" class="ending-suffix"></span>
+        </span>
+      </h1>
+
+      <!-- Texto de encerramento narrativo -->
+      <p id="ending-body"></p>
+
+      <!-- Assinatura vegetal -->
+      <div id="ending-divider" aria-hidden="true">
+        <span>🌱</span><span class="divider-line"></span><span>🌱</span>
+      </div>
+
+      <!-- Botões de ação -->
+      <div id="ending-actions">
+        <button id="btn-share" class="ending-btn btn-share">
+          <span class="btn-icon">🌳</span>
+          Compartilhar Conhecimento
+        </button>
+        <button id="btn-restart-ending" class="ending-btn btn-restart-ending">
+          <span class="btn-icon">🌱</span>
+          Recomeçar a Jornada
+        </button>
+      </div>
+
+      <!-- Crédito / rodapé narrativo -->
+      <p id="ending-credit">
+        Mata Atlântica — bioma ameaçado que ainda pulsa em cada canteiro de São Paulo.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- audio.js deve vir ANTES de script.js pois expõe funções usadas por ele -->
+  <script src="audio.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

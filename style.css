@@ -1,0 +1,1154 @@
+/* ═══════════════════════════════════════════════════════════
+   JARDIM URBANO — style.css (v4 — Final)
+   E1: Apartamento      → bege / madeira / verde
+   E2: Jardim Condomínio → concreto / ferro / verde
+   E3: A Rua             → asfalto / chuva / cinza
+   E4: O Retorno         → dourado / quente / vivo
+═══════════════════════════════════════════════════════════ */
+
+:root {
+  --wall:          #e8d5b4;
+  --floor:         #b87c48;
+  --floor-dark:    #9a6030;
+  --wood:          #7a5230;
+  --wood-dark:     #5a3818;
+  --wood-light:    #c8946a;
+  --concrete:      #b0aa9e;
+  --concrete-dark: #8a8278;
+  --concrete-light:#d0cbbf;
+  --iron:          #3a3a3a;
+  --tile-light:    #cdc8be;
+  --tile-dark:     #b0ab9e;
+  --condo-floor:   #9a9488;
+  --condo-sky:     #c8d8e8;
+  --planter-gray:  #7a7870;
+  --asphalt:       #2a2a2e;
+  --asphalt-wet:   #1e1e24;
+  --sidewalk:      #7a7870;
+  --sidewalk-light:#9a9890;
+  --sky-storm:     #3a3e4a;
+  --sky-storm-low: #282c36;
+  --building-1:    #4a4e58;
+  --building-2:    #3a3e48;
+  --building-3:    #525660;
+  --building-4:    #3e4250;
+  --win-lit:       #f0d878;
+  --win-dark:      #2a2e38;
+  --pole-color:    #2a2c30;
+  --lamp-warm:     #f8e090;
+  --rain-color:    rgba(180,210,240,0.55);
+  --green-dark:    #3a7030;
+  --green-mid:     #4e8c40;
+  --green-light:   #6aaa56;
+  --green-pale:    #a8d490;
+  --pot-main:      #c87a50;
+  --pot-dark:      #a05828;
+  --pot-rim-c:     #b86840;
+  --pot-saucer-c:  #d49070;
+  --ipe-yellow:    #f0c020;
+  --ipe-yellow-d:  #c89010;
+  --manaca-purple: #8858c8;
+  --manaca-lilac:  #b890e8;
+  --quaresmeira:   #d060a0;
+  --jabuti-fruit:  #2a1a4a;
+  --iris-purple:   #7060c8;
+  --iris-yellow:   #e8d030;
+  --guaivira-blue: #4878d8;
+  --guaivira-pale: #80a8f0;
+  --inga-green:    #3a6828;
+  --inga-pod:      #5a3818;
+  --taboa-brown:   #6a4020;
+  --taboa-cattail: #5a3010;
+  --taboa-green:   #4a7030;
+  /* Estágio 4 */
+  --afternoon-gold:#f0c060;
+  --afternoon-glow:#f8d880;
+  --wall-warm:     #f0dfc0;
+  --text-dark:     #1e1e1e;
+  --text-mid:      #4a4a4a;
+  --dialog-bg:     #f8f4ee;
+  --dialog-border: #c0b090;
+  --hud-bg:        rgba(15,15,20,0.80);
+  --hud-color:     #e8e4dc;
+  --font-story:    'Lora', Georgia, serif;
+  --font-ui:       'Nunito', 'Segoe UI', sans-serif;
+  --room-width:    900px;
+  --room-height:   560px;
+  --floor-height:  150px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: #111; font-family: var(--font-ui); overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+
+
+/* ════════════════════════════════════════════════════
+   BOTÃO MUDO — fixo no canto superior direito
+════════════════════════════════════════════════════ */
+#mute-btn {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 500;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  background: rgba(15, 15, 20, 0.82);
+  border: 1px solid rgba(200, 190, 160, 0.22);
+  border-radius: 20px;
+  padding: 6px 14px 6px 10px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s, transform 0.12s;
+  outline: none;
+
+  /* Não interfere com cliques nas cenas */
+  pointer-events: all;
+}
+
+#mute-btn:hover {
+  background: rgba(30, 25, 15, 0.92);
+  border-color: rgba(240, 190, 80, 0.35);
+  transform: scale(1.05);
+}
+
+#mute-btn:active  { transform: scale(0.97); }
+
+#mute-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(240, 190, 80, 0.6);
+}
+
+/* Estado MUDO — visual ligeiramente esmaecido */
+#mute-btn[aria-pressed="true"] {
+  background: rgba(40, 35, 25, 0.88);
+  border-color: rgba(160, 130, 80, 0.30);
+  opacity: 0.80;
+}
+
+#mute-icon {
+  font-size: 16px;
+  line-height: 1;
+  /* Transição suave ao trocar ícone */
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+#mute-btn:hover #mute-icon { transform: scale(1.15); }
+
+#mute-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #c8b890;
+  text-transform: uppercase;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── HUD ── */
+#hud {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px; background: var(--hud-bg);
+  border: 1px solid rgba(200,190,160,0.2); border-radius: 24px;
+  padding: 7px 20px; font-size: 14px; font-weight: 700;
+  color: var(--hud-color); letter-spacing: 0.04em;
+  backdrop-filter: blur(6px); transition: background 0.8s, border-color 0.8s;
+}
+#hud.hud-storm { background: rgba(30,34,44,0.92); border-color: rgba(140,170,210,0.25); }
+#hud.hud-golden { background: rgba(60,40,10,0.80); border-color: rgba(240,190,80,0.35); color: #f8e8c0; }
+#hud-stage-label { font-family: var(--font-story); font-style: italic; font-size: 13px; color: #b8a888; }
+.hud-sep { opacity: 0.4; }
+#hud-inv-wrapper { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 2px 10px; font-size: 13px; }
+
+
+/* ── Scene wrapper + transição ── */
+#scene-wrapper { position: relative; width: var(--room-width); max-width: 98vw; }
+.scene.hidden  { display: none; }
+.scene.active  { display: block; animation: scene-enter 0.7s ease forwards; }
+@keyframes scene-enter {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Transição especial para o Estágio 4 — fade de dentro */
+.scene.active.s4-enter { animation: s4-bloom 1.1s ease forwards; }
+@keyframes s4-bloom {
+  from { opacity: 0; transform: scale(0.97); filter: brightness(1.8) sepia(0.5); }
+  to   { opacity: 1; transform: scale(1);    filter: brightness(1)   sepia(0); }
+}
+
+
+/* ── Sala (base) ── */
+.room { position: relative; width: 100%; height: var(--room-height); overflow: hidden; border-radius: 12px; border: 2px solid #1a1a1a; box-shadow: 0 20px 60px rgba(0,0,0,0.70); }
+
+
+/* ════════════════════════════════════════════════════
+   ESTÁGIO 1 — O APARTAMENTO
+════════════════════════════════════════════════════ */
+.room-stage1 { background: linear-gradient(to bottom, var(--wall) 0%, var(--wall) calc(100% - var(--floor-height)), var(--floor) calc(100% - var(--floor-height)), var(--floor-dark) 100%); }
+.room-stage1::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent 60px, rgba(160,110,60,0.04) 60px, rgba(160,110,60,0.04) 61px); pointer-events: none; z-index: 0; }
+.room-stage1::after  { content: ''; position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: 3px; background: var(--wood); opacity: 0.5; z-index: 1; }
+.s1-window { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); width: 130px; height: 100px; background: #b8d8f0; border: 3px solid var(--wood); border-radius: 3px; box-shadow: inset 0 0 20px rgba(180,220,255,0.5), inset 0 -10px 30px rgba(255,240,180,0.3); z-index: 1; }
+.window-cross-h { position: absolute; top: 50%; left: 0; right: 0; height: 3px; margin-top: -1.5px; background: var(--wood); opacity: 0.5; }
+.window-cross-v { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: var(--wood); opacity: 0.5; }
+.lamp { position: absolute; top: 40px; right: 80px; z-index: 1; }
+.lamp-shade { width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 36px solid #f0d090; margin: 0 auto; }
+.lamp-pole { width: 6px; height: 140px; background: var(--wood); opacity: 0.85; margin: 0 auto; border-radius: 2px; }
+.lamp-base { width: 30px; height: 8px; background: var(--wood-dark); border-radius: 50%; margin: 0 auto; }
+.wall-art { position: absolute; top: 38px; left: 80px; width: 72px; height: 56px; border: 4px solid var(--wood); border-radius: 3px; background: #d4c0a0; z-index: 1; }
+.wall-art-inner { width: 100%; height: 100%; background: radial-gradient(ellipse at 40% 55%, #8aaa6a 30%, transparent 60%), radial-gradient(ellipse at 70% 40%, #b8c890 20%, transparent 50%), #c8b490; }
+.rug { position: absolute; bottom: 138px; left: 50%; transform: translateX(-50%); width: 380px; height: 22px; background: #c06840; border-radius: 50%; opacity: 0.45; z-index: 1; }
+.sofa { position: absolute; bottom: 148px; left: 50%; transform: translateX(-50%); width: 300px; z-index: 2; }
+.sofa-back { display: flex; gap: 4px; height: 56px; background: var(--wood); border-radius: 8px 8px 0 0; padding: 6px 8px 0; }
+.sofa-cushion { flex: 1; height: 100%; background: #9a7858; border-radius: 4px 4px 0 0; }
+.sofa-seat { height: 30px; background: #8a6848; border-radius: 0 0 4px 4px; }
+.sofa-arm { position: absolute; bottom: 0; width: 18px; height: 82px; background: var(--wood); border-radius: 4px; }
+.sofa-arm.left { left: -14px; } .sofa-arm.right { right: -14px; }
+.sofa-leg { position: absolute; bottom: -12px; width: 16px; height: 12px; background: var(--wood-dark); border-radius: 0 0 4px 4px; }
+.sofa-leg.left { left: 20px; } .sofa-leg.right { right: 20px; }
+.coffee-table { position: absolute; bottom: 128px; left: 50%; transform: translateX(-50%); width: 160px; z-index: 3; }
+.coffee-table-top { height: 12px; background: var(--wood-light); border-radius: 4px; border: 1px solid var(--wood); }
+.coffee-table-leg { position: absolute; top: 12px; width: 12px; height: 18px; background: var(--wood); border-radius: 0 0 3px 3px; }
+.coffee-table-leg.left { left: 20px; } .coffee-table-leg.right { right: 20px; }
+
+
+/* ════════════════════════════════════════════════════
+   ESTÁGIO 2 — JARDIM DO CONDOMÍNIO
+════════════════════════════════════════════════════ */
+.room-stage2 { background: linear-gradient(180deg, #7a9ab0 0%, var(--condo-sky) 28%, var(--concrete-light) 28%, var(--concrete) 55%, var(--condo-floor) 55%, #7a7468 100%); }
+.room-stage2::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 18px, rgba(0,0,0,0.04) 18px, rgba(0,0,0,0.04) 19px), repeating-linear-gradient(90deg, transparent 0, transparent 18px, rgba(0,0,0,0.04) 18px, rgba(0,0,0,0.04) 19px); pointer-events: none; z-index: 0; }
+.room-stage2::after  { content: ''; position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #6a6458, #8a8278, #6a6458); z-index: 1; }
+.condo-gate { position: absolute; top: 0; right: 60px; width: 110px; height: 250px; z-index: 2; }
+.gate-frame { width: 100%; height: 220px; border: 4px solid var(--iron); border-bottom: none; display: flex; gap: 10px; padding: 8px 10px 0; background: rgba(30,30,30,0.15); }
+.gate-bar { flex: 1; background: var(--iron); border-radius: 0 0 3px 3px; position: relative; }
+.gate-bar::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 6px; height: 12px; background: var(--iron); clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+.gate-handle { position: absolute; bottom: 80px; left: -10px; width: 16px; height: 40px; border: 3px solid var(--iron); border-radius: 8px; background: transparent; }
+.concrete-wall { position: absolute; top: 0; bottom: 0; width: 44px; background: repeating-linear-gradient(180deg, var(--concrete-light) 0px, var(--concrete-light) 24px, var(--concrete) 24px, var(--concrete) 26px); z-index: 2; }
+.left-wall  { left: 0; border-right: 2px solid var(--concrete-dark); }
+.right-wall { right: 0; border-left: 2px solid var(--concrete-dark); }
+.ceiling-light { position: absolute; top: 0; z-index: 3; }
+.left-light { left: 140px; } .right-light { right: 180px; }
+.cl-body { width: 28px; height: 12px; background: var(--concrete-dark); border-radius: 0 0 6px 6px; margin: 0 auto; }
+.cl-glow { width: 80px; height: 40px; background: radial-gradient(ellipse at 50% 0%, rgba(255,240,180,0.45) 0%, transparent 80%); margin-left: -26px; pointer-events: none; }
+.condo-bench { position: absolute; bottom: 162px; left: 50%; transform: translateX(-50%); width: 200px; z-index: 2; }
+.bench-top { height: 14px; background: var(--concrete-light); border-radius: 3px; border-top: 2px solid var(--concrete-dark); }
+.bench-leg { position: absolute; top: 14px; width: 16px; height: 28px; background: var(--concrete); border-radius: 0 0 3px 3px; }
+.bench-leg.left { left: 24px; } .bench-leg.right { right: 24px; }
+.floor-tiles { position: absolute; bottom: 0; left: 44px; right: 44px; height: var(--floor-height); background: repeating-linear-gradient(90deg, transparent 0, transparent 49px, var(--tile-dark) 49px, var(--tile-dark) 50px), repeating-linear-gradient(0deg, transparent 0, transparent 29px, var(--tile-dark) 29px, var(--tile-dark) 30px), var(--tile-light); z-index: 1; }
+.planter-box { position: absolute; bottom: var(--floor-height); width: 70px; height: 30px; background: var(--planter-gray); border-top: 3px solid var(--concrete-light); border-radius: 2px; z-index: 2; }
+.left-planter { left: 60px; } .right-planter { right: 60px; }
+.ground-planted { width: 50px; height: 10px; background: #5a4830; border-radius: 50%; margin-top: 2px; }
+.ground-planted--wide { width: 70px; }
+
+
+/* ════════════════════════════════════════════════════
+   ESTÁGIO 3 — A RUA
+════════════════════════════════════════════════════ */
+.room-stage3 { background: var(--sky-storm-low); overflow: hidden; }
+.s3-sky { position: absolute; top: 0; left: 0; right: 0; height: 52%; background: linear-gradient(180deg, var(--sky-storm) 0%, var(--sky-storm-low) 100%); z-index: 0; }
+.s3-building { position: absolute; bottom: var(--floor-height); z-index: 1; }
+.b1 { left: 0;    width: 130px; height: 260px; background: var(--building-1); }
+.b2 { left: 115px; width: 90px;  height: 200px; background: var(--building-2); }
+.b3 { right: 0;   width: 140px; height: 280px; background: var(--building-3); }
+.b4 { right: 125px; width: 80px; height: 220px; background: var(--building-4); }
+.s3-windows { position: absolute; bottom: var(--floor-height); z-index: 2; display: grid; gap: 5px; padding: 12px 10px; }
+.w1 { left: 4px;   width: 130px; grid-template-columns: repeat(3, 1fr); }
+.w2 { right: 4px;  width: 140px; grid-template-columns: repeat(3, 1fr); }
+.s3-win { height: 14px; background: var(--win-dark); border-radius: 1px; }
+.s3-win.lit { background: var(--win-lit); box-shadow: 0 0 6px rgba(248,224,144,0.4); animation: flicker 4s ease-in-out infinite; }
+.s3-win.lit:nth-child(2) { animation-delay: 1.3s; }
+.s3-win.lit:nth-child(3) { animation-delay: 2.7s; }
+@keyframes flicker { 0%,100% { opacity: 1; } 45% { opacity: 0.85; } 50% { opacity: 0.7; } 55% { opacity: 0.9; } }
+.s3-sidewalk { position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: var(--floor-height); background: linear-gradient(180deg, var(--sidewalk-light) 0%, var(--sidewalk) 100%); z-index: 2; }
+.s3-curb { position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: 6px; background: #5a5850; z-index: 3; }
+.s3-asphalt { position: absolute; bottom: 0; left: 0; right: 0; height: calc(var(--floor-height) - 6px); background: linear-gradient(180deg, var(--asphalt-wet) 0%, var(--asphalt) 100%); z-index: 2; }
+.s3-pavement-pattern { position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: var(--floor-height); z-index: 3; pointer-events: none; background: repeating-linear-gradient(45deg, transparent 0, transparent 14px, rgba(80,76,68,0.18) 14px, rgba(80,76,68,0.18) 15px), repeating-linear-gradient(-45deg, transparent 0, transparent 14px, rgba(80,76,68,0.18) 14px, rgba(80,76,68,0.18) 15px); }
+.s3-pole { position: absolute; bottom: var(--floor-height); right: 160px; width: 8px; height: 220px; background: linear-gradient(to right, var(--pole-color), #3a3c40, var(--pole-color)); border-radius: 4px; z-index: 4; }
+.s3-pole-arm { position: absolute; top: 10px; right: 0; width: 48px; height: 6px; background: var(--pole-color); border-radius: 3px; }
+.s3-pole-lamp { position: absolute; top: 2px; right: -16px; width: 24px; height: 14px; background: var(--lamp-warm); border-radius: 3px; box-shadow: 0 0 20px rgba(248,224,144,0.7); }
+.s3-pole-glow { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 120px; height: 80px; background: radial-gradient(ellipse at 50% 0%, rgba(248,224,144,0.25) 0%, transparent 70%); pointer-events: none; }
+.s3-manhole { position: absolute; bottom: 16px; left: 200px; width: 48px; height: 28px; background: #1a1a1e; border-radius: 50%; border: 3px solid #3a3a3e; z-index: 4; }
+.s3-puddle { position: absolute; z-index: 3; background: rgba(40,44,60,0.7); border-radius: 50%; animation: puddle-ripple 2.5s ease-in-out infinite; }
+.p1 { width: 80px; height: 16px; bottom: 22px; left: 280px; } .p2 { width: 50px; height: 10px; bottom: 18px; right: 240px; animation-delay: 1.2s; }
+@keyframes puddle-ripple { 0%,100% { opacity: 0.55; transform: scaleX(1); } 50% { opacity: 0.75; transform: scaleX(1.04); } }
+.s3-crosswalk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: calc(var(--floor-height) - 6px); display: flex; gap: 6px; z-index: 4; }
+.cw-stripe { flex: 1; background: rgba(220,215,200,0.18); border-radius: 1px; }
+.ground-planted--street { width: 60px; height: 12px; background: #4a4040; border-radius: 50%; margin-top: 3px; }
+.ground-planted--wet { width: 64px; height: 14px; background: linear-gradient(to right, #3a3a50, #4a4a60, #3a3a50); border-radius: 50%; margin-top: 3px; }
+
+/* Chuva */
+#rain-overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; opacity: 0; transition: opacity 1.2s ease; }
+#scene-stage3.active #rain-overlay { opacity: 1; }
+.raindrop { position: absolute; top: -60px; width: 1.5px; border-radius: 2px; background: var(--rain-color); animation: rain-fall linear infinite; will-change: transform; }
+.rd-s { height: 12px; } .rd-m { height: 20px; } .rd-l { height: 30px; }
+@keyframes rain-fall { 0% { transform: translateY(0) translateX(0) rotate(14deg); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 0.8; } 100% { transform: translateY(680px) translateX(90px) rotate(14deg); opacity: 0; } }
+.rain-splash { position: absolute; bottom: var(--floor-height); width: 4px; height: 4px; border-radius: 50%; background: var(--rain-color); pointer-events: none; z-index: 21; animation: splash-out 0.4s ease-out forwards; }
+@keyframes splash-out { 0% { transform: scale(0.5); opacity: 0.8; } 100% { transform: scaleX(3) scaleY(0.2) translateY(2px); opacity: 0; } }
+
+
+/* ════════════════════════════════════════════════════
+   ESTÁGIO 4 — O RETORNO TRANSFORMADOR
+════════════════════════════════════════════════════ */
+.room-stage4 {
+  background: linear-gradient(
+    to bottom,
+    var(--wall-warm) 0%,
+    var(--wall-warm) calc(100% - var(--floor-height)),
+    var(--floor) calc(100% - var(--floor-height)),
+    var(--floor-dark) 100%
+  );
+  /* Saturação aumentada + levíssimo sépia dourado */
+  filter: saturate(1.25) sepia(0.12);
+}
+
+/* Linha de rodapé aquecida */
+.room-stage4::after {
+  content: ''; position: absolute; bottom: var(--floor-height); left: 0; right: 0;
+  height: 3px; background: var(--wood); opacity: 0.6; z-index: 1;
+}
+
+/* Luz dourada de fim de tarde (overlay) */
+.s4-afternoon-light {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at 30% 10%, rgba(255,210,100,0.28) 0%, transparent 65%);
+}
+
+/* Raios de luz entrando pela janela */
+.s4-light-beam {
+  position: absolute; top: 0; z-index: 2; pointer-events: none;
+  width: 60px; height: 100%;
+  opacity: 0.07;
+  animation: beam-pulse 4s ease-in-out infinite;
+}
+.lb1 { left: 33%; background: linear-gradient(to bottom, var(--afternoon-gold), transparent); transform: rotate(8deg) translateX(-20px); animation-delay: 0s; }
+.lb2 { left: 40%; background: linear-gradient(to bottom, var(--afternoon-glow), transparent); transform: rotate(8deg); animation-delay: 0.8s; width: 40px; }
+.lb3 { left: 46%; background: linear-gradient(to bottom, var(--afternoon-gold), transparent); transform: rotate(8deg) translateX(20px); animation-delay: 1.6s; }
+
+@keyframes beam-pulse {
+  0%,100% { opacity: 0.07; }
+  50%      { opacity: 0.14; }
+}
+
+/* Janela do E4 — vidro com tom dourado */
+.s4-window {
+  position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+  width: 130px; height: 100px;
+  background: linear-gradient(135deg, #f8d898 0%, #f0c060 50%, #e8a840 100%);
+  border: 3px solid var(--wood); border-radius: 3px;
+  box-shadow: inset 0 0 24px rgba(255,220,120,0.6), 0 0 30px rgba(240,180,60,0.25);
+  z-index: 3;
+}
+
+/* Abajur do E4 — mais brilhante */
+.s4-lamp .lamp-shade { border-bottom-color: #f8e0a0; }
+
+/* Quadro do E4 — mais vivo */
+.s4-wall-art .wall-art-inner {
+  background: radial-gradient(ellipse at 40% 55%, #a8d070 30%, transparent 60%),
+              radial-gradient(ellipse at 65% 38%, #e8c060 25%, transparent 55%),
+              radial-gradient(ellipse at 75% 70%, #c0a870 20%, transparent 50%), #d8c8a0;
+}
+
+/* Mesa do E4 com jabuticaba */
+.s4-coffee-table { position: absolute; bottom: 128px; left: 50%; transform: translateX(-50%); width: 200px; z-index: 5; }
+
+/* Prato com frutos */
+.s4-fruit-display {
+  position: absolute;
+  top: -52px; left: 50%; transform: translateX(-50%);
+  width: 70px;
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  animation: fruit-sway 3s ease-in-out infinite;
+}
+.s4-fruit-display:hover { transform: translateX(-50%) scale(1.1); }
+
+@keyframes fruit-sway {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-3px); }
+}
+
+.s4-plate {
+  width: 60px; height: 10px;
+  background: linear-gradient(180deg, #f0ece4, #d8d0c4);
+  border-radius: 50%;
+  border: 1.5px solid #c0b8a8;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+
+.s4-fruit-pile {
+  position: relative; width: 50px; height: 36px; margin-top: -3px;
+}
+.s4-fruit {
+  position: absolute;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle at 35% 30%, #6a4a7a, #1a0a2a);
+  border-radius: 50%;
+  border: 1.5px solid #0a0018;
+  box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2);
+  animation: fruit-gleam 2.5s ease-in-out infinite;
+}
+.sf1 { bottom: 0;  left: 4px;  animation-delay: 0.0s; }
+.sf2 { bottom: 0;  left: 18px; animation-delay: 0.3s; }
+.sf3 { bottom: 0;  left: 32px; animation-delay: 0.6s; }
+.sf4 { bottom: 13px; left: 10px; animation-delay: 0.9s; }
+.sf5 { bottom: 13px; left: 24px; animation-delay: 1.2s; }
+
+@keyframes fruit-gleam {
+  0%,100% { box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2); }
+  50%      { box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2), 0 0 6px rgba(140,80,180,0.5); }
+}
+
+.s4-fruit-label {
+  font-family: var(--font-story); font-style: italic; font-size: 10px;
+  color: var(--wood-dark); background: rgba(248,240,220,0.9);
+  border-radius: 8px; padding: 1px 6px; margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* Tapete do E4 — mais vivo */
+.s4-rug { opacity: 0.65; }
+
+/* Partículas douradas flutuando na sala */
+.s4-particle {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 6;
+  background: var(--afternoon-gold); opacity: 0;
+  animation: particle-float linear infinite;
+}
+.p1 { width: 3px; height: 3px; left: 15%; bottom: 200px; animation-duration: 8s; animation-delay: 0s; }
+.p2 { width: 2px; height: 2px; left: 28%; bottom: 160px; animation-duration: 6s; animation-delay: 1.5s; }
+.p3 { width: 4px; height: 4px; left: 55%; bottom: 250px; animation-duration: 9s; animation-delay: 0.8s; }
+.p4 { width: 2px; height: 2px; left: 70%; bottom: 190px; animation-duration: 7s; animation-delay: 2.2s; }
+.p5 { width: 3px; height: 3px; left: 82%; bottom: 230px; animation-duration: 10s; animation-delay: 3s; }
+.p6 { width: 2px; height: 2px; left: 42%; bottom: 170px; animation-duration: 6.5s; animation-delay: 1s; }
+
+@keyframes particle-float {
+  0%   { opacity: 0; transform: translateY(0) translateX(0); }
+  15%  { opacity: 0.7; }
+  85%  { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-120px) translateX(20px); }
+}
+
+
+/* ════════════════════════════════════════════════════
+   PLANTAS — BASE COMPARTILHADA
+════════════════════════════════════════════════════ */
+.plant {
+  position: absolute; bottom: 148px;
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer; z-index: 4; outline: none;
+  transition: transform 0.2s ease, filter 0.3s ease;
+}
+.plant:hover, .plant:focus-visible { transform: scale(1.07) translateY(-4px); }
+.plant-s2  { bottom: 150px; }
+.plant-s3  { bottom: 152px; }
+.s4-plant  { bottom: 148px; }
+
+/* Plantas "felizes" no E4 — brilho suave + movimento de respiração */
+.plant-happy {
+  animation: happy-breathe 3s ease-in-out infinite;
+  filter: saturate(1.4) brightness(1.08);
+}
+.plant-happy:hover { filter: saturate(1.6) brightness(1.15); }
+.s4-plant:nth-child(odd)  { animation-delay: 0s; }
+.s4-plant:nth-child(even) { animation-delay: 1.5s; }
+
+@keyframes happy-breathe {
+  0%,100% { transform: scale(1) translateY(0); }
+  50%      { transform: scale(1.03) translateY(-3px); }
+}
+
+/* Folhagem exuberante no E4 */
+.foliage--lush { filter: saturate(1.3) brightness(1.08); }
+
+.plant-label {
+  font-family: var(--font-story); font-style: italic; font-size: 11px;
+  color: var(--text-mid); background: rgba(248,244,238,0.9);
+  border: 1px solid var(--dialog-border); border-radius: 10px;
+  padding: 2px 9px; margin-bottom: 5px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s; white-space: nowrap; pointer-events: none;
+}
+.plant:hover .plant-label, .plant:focus-visible .plant-label { opacity: 1; transform: translateY(0); }
+.plant-s3 .plant-label { color: #2a2a2a; background: rgba(220,220,210,0.92); border-color: #8a8a80; }
+.s4-plant .plant-label { background: rgba(255,248,230,0.92); border-color: var(--afternoon-gold); color: #5a3010; }
+
+.plant-need-indicator {
+  font-size: 20px; margin-bottom: 3px; line-height: 1;
+  animation: float 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25)); transition: all 0.35s;
+}
+.plant.cared .plant-need-indicator, .plant-happy .plant-need-indicator {
+  animation: happy-icon-float 3s ease-in-out infinite;
+}
+.plant.cared .plant-need-indicator { animation: pop-in 0.4s cubic-bezier(0.36,1.56,0.64,1) forwards; }
+.plant.visited .plant-need-indicator { animation: pop-in 0.4s cubic-bezier(0.36,1.56,0.64,1) forwards; }
+
+@keyframes happy-icon-float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-5px) rotate(-5deg); }
+  75%      { transform: translateY(-3px) rotate(4deg); }
+}
+
+.plant--locked { cursor: not-allowed; opacity: 0.75; filter: grayscale(0.4); }
+.plant--locked:hover { transform: none; }
+.plant--locked.unlocked { cursor: pointer; opacity: 1; filter: none; }
+.plant--locked.unlocked:hover { transform: scale(1.07) translateY(-4px); }
+.lock-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; }
+.lock-overlay span { font-family: var(--font-story); font-size: 10px; font-style: italic; color: #888; text-align: center; background: rgba(248,244,238,0.85); border-radius: 8px; padding: 4px 8px; line-height: 1.4; }
+.lock-overlay.gone { display: none; }
+
+.pot-assembly { display: flex; flex-direction: column; align-items: center; margin-top: 2px; }
+.pot-rim    { width: 46px; height: 7px; background: var(--pot-rim-c); border-radius: 3px; }
+.pot-body   { width: 40px; height: 30px; background: var(--pot-main); clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%); border-radius: 0 0 4px 4px; }
+.pot-saucer { width: 52px; height: 6px; background: var(--pot-saucer-c); border-radius: 50%; margin-top: 2px; }
+.pot-body--terracotta { background: #d0704a; }
+.pot-body--gray       { background: var(--concrete); }
+.pot-saucer--gray     { background: var(--concrete-dark); }
+.pot-assembly--tall .pot-body   { height: 38px; }
+.pot-assembly--tall .pot-rim    { width: 50px; }
+.pot-assembly--tall .pot-saucer { width: 58px; }
+.pot-assembly--wide .pot-rim    { width: 56px; }
+.pot-assembly--wide .pot-body   { width: 50px; height: 36px; }
+.pot-assembly--wide .pot-saucer { width: 64px; }
+.pot-assembly--concrete .pot-rim    { background: var(--concrete-dark); }
+.pot-assembly--concrete .pot-saucer { background: var(--concrete-dark); }
+
+
+/* ── Plantas E1 ── */
+#plant-maranta, #s4-plant-maranta { left: 36px; }
+.foliage-maranta { width: 70px; height: 58px; position: relative; }
+.leaf-maranta { position: absolute; border-radius: 50% 50% 40% 60%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15); }
+.leaf-maranta.l1 { width: 38px; height: 22px; background: linear-gradient(135deg, var(--green-mid), var(--green-dark));  top: 20px; left: 2px;  transform: rotate(-28deg); }
+.leaf-maranta.l2 { width: 32px; height: 20px; background: linear-gradient(135deg, var(--green-light), var(--green-mid)); top: 6px;  left: 20px; transform: rotate(22deg); }
+.leaf-maranta.l3 { width: 40px; height: 22px; background: linear-gradient(135deg, var(--green-mid), var(--green-dark));  top: 32px; left: 14px; transform: rotate(5deg); }
+.leaf-maranta.l4 { width: 28px; height: 18px; background: linear-gradient(135deg, var(--green-pale), var(--green-light)); top: 10px; left: 6px;  transform: rotate(-10deg); }
+.leaf-maranta::after { content: ''; position: absolute; inset: 20% 25% 30% 10%; background: repeating-linear-gradient(80deg, transparent 0, transparent 3px, rgba(180,240,140,0.35) 3px, rgba(180,240,140,0.35) 4px); border-radius: inherit; }
+#plant-samambaia, #s4-plant-samambaia { right: 36px; }
+.foliage-samambaia { width: 80px; height: 70px; position: relative; }
+.frond { position: absolute; bottom: 0; left: 50%; width: 10px; background: var(--green-mid); border-radius: 0 80% 0 80%; transform-origin: bottom center; }
+.frond-1 { height: 50px; transform: translateX(-50%) rotate(-55deg); background: var(--green-dark); }
+.frond-2 { height: 60px; transform: translateX(-50%) rotate(-28deg); background: var(--green-mid); }
+.frond-3 { height: 68px; transform: translateX(-50%) rotate(0deg);   background: var(--green-light); }
+.frond-4 { height: 60px; transform: translateX(-50%) rotate(28deg);  background: var(--green-mid); }
+.frond-5 { height: 50px; transform: translateX(-50%) rotate(55deg);  background: var(--green-dark); }
+#plant-palmeira, #s4-plant-palmeira { left: 160px; }
+.foliage-palmeira { width: 90px; height: 100px; position: relative; }
+.palm-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 7px; height: 65px; background: linear-gradient(to right, var(--wood-dark), var(--wood-light), var(--wood-dark)); border-radius: 3px; }
+.palm-leaf { position: absolute; bottom: 56px; left: 50%; width: 8px; background: var(--green-mid); border-radius: 0 70% 0 70%; transform-origin: bottom center; }
+.pl-1 { height: 46px; transform: translateX(-50%) rotate(-70deg); background: var(--green-dark); }
+.pl-2 { height: 54px; transform: translateX(-50%) rotate(-42deg); background: var(--green-mid); }
+.pl-3 { height: 60px; transform: translateX(-50%) rotate(-14deg); background: var(--green-light); }
+.pl-4 { height: 60px; transform: translateX(-50%) rotate(14deg);  background: var(--green-light); }
+.pl-5 { height: 54px; transform: translateX(-50%) rotate(42deg);  background: var(--green-mid); }
+.pl-6 { height: 46px; transform: translateX(-50%) rotate(70deg);  background: var(--green-dark); }
+#plant-bromelia, #s4-plant-bromelia { right: 155px; }
+.foliage-bromelia { width: 64px; height: 62px; position: relative; }
+.bract { position: absolute; bottom: 0; left: 50%; width: 10px; background: #5a9840; border-radius: 0 80% 0 60%; transform-origin: bottom center; }
+.bract-1 { height: 40px; transform: translateX(-50%) rotate(-50deg); background: #4a8830; }
+.bract-2 { height: 52px; transform: translateX(-50%) rotate(-22deg); background: #5a9840; }
+.bract-3 { height: 56px; transform: translateX(-50%) rotate(6deg);   background: #6aaa50; }
+.bract-4 { height: 48px; transform: translateX(-50%) rotate(34deg);  background: #5a9840; }
+.bromelia-flower { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); width: 14px; height: 24px; background: linear-gradient(to top, #e04030, #f07050); border-radius: 3px 3px 0 0; }
+.bromelia-flower::after { content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; background: #f8b040; border-radius: 50%; }
+
+
+/* ── Plantas E2 ── */
+#plant-ipe { left: 70px; }
+.foliage-ipe { width: 90px; height: 110px; position: relative; }
+.ipe-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 9px; height: 72px; background: linear-gradient(to right, #4a3018, #7a5828, #4a3018); border-radius: 4px; }
+.ipe-canopy { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); width: 80px; height: 55px; background: radial-gradient(ellipse at 50% 60%, var(--ipe-yellow) 0%, var(--ipe-yellow-d) 60%, transparent 100%); border-radius: 50% 50% 40% 40%; }
+.ipe-flower { position: absolute; width: 10px; height: 10px; background: var(--ipe-yellow); border-radius: 50%; border: 2px solid var(--ipe-yellow-d); }
+.ipe-flower.if-1 { bottom: 100px; left: 18px; } .ipe-flower.if-2 { bottom: 108px; left: 42px; } .ipe-flower.if-3 { bottom: 98px; left: 62px; }
+#plant-manaca { left: 230px; }
+.foliage-manaca { width: 70px; height: 80px; position: relative; }
+.manaca-stem { position: absolute; bottom: 0; left: 50%; width: 4px; background: var(--green-dark); border-radius: 2px; transform-origin: bottom center; }
+.ms-1 { height: 60px; transform: translateX(-50%) rotate(-18deg); } .ms-2 { height: 75px; transform: translateX(-50%) rotate(0); } .ms-3 { height: 62px; transform: translateX(-50%) rotate(18deg); }
+.manaca-bloom { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--manaca-lilac), var(--manaca-purple)); border: 2px solid #6840a8; }
+.mb-1 { bottom: 56px; left: 6px; } .mb-2 { bottom: 70px; left: 26px; } .mb-3 { bottom: 58px; left: 46px; }
+#plant-quaresmeira { right: 70px; bottom: 150px; }
+.foliage-quaresmeira { width: 100px; height: 120px; position: relative; }
+.quar-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 10px; height: 80px; background: linear-gradient(to right, #3a2818, #6a4828, #3a2818); border-radius: 5px; }
+.quar-branch { position: absolute; bottom: 62px; left: 50%; width: 5px; height: 44px; background: #5a3820; border-radius: 3px; transform-origin: bottom center; }
+.qb-1 { transform: translateX(-50%) rotate(-45deg); } .qb-2 { transform: translateX(-50%) rotate(0); height: 52px; } .qb-3 { transform: translateX(-50%) rotate(45deg); }
+.quar-petal { position: absolute; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e890c8, var(--quaresmeira)); border: 1.5px solid #b04888; }
+.qp-1 { bottom: 90px; left: 6px; } .qp-2 { bottom: 102px; left: 28px; } .qp-3 { bottom: 88px; left: 52px; } .qp-4 { bottom: 75px; left: 35px; }
+#plant-jabuticabeira { right: 220px; bottom: 150px; }
+.foliage-jabuticabeira { width: 80px; height: 100px; position: relative; }
+.jabuti-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 8px; height: 68px; background: linear-gradient(to right, #2a2018, #4a3828, #2a2018); border-radius: 4px; }
+.jabuti-canopy { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); width: 74px; height: 56px; background: radial-gradient(ellipse at 50% 60%, #5a9848 0%, var(--green-dark) 70%); border-radius: 50% 50% 40% 40%; }
+.jabuti-fruit { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 30%, #5a3a6a, var(--jabuti-fruit)); border-radius: 50%; border: 1.5px solid #1a0a2a; }
+.jf-1 { bottom: 66px; left: 10px; } .jf-2 { bottom: 78px; left: 30px; } .jf-3 { bottom: 68px; left: 50px; } .jf-4 { bottom: 56px; left: 22px; }
+#plant-jabuticabeira.cared .jabuti-fruit { display: block !important; animation: fruit-appear 0.5s cubic-bezier(0.36,1.56,0.64,1) forwards; }
+#plant-jabuticabeira.cared .jf-1 { animation-delay: 0.0s; } #plant-jabuticabeira.cared .jf-2 { animation-delay: 0.1s; } #plant-jabuticabeira.cared .jf-3 { animation-delay: 0.2s; } #plant-jabuticabeira.cared .jf-4 { animation-delay: 0.3s; }
+@keyframes fruit-appear { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+
+/* ── Plantas E3 ── */
+#plant-iris { left: 55px; }
+.foliage-iris { width: 72px; height: 90px; position: relative; }
+.iris-leaf { position: absolute; bottom: 0; left: 50%; width: 7px; border-radius: 2px 80% 2px 80%; background: linear-gradient(to top, var(--green-dark), var(--green-light)); transform-origin: bottom center; }
+.il-1 { height: 72px; transform: translateX(-50%) rotate(-22deg); } .il-2 { height: 85px; transform: translateX(-50%) rotate(4deg); } .il-3 { height: 70px; transform: translateX(-50%) rotate(28deg); }
+.iris-bloom { position: absolute; width: 20px; height: 20px; background: radial-gradient(circle at 40% 35%, #b0a0f0, var(--iris-purple)); border-radius: 50% 50% 40% 60%; border: 1.5px solid #5040a8; }
+.ib-1 { bottom: 72px; left: 6px; transform: rotate(-15deg); } .ib-2 { bottom: 80px; left: 38px; transform: rotate(20deg); }
+.iris-bloom::after { content: ''; position: absolute; width: 6px; height: 6px; background: var(--iris-yellow); border-radius: 50%; top: 6px; left: 6px; }
+#plant-guaivira { left: 215px; }
+.foliage-guaivira { width: 90px; height: 120px; position: relative; }
+.guai-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 9px; height: 85px; background: linear-gradient(to right, #3a2c18, #6a5030, #3a2c18); border-radius: 4px; }
+.guai-canopy { position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%); width: 80px; height: 55px; background: radial-gradient(ellipse at 50% 60%, var(--guaivira-pale) 0%, var(--guaivira-blue) 65%, transparent 100%); border-radius: 50% 50% 35% 35%; }
+.guai-petal { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a8c8ff, var(--guaivira-blue)); border: 1.5px solid #3060c0; }
+.gp-1 { bottom: 100px; left: 8px; } .gp-2 { bottom: 110px; left: 34px; } .gp-3 { bottom: 98px; left: 58px; }
+#plant-inga { right: 200px; }
+.foliage-inga { width: 100px; height: 130px; position: relative; }
+.inga-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 11px; height: 90px; background: linear-gradient(to right, #2a2010, #5a4020, #2a2010); border-radius: 5px; }
+.inga-canopy { position: absolute; left: 50%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 55%, var(--green-light) 0%, var(--inga-green) 75%); border-radius: 50% 50% 35% 35%; }
+.inga-canopy.c1 { bottom: 75px; width: 90px; height: 58px; } .inga-canopy.c2 { bottom: 100px; width: 60px; height: 40px; opacity: 0.85; }
+.inga-pod { position: absolute; width: 4px; background: linear-gradient(to bottom, var(--inga-pod), #8a5828); border-radius: 2px; transform-origin: top center; }
+.ip-1 { height: 36px; bottom: 62px; left: 22px; transform: rotate(15deg); } .ip-2 { height: 42px; bottom: 60px; right: 20px; transform: rotate(-18deg); }
+#plant-taboa { right: 50px; }
+.foliage-taboa { width: 64px; height: 130px; position: relative; }
+.taboa-stem { position: absolute; bottom: 0; left: 50%; width: 5px; border-radius: 3px; background: linear-gradient(to top, var(--taboa-brown), var(--taboa-green)); transform-origin: bottom center; }
+.ts-1 { height: 100px; transform: translateX(-50%) rotate(-12deg); } .ts-2 { height: 120px; transform: translateX(-50%) rotate(0); } .ts-3 { height: 105px; transform: translateX(-50%) rotate(14deg); }
+.taboa-cattail { position: absolute; left: 50%; width: 9px; height: 28px; background: var(--taboa-cattail); border-radius: 4px; transform-origin: bottom center; }
+.tc-1 { bottom: 72px; transform: translateX(-50%) translateX(-14px) rotate(-12deg); }
+.tc-2 { bottom: 90px; transform: translateX(-50%) rotate(0); }
+.tc-3 { bottom: 75px; transform: translateX(-50%) translateX(14px) rotate(14deg); }
+
+
+/* ═══════════════════════════════════════════════════
+   BOTÕES DE AÇÃO FINAL (Estágio 4)
+═══════════════════════════════════════════════════ */
+#next-stage-wrapper { margin-top: 18px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+#next-stage-btn {
+  display: none; font-family: var(--font-story); font-style: italic;
+  font-size: 17px; font-weight: 600; color: #fff;
+  background: var(--green-mid); border: none; border-radius: 30px;
+  padding: 14px 40px; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(50,120,40,0.5);
+  animation: pulse-btn 2.2s ease-in-out infinite;
+  transition: background 0.15s, transform 0.15s;
+}
+#next-stage-btn.btn-storm { background: #3a5878; animation: pulse-btn-storm 2.2s ease-in-out infinite; }
+#next-stage-btn.btn-golden { background: #c87820; animation: pulse-btn-golden 2.2s ease-in-out infinite; }
+#next-stage-btn:hover  { filter: brightness(1.15); transform: scale(1.04); }
+#next-stage-btn:active { transform: scale(0.98); }
+
+#final-actions {
+  display: flex; gap: 14px; margin-top: 18px;
+  animation: scene-enter 0.6s ease forwards;
+}
+.final-btn {
+  font-family: var(--font-story); font-style: italic;
+  font-size: 15px; font-weight: 600;
+  border: none; border-radius: 24px; padding: 12px 28px; cursor: pointer;
+  transition: filter 0.15s, transform 0.15s;
+}
+.final-btn:hover  { filter: brightness(1.1); transform: scale(1.03); }
+.final-btn:active { transform: scale(0.97); }
+.btn-restart { background: #4a7040; color: #f0f8e8; box-shadow: 0 4px 18px rgba(60,100,40,0.4); }
+.btn-guide   { background: #c87820; color: #fff8e8; box-shadow: 0 4px 18px rgba(180,100,20,0.4); }
+
+
+/* ═══════════════════════════════════════════════════
+   MODAL: GUIA DE CUIDADOS
+═══════════════════════════════════════════════════ */
+#guide-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,8,4,0.70);
+  align-items: center; justify-content: center;
+  z-index: 200; backdrop-filter: blur(6px);
+}
+#guide-overlay.open { display: flex; }
+
+#guide-box {
+  background: #fdf6e8;
+  border: 2px solid var(--afternoon-gold);
+  border-radius: 20px; padding: 0;
+  max-width: 580px; width: 94%; max-height: 88vh;
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.40);
+  animation: dialog-in 0.3s cubic-bezier(0.36,1.4,0.64,1);
+}
+
+#guide-close {
+  position: absolute; top: 14px; right: 16px;
+  background: transparent; border: none;
+  font-size: 18px; cursor: pointer; color: #9a7040;
+  line-height: 1; transition: color 0.15s;
+}
+#guide-close:hover { color: #5a3010; }
+
+#guide-header {
+  background: linear-gradient(135deg, #5a3810, #8a5820);
+  padding: 24px 28px 18px; text-align: center; position: relative;
+}
+#guide-icon { font-size: 32px; margin-bottom: 6px; }
+#guide-title { font-family: var(--font-story); font-size: 20px; font-weight: 600; color: #f8e8c0; margin-bottom: 4px; }
+#guide-subtitle { font-family: var(--font-story); font-style: italic; font-size: 13px; color: #d8b880; }
+
+#guide-tabs {
+  display: flex; background: #f0e4cc; border-bottom: 2px solid #d8c090;
+  padding: 0 16px;
+}
+.gtab {
+  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  background: transparent; border: none; border-bottom: 3px solid transparent;
+  padding: 12px 16px; cursor: pointer; color: #8a6030;
+  margin-bottom: -2px; transition: color 0.15s, border-color 0.15s;
+}
+.gtab:hover  { color: #5a3010; }
+.gtab.active { color: #5a3010; border-bottom-color: #c87820; }
+
+#guide-content {
+  overflow-y: auto; padding: 20px 24px; flex: 1;
+}
+
+/* Cards de plantas no guia */
+.gcard {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid #e8d8b8;
+}
+.gcard:last-child { border-bottom: none; }
+.gcard-icon {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; background: linear-gradient(135deg, #d8f0c0, #a8d870);
+}
+.gcard-icon.s2 { background: linear-gradient(135deg, #d0c8f0, #a090e0); }
+.gcard-icon.s3 { background: linear-gradient(135deg, #c0d8f0, #80a8d8); }
+.gcard-body { flex: 1; }
+.gcard-name { font-family: var(--font-story); font-weight: 600; font-size: 14px; color: #3a2010; margin-bottom: 3px; }
+.gcard-sci  { font-family: var(--font-story); font-style: italic; font-size: 11px; color: #9a7040; margin-bottom: 6px; }
+.gcard-tip  { font-size: 13px; color: #5a3a18; line-height: 1.6; }
+.gcard-tag  { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 8px; padding: 2px 8px; margin-top: 6px; }
+.tag-water  { background: #d0eaf8; color: #205878; }
+.tag-light  { background: #fff0c0; color: #806010; }
+.tag-soil   { background: #e8f0d0; color: #305820; }
+.tag-native { background: #f0e8d0; color: #704020; }
+
+#guide-footer {
+  background: #f0e4cc; padding: 14px 24px; text-align: center;
+  font-family: var(--font-story); font-style: italic; font-size: 13px; color: #8a6030;
+  border-top: 1px solid #d8c090;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   DIÁLOGO / MODAL
+═══════════════════════════════════════════════════ */
+#dialog-overlay { display: none; position: fixed; inset: 0; background: rgba(10,8,4,0.62); align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+#dialog-overlay.open { display: flex; }
+#dialog-box { background: var(--dialog-bg); border: 2px solid var(--dialog-border); border-radius: 16px; padding: 28px 30px 24px; max-width: 400px; width: 90%; box-shadow: 0 12px 48px rgba(0,0,0,0.45); text-align: center; animation: dialog-in 0.28s cubic-bezier(0.36,1.4,0.64,1); }
+#dialog-box.storm-theme { background: #1e2230; border-color: #4a6080; }
+#dialog-box.storm-theme #dlg-title { color: #c8daf0; }
+#dialog-box.storm-theme #dlg-body  { color: #90a8c0; }
+#dialog-box.golden-theme { background: #fdf4dc; border-color: var(--afternoon-gold); }
+#dialog-box.golden-theme #dlg-title { color: #5a3010; }
+#dialog-box.golden-theme #dlg-body  { color: #7a5030; }
+#dlg-plant-icon { font-size: 38px; margin-bottom: 10px; line-height: 1; }
+#dlg-title { font-family: var(--font-story); font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; }
+#dlg-body  { font-family: var(--font-story); font-style: italic; font-size: 14px; line-height: 1.75; color: var(--text-mid); margin-bottom: 20px; }
+#dlg-action-btn { font-family: var(--font-ui); font-size: 14px; font-weight: 700; color: #f8f0e0; background: #3a3a3a; border: none; border-radius: 10px; padding: 10px 28px; cursor: pointer; transition: background 0.15s, transform 0.12s; letter-spacing: 0.03em; }
+#dlg-action-btn.btn-rain   { background: #2a4060; color: #c8e0f8; }
+#dlg-action-btn.btn-golden { background: #c87820; color: #fff8e8; }
+#dlg-action-btn:hover  { filter: brightness(1.2); }
+#dlg-action-btn:active { transform: scale(0.96); }
+
+/* ── Linha de botões do diálogo ── */
+#dlg-btn-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Botão Continuar (fecha sem executar ação) ── */
+#dlg-close-btn {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: #9a8870;
+  background: transparent;
+  border: 1px solid rgba(160, 140, 100, 0.35);
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, transform 0.12s;
+  letter-spacing: 0.03em;
+}
+#dlg-close-btn:hover  { color: #5a3a18; border-color: rgba(160,120,60,0.6); }
+#dlg-close-btn:active { transform: scale(0.96); }
+
+
+/* ═══════════════════════════════════════════════════
+   POP-UP INVENTÁRIO
+═══════════════════════════════════════════════════ */
+#item-acquired-popup { position: fixed; top: 24px; right: 24px; z-index: 300; animation: slide-in-right 0.4s cubic-bezier(0.36,1.4,0.64,1); }
+#item-acquired-box { background: #1a1a1a; border: 1.5px solid #4a4a4a; border-radius: 14px; padding: 16px 20px; min-width: 220px; box-shadow: 0 8px 32px rgba(0,0,0,0.55); text-align: center; }
+#iap-icon { font-size: 32px; margin-bottom: 6px; }
+#iap-name { font-family: var(--font-story); font-weight: 600; font-size: 14px; color: #e8e0d0; margin-bottom: 4px; }
+#iap-desc { font-family: var(--font-story); font-style: italic; font-size: 12px; color: #8a8070; line-height: 1.5; }
+
+
+/* ═══════════════════════════════════════════════════
+   ANIMAÇÕES
+═══════════════════════════════════════════════════ */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes pop-in { 0% { transform: scale(0.5); opacity: 0.3; } 60% { transform: scale(1.3); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes pulse-btn       { 0%,100% { box-shadow: 0 6px 24px rgba(50,120,40,0.5); } 50% { box-shadow: 0 6px 36px rgba(50,120,40,0.8); } }
+@keyframes pulse-btn-storm  { 0%,100% { box-shadow: 0 6px 24px rgba(60,100,140,0.5); } 50% { box-shadow: 0 6px 36px rgba(80,140,200,0.8); } }
+@keyframes pulse-btn-golden { 0%,100% { box-shadow: 0 6px 24px rgba(180,100,20,0.5); } 50% { box-shadow: 0 6px 36px rgba(220,140,40,0.9); } }
+@keyframes dialog-in  { from { transform: scale(0.88) translateY(12px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+@keyframes slide-in-right { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+
+/* ═══════════════════════════════════════════════════════════
+   TELA DE ENCERRAMENTO
+   Overlay fullscreen com fundo floresta + apartamento fundidos,
+   tipografia orgânica, folhas caindo e efeito typewriter.
+═══════════════════════════════════════════════════════════ */
+
+/* ── Container principal ── */
+#ending-overlay {
+  /* Oculto até ser ativado por JS */
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+
+  /* Fundo: floresta vibrante mesclada com luz de apartamento */
+  background:
+    /* Névoa dourada vinda de cima — luz do apartamento */
+    radial-gradient(ellipse at 50% -10%, rgba(240, 180, 60, 0.45) 0%, transparent 55%),
+    /* Luz verde de floresta da esquerda */
+    radial-gradient(ellipse at -10% 60%, rgba(40, 120, 30, 0.55) 0%, transparent 50%),
+    /* Luz verde de floresta da direita */
+    radial-gradient(ellipse at 110% 70%, rgba(20, 100, 20, 0.50) 0%, transparent 50%),
+    /* Clarão central dourado-esverdeado */
+    radial-gradient(ellipse at 50% 45%, rgba(60, 100, 30, 0.35) 0%, transparent 65%),
+    /* Base: verde-floresta profundo */
+    linear-gradient(160deg, #0d2010 0%, #142816 35%, #1a3a1a 60%, #0f2010 100%);
+
+  /* Garante que o scroll interno não quebre o layout */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Quando aberto por JS */
+#ending-overlay.open {
+  display: flex;
+  animation: ending-reveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ending-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: brightness(2.5) saturate(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+/* ── Folhas caindo (partículas CSS + JS) ── */
+#leaves-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Cada folha é um .leaf-particle criado por JS */
+.leaf-particle {
+  position: absolute;
+  top: -60px;
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0;
+  animation: leaf-fall linear forwards;
+  will-change: transform, opacity;
+  /* Cada folha recebe animation-duration e left aleatórios via JS */
+}
+
+@keyframes leaf-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+  }
+  8% { opacity: 0.9; }
+  /* Movimento sinusoidal simulado com keyframes intermediários */
+  25% {
+    transform: translateY(25vh) translateX(30px) rotate(60deg) scale(1);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-20px) rotate(140deg) scale(0.9);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(75vh) translateX(40px) rotate(220deg) scale(1.05);
+  }
+  95% { opacity: 0.4; }
+  100% {
+    opacity: 0;
+    transform: translateY(110vh) translateX(-10px) rotate(300deg) scale(0.7);
+  }
+}
+
+/* ── Conteúdo central ── */
+#ending-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 32px 40px;
+  max-width: 680px;
+  width: 94%;
+
+  /* Vidro orgânico — fundo levemente translúcido */
+  background: rgba(8, 24, 8, 0.55);
+  border: 1px solid rgba(100, 200, 80, 0.20);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 0 1px rgba(60, 160, 40, 0.10),
+    0 24px 80px rgba(0, 0, 0, 0.60),
+    inset 0 1px 0 rgba(140, 220, 100, 0.12);
+}
+
+/* ── Ícones decorativos de flora ── */
+#ending-flora {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.flora-icon {
+  opacity: 0;
+  animation: flora-rise 0.6s ease forwards;
+  display: inline-block;
+}
+.fi-1 { animation-delay: 0.2s; }
+.fi-2 { animation-delay: 0.4s; }
+.fi-3 { animation-delay: 0.6s; }
+.fi-4 { animation-delay: 0.8s; }
+.fi-5 { animation-delay: 1.0s; }
+
+@keyframes flora-rise {
+  from { opacity: 0; transform: translateY(10px) scale(0.7); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ── Supertítulo ── */
+#ending-supertitle {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #78c860;
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: fade-up 0.7s ease 0.8s forwards;
+}
+
+/* ── Headline (typewriter) ── */
+#ending-headline {
+  font-family: var(--font-story);
+  font-size: clamp(22px, 4.5vw, 38px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #e8f4d8;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-up 0.5s ease 1.1s forwards;
+}
+
+.ending-line {
+  display: block;
+}
+
+/* O nome "Cunan" recebe cor especial */
+#ending-name {
+  color: #a0e870;
+  font-style: italic;
+  text-shadow:
+    0 0 20px rgba(100, 220, 60, 0.50),
+    0 0 40px rgba(60, 160, 20, 0.30);
+}
+
+/* Cursor piscante do typewriter */
+#ending-cursor {
+  display: inline-block;
+  color: #a0e870;
+  font-weight: 300;
+  animation: cursor-blink 0.75s step-end infinite;
+  margin-left: 1px;
+  /* Cursor some depois que o typewriter termina — controlado por JS */
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Texto que aparece após o nome */
+.ending-suffix {
+  color: #e8f4d8;
+  font-style: normal;
+}
+
+/* ── Corpo narrativo ── */
+#ending-body {
+  font-family: var(--font-story);
+  font-style: italic;
+  font-size: clamp(13px, 2vw, 16px);
+  line-height: 1.80;
+  color: #b0d8a0;
+  max-width: 520px;
+  margin-bottom: 28px;
+  opacity: 0;
+  /* Aparece via JS após o typewriter terminar */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(8px);
+}
+#ending-body.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Divisor ── */
+#ending-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+#ending-divider.visible { opacity: 1; }
+.divider-line {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(100, 200, 70, 0.45), transparent);
+}
+#ending-divider span:not(.divider-line) { font-size: 16px; }
+
+/* ── Botões de ação final ── */
+#ending-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 340px;
+  margin-bottom: 28px;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(10px);
+}
+#ending-actions.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ending-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-story);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.ending-btn .btn-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Efeito de brilho percorrendo o botão */
+.ending-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  animation: btn-shimmer 2.8s ease-in-out infinite;
+}
+
+@keyframes btn-shimmer {
+  0%   { left: -100%; }
+  40%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+.btn-share {
+  background: linear-gradient(135deg, #2a6820, #3a9030);
+  color: #e8f8d8;
+  box-shadow:
+    0 6px 28px rgba(40, 140, 30, 0.55),
+    0 0 0 1px rgba(80, 200, 60, 0.25),
+    inset 0 1px 0 rgba(180, 255, 130, 0.20);
+  animation: green-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes green-pulse {
+  0%,100% { box-shadow: 0 6px 28px rgba(40,140,30,0.55), 0 0 0 1px rgba(80,200,60,0.25), inset 0 1px 0 rgba(180,255,130,0.20); }
+  50%      { box-shadow: 0 8px 40px rgba(40,180,30,0.75), 0 0 0 2px rgba(100,230,70,0.40), inset 0 1px 0 rgba(200,255,150,0.25); }
+}
+
+.btn-restart-ending {
+  background: rgba(255, 255, 255, 0.06);
+  color: #90c878;
+  border: 1px solid rgba(100, 200, 70, 0.28);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
+}
+
+.ending-btn:hover  { filter: brightness(1.15); transform: scale(1.03); }
+.ending-btn:active { transform: scale(0.97); }
+
+/* ── Crédito final ── */
+#ending-credit {
+  font-family: var(--font-story);
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(140, 200, 110, 0.55);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#ending-credit.visible { opacity: 1; }
+
+/* ── Animação utilitária ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
