@@ -774,7 +774,7 @@ html, body {
   flex-wrap: wrap;
 }
 
-/* ── Botão Continuar (fecha sem executar ação) ── */
+/* ── Botão Continuar (fecha ao clicar — única saída do diálogo) ── */
 #dlg-close-btn {
   font-family: var(--font-ui);
   font-size: 13px;
@@ -785,11 +785,24 @@ html, body {
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s, transform 0.12s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.12s;
   letter-spacing: 0.03em;
 }
 #dlg-close-btn:hover  { color: #5a3a18; border-color: rgba(160,120,60,0.6); }
 #dlg-close-btn:active { transform: scale(0.96); }
+
+/* Estado primário — aparece após a ação ser executada */
+#dlg-close-btn.dlg-close-btn--primary {
+  background: #4a7040;
+  color: #e8f8d8;
+  border-color: #4a7040;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 28px;
+  box-shadow: 0 4px 16px rgba(60,110,40,0.40);
+  animation: pulse-btn 2s ease-in-out infinite;
+}
+#dlg-close-btn.dlg-close-btn--primary:hover { background: #3a6030; border-color: #3a6030; }
 
 
 /* ═══════════════════════════════════════════════════

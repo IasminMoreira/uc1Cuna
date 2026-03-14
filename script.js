@@ -259,8 +259,7 @@ const gameState = {
   caredByStage: { 1: 0, 2: 0, 3: 0, 4: 0 },
   totalByStage: { 1: 4, 2: 4, 3: 4, 4: 0 },   /* E4 sem contador — livre */
   inventory: [],
-  activePlantId:  null,  /* ID da planta com diálogo aberto                */
-  activePlantEl:  null,  /* Elemento DOM da planta — para restaurar o foco */
+  activePlantId: null,
   rainActive: false,
   rainSplashInterval: null,
   finalMessageShown: false,
@@ -283,7 +282,6 @@ const DOM = {
   dlgTitle:      () => document.getElementById('dlg-title'),
   dlgBody:       () => document.getElementById('dlg-body'),
   dlgActionBtn:  () => document.getElementById('dlg-action-btn'),
-  dlgCloseBtn:   () => document.getElementById('dlg-close-btn'),
   sceneStage1:   () => document.getElementById('scene-stage1'),
   sceneStage2:   () => document.getElementById('scene-stage2'),
   sceneStage3:   () => document.getElementById('scene-stage3'),
@@ -312,14 +310,14 @@ function init() {
 
   DOM.dlgActionBtn().addEventListener('click', handleCareAction);
 
-  /* Botão Continuar — fecha o diálogo sem executar a ação de cuidado */
-  const closeBtn = DOM.dlgCloseBtn();
-  if (closeBtn) closeBtn.addEventListener('click', closeDialog);
-  DOM.dialogOverlay().addEventListener('click', e => {
-    if (e.target === DOM.dialogOverlay()) closeDialog();
-  });
+  /* Continuar — única forma de fechar o diálogo de planta */
+  const closeBtnEl = document.getElementById('dlg-close-btn');
+  if (closeBtnEl) closeBtnEl.addEventListener('click', closeDialog);
+
+  /* Clique no overlay NÃO fecha o diálogo — previne fechar o SFX por acidente */
+  /* ESC fecha apenas o guia de cuidados, não o diálogo de planta */
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeDialog(); closeGuide(); }
+    if (e.key === 'Escape') closeGuide();
   });
 
   DOM.nextBtn().addEventListener('click', handleNextStageBtn);
@@ -377,9 +375,6 @@ function handlePlantClick(plantEl) {
   const data    = PLANT_DATA[plantId];
   if (!data) return;
 
-  /* Guardar referência ao elemento para restaurar foco ao fechar */
-  gameState.activePlantEl = plantEl;
-
   if (data.mode === 'reflect') {
     openReflectDialog(plantId);
     return;
@@ -403,37 +398,44 @@ function handleCareAction() {
   const data  = PLANT_DATA[plantId];
   const stage = data.stage;
 
+  /* ── Reflexão (E4): fecha diretamente, sem efeito de estado ── */
   if (data.mode === 'reflect') {
-    closeDialog(); return;
+    closeDialog();
+    return;
   }
 
+  /* ── Visita (E3): atualiza estado e SFX, mantém diálogo aberto ── */
   if (data.mode === 'visit') {
     gameState.plants[plantId] = 'visited';
     gameState.caredByStage[3]++;
-    closeDialog();
 
-    /* ── SFX de proteção/visita ── */
+    /* SFX de visita toca enquanto o jogador lê */
     if (typeof tocarSFX === 'function' && typeof sfxParaAcao === 'function') {
       const sfx = sfxParaAcao(plantId);
       if (sfx) tocarSFX(sfx);
     }
 
+    /* Atualiza visual da planta imediatamente (mas diálogo continua aberto) */
     renderPlantVisited(plantId);
     renderHUD();
     if (gameState.caredByStage[3] >= gameState.totalByStage[3]) unlockNextStageBtn();
+
+    /* Trocar botão de ação por Continuar */
+    _mostrarBotaoContinuar();
     return;
   }
 
+  /* ── Cuidado (E1/E2): atualiza estado e SFX, mantém diálogo aberto ── */
   gameState.plants[plantId] = 'cared';
   gameState.caredByStage[stage]++;
-  closeDialog();
 
-  /* ── SFX de cuidado — dispara DEPOIS de fechar o diálogo ── */
+  /* SFX toca enquanto o jogador ainda lê o flavor text */
   if (typeof tocarSFX === 'function' && typeof sfxParaAcao === 'function') {
     const sfx = sfxParaAcao(plantId);
     if (sfx) tocarSFX(sfx);
   }
 
+  /* Atualiza visual da planta imediatamente (mas diálogo continua aberto) */
   renderPlant(plantId);
   renderHUD();
 
@@ -447,6 +449,23 @@ function handleCareAction() {
   }
   if (gameState.caredByStage[gameState.currentStage] >= gameState.totalByStage[gameState.currentStage]) {
     unlockNextStageBtn();
+  }
+
+  /* Trocar botão de ação por Continuar */
+  _mostrarBotaoContinuar();
+}
+
+/**
+ * _mostrarBotaoContinuar — esconde o botão de ação e destaca o Continuar.
+ * Chamado depois que a ação foi executada, para guiar o jogador a fechar.
+ */
+function _mostrarBotaoContinuar() {
+  const actionBtn   = document.getElementById('dlg-action-btn');
+  const continueBtn = document.getElementById('dlg-close-btn');
+  if (actionBtn)   actionBtn.style.display = 'none';
+  if (continueBtn) {
+    continueBtn.classList.add('dlg-close-btn--primary');
+    continueBtn.focus();
   }
 }
 
@@ -1072,35 +1091,28 @@ function closeDialog() {
   DOM.dialogOverlay().classList.remove('open');
   DOM.dialogOverlay().setAttribute('aria-hidden', 'true');
 
-  /* Restaurar handler do botão de ação */
-  const btn = DOM.dlgActionBtn();
-  btn.removeEventListener('click', handleCareAction);
-  btn.addEventListener('click', handleCareAction);
-  btn.className = '';
+  /* Restaurar handler e visibilidade do botão de ação */
+  const actionBtn = DOM.dlgActionBtn();
+  actionBtn.removeEventListener('click', handleCareAction);
+  actionBtn.addEventListener('click', handleCareAction);
+  actionBtn.className   = '';
+  actionBtn.style.display = '';
+
+  /* Remover estilo primário do Continuar */
+  const continueBtn = document.getElementById('dlg-close-btn');
+  if (continueBtn) continueBtn.classList.remove('dlg-close-btn--primary');
 
   DOM.dialogBox().classList.remove('storm-theme', 'golden-theme');
 
-  /* Parar SFX de ação que ainda possa estar tocando */
+  /* Parar SFX de ação que ainda esteja tocando */
   if (typeof pararSFX === 'function') pararSFX();
 
-  /* No Estágio 3, cancelar qualquer trovão pendente */
+  /* No Estágio 3, cancelar trovão pendente */
   if (gameState.currentStage === 3 && typeof pararTrovoes === 'function') {
     pararTrovoes();
   }
 
-  /* Limpar classes de animação de cuidado que possam ter ficado travadas */
-  const plantEl = gameState.activePlantEl;
-  if (plantEl) {
-    plantEl.classList.remove('animating', 'caring', 'active-action');
-  }
-
-  /* Restaurar foco ao elemento da planta que originou o diálogo */
-  if (plantEl && typeof plantEl.focus === 'function') {
-    plantEl.focus();
-  }
-
   gameState.activePlantId = null;
-  gameState.activePlantEl = null;
 }
 
 

@@ -203,9 +203,6 @@ function tocarSom(cenario) {
   if (cenario === 3) agendarProximoTrovao();
 }
 
-/**
- * tocarSFX(nome) — reproduz um SFX interrompendo o anterior.
- */
 let _sfxAtivoClone = null;
 
 function tocarSFX(nome) {
@@ -214,7 +211,6 @@ function tocarSFX(nome) {
   const sfx = sfxTracks[nome];
   if (!sfx) return;
 
-  /* Interromper SFX anterior imediatamente */
   if (_sfxAtivoClone) {
     _sfxAtivoClone.pause();
     _sfxAtivoClone.currentTime = 0;
@@ -235,10 +231,6 @@ function tocarSFX(nome) {
   }
 }
 
-/**
- * pararSFX() — interrompe o SFX ativo.
- * Chamada por closeDialog() e pelas transições de estágio.
- */
 function pararSFX() {
   if (_sfxAtivoClone) {
     _sfxAtivoClone.pause();
@@ -300,11 +292,6 @@ function desbloquearAudio() {
   if (audioState.unlocked) return;
   audioState.unlocked = true;
 
-  /*
-   * setTimeout(0): o navegador concede um único "user gesture token" por clique.
-   * Chamar _tentarPlay aqui consumiria esse token antes do tocarSFX ter chance
-   * de usá-lo. Adiar para uma task separada deixa o token livre para o SFX.
-   */
   setTimeout(() => {
     const stage = audioState.currentStage;
     if (stage && ambientTracks[stage] && !audioState.muted) {
