@@ -960,52 +960,16 @@ function _iniciarMusicaFinal() {
 
 /** Vincula os botões da tela de encerramento */
 function _bindBotoesEncerramento() {
-  const btnShare   = document.getElementById('btn-share');
+  const btnGuia    = document.getElementById('btn-share');
   const btnRestart = document.getElementById('btn-restart-ending');
 
-  if (btnShare) {
-    btnShare.addEventListener('click', _compartilharConhecimento, { once: true });
+  /* "Abrir Guia de Plantas" — reutiliza a mesma função do jogo */
+  if (btnGuia) {
+    btnGuia.addEventListener('click', abrirGuia, { once: true });
   }
   if (btnRestart) {
     btnRestart.addEventListener('click', reiniciarJornada, { once: true });
   }
-}
-
-/**
- * _compartilharConhecimento — abre o diálogo nativo de compartilhamento
- * ou copia o texto para a área de transferência como fallback.
- */
-async function _compartilharConhecimento() {
-  const texto = `🌿 Completei a jornada do Jardim Urbano!\n\n"${ENDING_CONFIG.playerName}, você aprendeu a dar valor às suas origens da Mata Atlântica."\n\nConheça as plantas nativas do Brasil 🌱`;
-
-  if (navigator.share) {
-    try {
-      await navigator.share({ title: 'Jardim Urbano', text: texto });
-    } catch (e) {
-      /* Usuário cancelou ou share falhou — fallback silencioso */
-    }
-  } else {
-    /* Fallback: copiar para clipboard */
-    try {
-      await navigator.clipboard.writeText(texto);
-      _mostrarFeedbackCompartilhamento('✓ Texto copiado!');
-    } catch (e) {
-      _mostrarFeedbackCompartilhamento('Copie: ' + texto.slice(0, 60) + '…');
-    }
-  }
-}
-
-/** Feedback visual temporário no botão de compartilhar */
-function _mostrarFeedbackCompartilhamento(msg) {
-  const btn = document.getElementById('btn-share');
-  if (!btn) return;
-  const original = btn.innerHTML;
-  btn.textContent = msg;
-  btn.style.opacity = '0.85';
-  setTimeout(() => {
-    btn.innerHTML = original;
-    btn.style.opacity = '';
-  }, 2500);
 }
 
 
