@@ -428,9 +428,7 @@ function mudarParaEstagio2() {
   renderHUD();
   bindPlantEvents();
   if (typeof tocarSom === 'function') tocarSom(2);
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
+  _scrollToTop();
 }
 
 function irParaEstagio3() {
@@ -446,9 +444,7 @@ function irParaEstagio3() {
   DOM.hudCount().closest('#hud').classList.remove('hud-golden');
   renderHUD();
   bindPlantEvents();
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
+  _scrollToTop();
 }
 
 /**
@@ -477,9 +473,7 @@ function irParaEstagioFinal() {
 
   renderHUD();
   if (typeof tocarSom === 'function') tocarSom(4);
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
+  _scrollToTop();
   setTimeout(() => {
     const display = el('s4-jabuticaba-display');
     if (display) {
@@ -1255,6 +1249,16 @@ function renderHUD() {
 ═══════════════════════════════════════════════════════════ */
 const GAME_W = 900;   /* largura interna do jogo */
 const GAME_H = 680;   /* altura total: hud + room + botão */
+
+function _scrollToTop() {
+  /* Reseta todos os pontos de scroll possíveis */
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  /* Reposiciona o scaler para top:0 */
+  const scaler = document.getElementById('game-scaler');
+  if (scaler) scaler.style.top = '0';
+}
 
 function _scaleGame() {
   const scaler = document.getElementById('game-scaler');
