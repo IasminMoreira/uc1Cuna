@@ -1241,11 +1241,11 @@ function renderHUD() {
 ═══════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════
    ESCALA RESPONSIVA — encaixa o jogo na tela sem scroll
-   O jogo tem 900×560px internamente. Em telas menores,
-   aplica transform:scale para caber exatamente.
+   O jogo tem 900px de largura e ~680px de altura total
+   (HUD + quarto + botão). transform:scale encaixa tudo.
 ═══════════════════════════════════════════════════════════ */
-const GAME_W = 900;  /* --room-width base */
-const GAME_H = 560;  /* --room-height base + hud */
+const GAME_W = 900;   /* largura interna do jogo */
+const GAME_H = 680;   /* altura total: hud + room + botão */
 
 function _scaleGame() {
   const scaler = document.getElementById('game-scaler');
@@ -1254,17 +1254,30 @@ function _scaleGame() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
-  const scaleX = vw / GAME_W;
-  const scaleY = vh / GAME_H;
-  const scale  = Math.min(scaleX, scaleY, 1); /* nunca amplia, só reduz */
+  /* Calcula a escala para preencher a tela sem cortar */
+  const scale = Math.min(vw / GAME_W, vh / GAME_H);
 
   scaler.style.transform       = `scale(${scale})`;
-  scaler.style.transformOrigin = 'top center';
+  scaler.style.transformOrigin = 'top left';
   scaler.style.width           = GAME_W + 'px';
+  scaler.style.position        = 'absolute';
+  scaler.style.top             = '0';
+  scaler.style.left            = '0';
 
-  /* Ajusta a altura do body para o conteúdo escalado */
-  document.body.style.height    = vh + 'px';
-  document.body.style.overflow  = 'hidden';
+  /* Centraliza horizontalmente se sobrar espaço */
+  const scaledW = GAME_W * scale;
+  const scaledH = GAME_H * scale;
+  if (scaledW < vw) {
+    scaler.style.left = ((vw - scaledW) / 2) + 'px';
+  }
+
+  /* Garante que body não cria scroll */
+  document.body.style.width    = vw + 'px';
+  document.body.style.height   = vh + 'px';
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'relative';
+  document.documentElement.style.overflow = 'hidden';
+  document.documentElement.style.height   = '100%';
 }
 
 function _setupOrientationGuard() {
@@ -1288,7 +1301,7 @@ function _setupOrientationGuard() {
 
   check();
   window.addEventListener('resize', check);
-  window.addEventListener('orientationchange', () => setTimeout(check, 150));
+  window.addEventListener('orientationchange', () => setTimeout(check, 200));
 }
 
 document.addEventListener('DOMContentLoaded', () => {

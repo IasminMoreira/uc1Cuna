@@ -76,10 +76,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  width: 100%; min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: #111; font-family: var(--font-ui); overflow-x: hidden;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  display: block;
+  background: #111; font-family: var(--font-ui);
+  position: relative;
 }
 
 .hidden { display: none !important; }
@@ -168,7 +169,7 @@ html, body {
 
 
 /* ── Scene wrapper + transição ── */
-#scene-wrapper { position: relative; width: var(--room-width); max-width: 98vw; }
+#scene-wrapper { position: relative; width: var(--room-width); }
 .scene.hidden  { display: none; }
 .scene.active  { display: block; animation: scene-enter 0.7s ease forwards; }
 @keyframes scene-enter {
@@ -1256,21 +1257,13 @@ html, body {
    O #game-scaler aplica scale para caber na tela.
 ═══════════════════════════════════════════════════ */
 #game-scaler {
-  transform-origin: top center;
-  /* A largura/altura real são definidas pelo JS */
+  /* transform-origin e position são definidos pelo JS */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Em mobile, garantir sem scroll */
-@media (max-width: 1024px) {
-  html, body {
-    overflow: hidden;
-    height: 100%;
-    min-height: unset;
-    justify-content: flex-start;
-  }
-}
-
-/* Guia modal menor em telas menores */
+/* Guia modal — coluna única em telas pequenas */
 @media (max-width: 768px) {
   .guia-grid { grid-template-columns: 1fr; }
   #guia-modal-box { max-height: 90vh; }
