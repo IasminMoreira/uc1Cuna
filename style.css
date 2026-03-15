@@ -41,10 +41,6 @@
   --green-mid:     #4e8c40;
   --green-light:   #6aaa56;
   --green-pale:    #a8d490;
-  --pot-main:      #c87a50;
-  --pot-dark:      #a05828;
-  --pot-rim-c:     #b86840;
-  --pot-saucer-c:  #d49070;
   --ipe-yellow:    #f0c020;
   --ipe-yellow-d:  #c89010;
   --manaca-purple: #8858c8;
@@ -201,7 +197,7 @@ html, body {
 .s1-window { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); width: 130px; height: 100px; background: #b8d8f0; border: 3px solid var(--wood); border-radius: 3px; box-shadow: inset 0 0 20px rgba(180,220,255,0.5), inset 0 -10px 30px rgba(255,240,180,0.3); z-index: 1; }
 .window-cross-h { position: absolute; top: 50%; left: 0; right: 0; height: 3px; margin-top: -1.5px; background: var(--wood); opacity: 0.5; }
 .window-cross-v { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: var(--wood); opacity: 0.5; }
-.lamp { position: absolute; top: 40px; right: 80px; z-index: 1; }
+.lamp { position: absolute; bottom: var(--floor-height); left: 50%; transform: translateX(-50%); z-index: 1; }
 .lamp-shade { width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 36px solid #f0d090; margin: 0 auto; }
 .lamp-pole { width: 6px; height: 140px; background: var(--wood); opacity: 0.85; margin: 0 auto; border-radius: 2px; }
 .lamp-base { width: 30px; height: 8px; background: var(--wood-dark); border-radius: 50%; margin: 0 auto; }
@@ -247,8 +243,6 @@ html, body {
 .floor-tiles { position: absolute; bottom: 0; left: 44px; right: 44px; height: var(--floor-height); background: repeating-linear-gradient(90deg, transparent 0, transparent 49px, var(--tile-dark) 49px, var(--tile-dark) 50px), repeating-linear-gradient(0deg, transparent 0, transparent 29px, var(--tile-dark) 29px, var(--tile-dark) 30px), var(--tile-light); z-index: 1; }
 .planter-box { position: absolute; bottom: var(--floor-height); width: 70px; height: 30px; background: var(--planter-gray); border-top: 3px solid var(--concrete-light); border-radius: 2px; z-index: 2; }
 .left-planter { left: 60px; } .right-planter { right: 60px; }
-.ground-planted { width: 50px; height: 10px; background: #5a4830; border-radius: 50%; margin-top: 2px; }
-.ground-planted--wide { width: 70px; }
 
 
 /* ════════════════════════════════════════════════════
@@ -273,7 +267,7 @@ html, body {
 .s3-curb { position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: 6px; background: #5a5850; z-index: 3; }
 .s3-asphalt { position: absolute; bottom: 0; left: 0; right: 0; height: calc(var(--floor-height) - 6px); background: linear-gradient(180deg, var(--asphalt-wet) 0%, var(--asphalt) 100%); z-index: 2; }
 .s3-pavement-pattern { position: absolute; bottom: var(--floor-height); left: 0; right: 0; height: var(--floor-height); z-index: 3; pointer-events: none; background: repeating-linear-gradient(45deg, transparent 0, transparent 14px, rgba(80,76,68,0.18) 14px, rgba(80,76,68,0.18) 15px), repeating-linear-gradient(-45deg, transparent 0, transparent 14px, rgba(80,76,68,0.18) 14px, rgba(80,76,68,0.18) 15px); }
-.s3-pole { position: absolute; bottom: var(--floor-height); right: 160px; width: 8px; height: 220px; background: linear-gradient(to right, var(--pole-color), #3a3c40, var(--pole-color)); border-radius: 4px; z-index: 4; }
+.s3-pole { position: absolute; bottom: var(--floor-height); left: 50%; transform: translateX(-50%); width: 8px; height: 220px; background: linear-gradient(to right, var(--pole-color), #3a3c40, var(--pole-color)); border-radius: 4px; z-index: 4; }
 .s3-pole-arm { position: absolute; top: 10px; right: 0; width: 48px; height: 6px; background: var(--pole-color); border-radius: 3px; }
 .s3-pole-lamp { position: absolute; top: 2px; right: -16px; width: 24px; height: 14px; background: var(--lamp-warm); border-radius: 3px; box-shadow: 0 0 20px rgba(248,224,144,0.7); }
 .s3-pole-glow { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 120px; height: 80px; background: radial-gradient(ellipse at 50% 0%, rgba(248,224,144,0.25) 0%, transparent 70%); pointer-events: none; }
@@ -283,8 +277,6 @@ html, body {
 @keyframes puddle-ripple { 0%,100% { opacity: 0.55; transform: scaleX(1); } 50% { opacity: 0.75; transform: scaleX(1.04); } }
 .s3-crosswalk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: calc(var(--floor-height) - 6px); display: flex; gap: 6px; z-index: 4; }
 .cw-stripe { flex: 1; background: rgba(220,215,200,0.18); border-radius: 1px; }
-.ground-planted--street { width: 60px; height: 12px; background: #4a4040; border-radius: 50%; margin-top: 3px; }
-.ground-planted--wet { width: 64px; height: 14px; background: linear-gradient(to right, #3a3a50, #4a4a60, #3a3a50); border-radius: 50%; margin-top: 3px; }
 
 /* Chuva */
 #rain-overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; opacity: 0; transition: opacity 1.2s ease; }
@@ -509,122 +501,49 @@ html, body {
 .lock-overlay span { font-family: var(--font-story); font-size: 10px; font-style: italic; color: #888; text-align: center; background: rgba(248,244,238,0.85); border-radius: 8px; padding: 4px 8px; line-height: 1.4; }
 .lock-overlay.gone { display: none; }
 
-.pot-assembly { display: flex; flex-direction: column; align-items: center; margin-top: 2px; }
-.pot-rim    { width: 46px; height: 7px; background: var(--pot-rim-c); border-radius: 3px; }
-.pot-body   { width: 40px; height: 30px; background: var(--pot-main); clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%); border-radius: 0 0 4px 4px; }
-.pot-saucer { width: 52px; height: 6px; background: var(--pot-saucer-c); border-radius: 50%; margin-top: 2px; }
-.pot-body--terracotta { background: #d0704a; }
-.pot-body--gray       { background: var(--concrete); }
-.pot-saucer--gray     { background: var(--concrete-dark); }
-.pot-assembly--tall .pot-body   { height: 38px; }
-.pot-assembly--tall .pot-rim    { width: 50px; }
-.pot-assembly--tall .pot-saucer { width: 58px; }
-.pot-assembly--wide .pot-rim    { width: 56px; }
-.pot-assembly--wide .pot-body   { width: 50px; height: 36px; }
-.pot-assembly--wide .pot-saucer { width: 64px; }
-.pot-assembly--concrete .pot-rim    { background: var(--concrete-dark); }
-.pot-assembly--concrete .pot-saucer { background: var(--concrete-dark); }
 
 
-/* ── Plantas E1 ── */
-#plant-maranta, #s4-plant-maranta { left: 36px; }
-.foliage-maranta { width: 70px; height: 58px; position: relative; }
-.leaf-maranta { position: absolute; border-radius: 50% 50% 40% 60%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15); }
-.leaf-maranta.l1 { width: 38px; height: 22px; background: linear-gradient(135deg, var(--green-mid), var(--green-dark));  top: 20px; left: 2px;  transform: rotate(-28deg); }
-.leaf-maranta.l2 { width: 32px; height: 20px; background: linear-gradient(135deg, var(--green-light), var(--green-mid)); top: 6px;  left: 20px; transform: rotate(22deg); }
-.leaf-maranta.l3 { width: 40px; height: 22px; background: linear-gradient(135deg, var(--green-mid), var(--green-dark));  top: 32px; left: 14px; transform: rotate(5deg); }
-.leaf-maranta.l4 { width: 28px; height: 18px; background: linear-gradient(135deg, var(--green-pale), var(--green-light)); top: 10px; left: 6px;  transform: rotate(-10deg); }
-.leaf-maranta::after { content: ''; position: absolute; inset: 20% 25% 30% 10%; background: repeating-linear-gradient(80deg, transparent 0, transparent 3px, rgba(180,240,140,0.35) 3px, rgba(180,240,140,0.35) 4px); border-radius: inherit; }
-#plant-samambaia, #s4-plant-samambaia { right: 36px; }
-.foliage-samambaia { width: 80px; height: 70px; position: relative; }
-.frond { position: absolute; bottom: 0; left: 50%; width: 10px; background: var(--green-mid); border-radius: 0 80% 0 80%; transform-origin: bottom center; }
-.frond-1 { height: 50px; transform: translateX(-50%) rotate(-55deg); background: var(--green-dark); }
-.frond-2 { height: 60px; transform: translateX(-50%) rotate(-28deg); background: var(--green-mid); }
-.frond-3 { height: 68px; transform: translateX(-50%) rotate(0deg);   background: var(--green-light); }
-.frond-4 { height: 60px; transform: translateX(-50%) rotate(28deg);  background: var(--green-mid); }
-.frond-5 { height: 50px; transform: translateX(-50%) rotate(55deg);  background: var(--green-dark); }
-#plant-palmeira, #s4-plant-palmeira { left: 160px; }
-.foliage-palmeira { width: 90px; height: 100px; position: relative; }
-.palm-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 7px; height: 65px; background: linear-gradient(to right, var(--wood-dark), var(--wood-light), var(--wood-dark)); border-radius: 3px; }
-.palm-leaf { position: absolute; bottom: 56px; left: 50%; width: 8px; background: var(--green-mid); border-radius: 0 70% 0 70%; transform-origin: bottom center; }
-.pl-1 { height: 46px; transform: translateX(-50%) rotate(-70deg); background: var(--green-dark); }
-.pl-2 { height: 54px; transform: translateX(-50%) rotate(-42deg); background: var(--green-mid); }
-.pl-3 { height: 60px; transform: translateX(-50%) rotate(-14deg); background: var(--green-light); }
-.pl-4 { height: 60px; transform: translateX(-50%) rotate(14deg);  background: var(--green-light); }
-.pl-5 { height: 54px; transform: translateX(-50%) rotate(42deg);  background: var(--green-mid); }
-.pl-6 { height: 46px; transform: translateX(-50%) rotate(70deg);  background: var(--green-dark); }
-#plant-bromelia, #s4-plant-bromelia { right: 155px; }
-.foliage-bromelia { width: 64px; height: 62px; position: relative; }
-.bract { position: absolute; bottom: 0; left: 50%; width: 10px; background: #5a9840; border-radius: 0 80% 0 60%; transform-origin: bottom center; }
-.bract-1 { height: 40px; transform: translateX(-50%) rotate(-50deg); background: #4a8830; }
-.bract-2 { height: 52px; transform: translateX(-50%) rotate(-22deg); background: #5a9840; }
-.bract-3 { height: 56px; transform: translateX(-50%) rotate(6deg);   background: #6aaa50; }
-.bract-4 { height: 48px; transform: translateX(-50%) rotate(34deg);  background: #5a9840; }
-.bromelia-flower { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); width: 14px; height: 24px; background: linear-gradient(to top, #e04030, #f07050); border-radius: 3px 3px 0 0; }
-.bromelia-flower::after { content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; background: #f8b040; border-radius: 50%; }
+/* ── Imagens das plantas ── */
 
+/* Posicionamento — mantidos do CSS original */
+#plant-maranta,    #s4-plant-maranta    { left: 36px; }
+#plant-samambaia,  #s4-plant-samambaia  { right: 36px; }
+#plant-palmeira,   #s4-plant-palmeira   { left: 160px; }
+#plant-bromelia,   #s4-plant-bromelia   { right: 155px; }
+#plant-ipe    { left: 60px; }
+#plant-manaca { left: 180px; }
+#plant-quaresmeira { right: 60px; }
+#plant-jabuticabeira { right: 180px; }
+#plant-iris    { left: 40px; }
+#plant-guaivira { left: 160px; }
+#plant-inga    { right: 160px; }
+#plant-taboa   { right: 50px; }
 
-/* ── Plantas E2 ── */
-#plant-ipe { left: 70px; }
-.foliage-ipe { width: 90px; height: 110px; position: relative; }
-.ipe-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 9px; height: 72px; background: linear-gradient(to right, #4a3018, #7a5828, #4a3018); border-radius: 4px; }
-.ipe-canopy { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); width: 80px; height: 55px; background: radial-gradient(ellipse at 50% 60%, var(--ipe-yellow) 0%, var(--ipe-yellow-d) 60%, transparent 100%); border-radius: 50% 50% 40% 40%; }
-.ipe-flower { position: absolute; width: 10px; height: 10px; background: var(--ipe-yellow); border-radius: 50%; border: 2px solid var(--ipe-yellow-d); }
-.ipe-flower.if-1 { bottom: 100px; left: 18px; } .ipe-flower.if-2 { bottom: 108px; left: 42px; } .ipe-flower.if-3 { bottom: 98px; left: 62px; }
-#plant-manaca { left: 230px; }
-.foliage-manaca { width: 70px; height: 80px; position: relative; }
-.manaca-stem { position: absolute; bottom: 0; left: 50%; width: 4px; background: var(--green-dark); border-radius: 2px; transform-origin: bottom center; }
-.ms-1 { height: 60px; transform: translateX(-50%) rotate(-18deg); } .ms-2 { height: 75px; transform: translateX(-50%) rotate(0); } .ms-3 { height: 62px; transform: translateX(-50%) rotate(18deg); }
-.manaca-bloom { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--manaca-lilac), var(--manaca-purple)); border: 2px solid #6840a8; }
-.mb-1 { bottom: 56px; left: 6px; } .mb-2 { bottom: 70px; left: 26px; } .mb-3 { bottom: 58px; left: 46px; }
-#plant-quaresmeira { right: 70px; bottom: 150px; }
-.foliage-quaresmeira { width: 100px; height: 120px; position: relative; }
-.quar-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 10px; height: 80px; background: linear-gradient(to right, #3a2818, #6a4828, #3a2818); border-radius: 5px; }
-.quar-branch { position: absolute; bottom: 62px; left: 50%; width: 5px; height: 44px; background: #5a3820; border-radius: 3px; transform-origin: bottom center; }
-.qb-1 { transform: translateX(-50%) rotate(-45deg); } .qb-2 { transform: translateX(-50%) rotate(0); height: 52px; } .qb-3 { transform: translateX(-50%) rotate(45deg); }
-.quar-petal { position: absolute; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e890c8, var(--quaresmeira)); border: 1.5px solid #b04888; }
-.qp-1 { bottom: 90px; left: 6px; } .qp-2 { bottom: 102px; left: 28px; } .qp-3 { bottom: 88px; left: 52px; } .qp-4 { bottom: 75px; left: 35px; }
-#plant-jabuticabeira { right: 220px; bottom: 150px; }
-.foliage-jabuticabeira { width: 80px; height: 100px; position: relative; }
-.jabuti-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 8px; height: 68px; background: linear-gradient(to right, #2a2018, #4a3828, #2a2018); border-radius: 4px; }
-.jabuti-canopy { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); width: 74px; height: 56px; background: radial-gradient(ellipse at 50% 60%, #5a9848 0%, var(--green-dark) 70%); border-radius: 50% 50% 40% 40%; }
-.jabuti-fruit { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 30%, #5a3a6a, var(--jabuti-fruit)); border-radius: 50%; border: 1.5px solid #1a0a2a; }
-.jf-1 { bottom: 66px; left: 10px; } .jf-2 { bottom: 78px; left: 30px; } .jf-3 { bottom: 68px; left: 50px; } .jf-4 { bottom: 56px; left: 22px; }
-#plant-jabuticabeira.cared .jabuti-fruit { display: block !important; animation: fruit-appear 0.5s cubic-bezier(0.36,1.56,0.64,1) forwards; }
-#plant-jabuticabeira.cared .jf-1 { animation-delay: 0.0s; } #plant-jabuticabeira.cared .jf-2 { animation-delay: 0.1s; } #plant-jabuticabeira.cared .jf-3 { animation-delay: 0.2s; } #plant-jabuticabeira.cared .jf-4 { animation-delay: 0.3s; }
-@keyframes fruit-appear { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+/* Imagem base — substitui todos os <div class="foliage"> */
+.plant-img {
+  display: block;
+  width: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  pointer-events: none;
+  /* remove fundo preto das imagens que têm fundo negro */
+  mix-blend-mode: lighten;
+}
 
+/* Tamanhos por tipo */
+.plant-img          { height: 130px; }   /* E1 vasos */
+.plant-img--tall    { height: 160px; }   /* palmeira */
+.plant-img--tree    { height: 130px; }   /* árvores E2/E3 */
+.plant-img--street  { height: 110px; }   /* plantas chão E3 */
 
-/* ── Plantas E3 ── */
-#plant-iris { left: 55px; }
-.foliage-iris { width: 72px; height: 90px; position: relative; }
-.iris-leaf { position: absolute; bottom: 0; left: 50%; width: 7px; border-radius: 2px 80% 2px 80%; background: linear-gradient(to top, var(--green-dark), var(--green-light)); transform-origin: bottom center; }
-.il-1 { height: 72px; transform: translateX(-50%) rotate(-22deg); } .il-2 { height: 85px; transform: translateX(-50%) rotate(4deg); } .il-3 { height: 70px; transform: translateX(-50%) rotate(28deg); }
-.iris-bloom { position: absolute; width: 20px; height: 20px; background: radial-gradient(circle at 40% 35%, #b0a0f0, var(--iris-purple)); border-radius: 50% 50% 40% 60%; border: 1.5px solid #5040a8; }
-.ib-1 { bottom: 72px; left: 6px; transform: rotate(-15deg); } .ib-2 { bottom: 80px; left: 38px; transform: rotate(20deg); }
-.iris-bloom::after { content: ''; position: absolute; width: 6px; height: 6px; background: var(--iris-yellow); border-radius: 50%; top: 6px; left: 6px; }
-#plant-guaivira { left: 215px; }
-.foliage-guaivira { width: 90px; height: 120px; position: relative; }
-.guai-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 9px; height: 85px; background: linear-gradient(to right, #3a2c18, #6a5030, #3a2c18); border-radius: 4px; }
-.guai-canopy { position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%); width: 80px; height: 55px; background: radial-gradient(ellipse at 50% 60%, var(--guaivira-pale) 0%, var(--guaivira-blue) 65%, transparent 100%); border-radius: 50% 50% 35% 35%; }
-.guai-petal { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a8c8ff, var(--guaivira-blue)); border: 1.5px solid #3060c0; }
-.gp-1 { bottom: 100px; left: 8px; } .gp-2 { bottom: 110px; left: 34px; } .gp-3 { bottom: 98px; left: 58px; }
-#plant-inga { right: 200px; }
-.foliage-inga { width: 100px; height: 130px; position: relative; }
-.inga-trunk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 11px; height: 90px; background: linear-gradient(to right, #2a2010, #5a4020, #2a2010); border-radius: 5px; }
-.inga-canopy { position: absolute; left: 50%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 55%, var(--green-light) 0%, var(--inga-green) 75%); border-radius: 50% 50% 35% 35%; }
-.inga-canopy.c1 { bottom: 75px; width: 90px; height: 58px; } .inga-canopy.c2 { bottom: 100px; width: 60px; height: 40px; opacity: 0.85; }
-.inga-pod { position: absolute; width: 4px; background: linear-gradient(to bottom, var(--inga-pod), #8a5828); border-radius: 2px; transform-origin: top center; }
-.ip-1 { height: 36px; bottom: 62px; left: 22px; transform: rotate(15deg); } .ip-2 { height: 42px; bottom: 60px; right: 20px; transform: rotate(-18deg); }
-#plant-taboa { right: 50px; }
-.foliage-taboa { width: 64px; height: 130px; position: relative; }
-.taboa-stem { position: absolute; bottom: 0; left: 50%; width: 5px; border-radius: 3px; background: linear-gradient(to top, var(--taboa-brown), var(--taboa-green)); transform-origin: bottom center; }
-.ts-1 { height: 100px; transform: translateX(-50%) rotate(-12deg); } .ts-2 { height: 120px; transform: translateX(-50%) rotate(0); } .ts-3 { height: 105px; transform: translateX(-50%) rotate(14deg); }
-.taboa-cattail { position: absolute; left: 50%; width: 9px; height: 28px; background: var(--taboa-cattail); border-radius: 4px; transform-origin: bottom center; }
-.tc-1 { bottom: 72px; transform: translateX(-50%) translateX(-14px) rotate(-12deg); }
-.tc-2 { bottom: 90px; transform: translateX(-50%) rotate(0); }
-.tc-3 { bottom: 75px; transform: translateX(-50%) translateX(14px) rotate(14deg); }
+/* Estado feliz (E4) */
+.plant-img--lush {
+  filter: saturate(1.3) brightness(1.08);
+}
 
+/* Cuidada — brilho dourado leve */
+.plant.cared   .plant-img { filter: saturate(1.2) brightness(1.12) drop-shadow(0 0 6px rgba(100,200,60,0.5)); }
+.plant.visited .plant-img { filter: saturate(1.1) brightness(1.08); }
 
 /* ═══════════════════════════════════════════════════
    BOTÕES DE AÇÃO FINAL (Estágio 4)
@@ -657,91 +576,6 @@ html, body {
 .final-btn:hover  { filter: brightness(1.1); transform: scale(1.03); }
 .final-btn:active { transform: scale(0.97); }
 .btn-restart { background: #4a7040; color: #f0f8e8; box-shadow: 0 4px 18px rgba(60,100,40,0.4); }
-.btn-guide   { background: #c87820; color: #fff8e8; box-shadow: 0 4px 18px rgba(180,100,20,0.4); }
-
-
-/* ═══════════════════════════════════════════════════
-   MODAL: GUIA DE CUIDADOS
-═══════════════════════════════════════════════════ */
-#guide-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(10,8,4,0.70);
-  align-items: center; justify-content: center;
-  z-index: 200; backdrop-filter: blur(6px);
-}
-#guide-overlay.open { display: flex; }
-
-#guide-box {
-  background: #fdf6e8;
-  border: 2px solid var(--afternoon-gold);
-  border-radius: 20px; padding: 0;
-  max-width: 580px; width: 94%; max-height: 88vh;
-  overflow: hidden; display: flex; flex-direction: column;
-  box-shadow: 0 16px 60px rgba(0,0,0,0.40);
-  animation: dialog-in 0.3s cubic-bezier(0.36,1.4,0.64,1);
-}
-
-#guide-close {
-  position: absolute; top: 14px; right: 16px;
-  background: transparent; border: none;
-  font-size: 18px; cursor: pointer; color: #9a7040;
-  line-height: 1; transition: color 0.15s;
-}
-#guide-close:hover { color: #5a3010; }
-
-#guide-header {
-  background: linear-gradient(135deg, #5a3810, #8a5820);
-  padding: 24px 28px 18px; text-align: center; position: relative;
-}
-#guide-icon { font-size: 32px; margin-bottom: 6px; }
-#guide-title { font-family: var(--font-story); font-size: 20px; font-weight: 600; color: #f8e8c0; margin-bottom: 4px; }
-#guide-subtitle { font-family: var(--font-story); font-style: italic; font-size: 13px; color: #d8b880; }
-
-#guide-tabs {
-  display: flex; background: #f0e4cc; border-bottom: 2px solid #d8c090;
-  padding: 0 16px;
-}
-.gtab {
-  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
-  background: transparent; border: none; border-bottom: 3px solid transparent;
-  padding: 12px 16px; cursor: pointer; color: #8a6030;
-  margin-bottom: -2px; transition: color 0.15s, border-color 0.15s;
-}
-.gtab:hover  { color: #5a3010; }
-.gtab.active { color: #5a3010; border-bottom-color: #c87820; }
-
-#guide-content {
-  overflow-y: auto; padding: 20px 24px; flex: 1;
-}
-
-/* Cards de plantas no guia */
-.gcard {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 0; border-bottom: 1px solid #e8d8b8;
-}
-.gcard:last-child { border-bottom: none; }
-.gcard-icon {
-  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; background: linear-gradient(135deg, #d8f0c0, #a8d870);
-}
-.gcard-icon.s2 { background: linear-gradient(135deg, #d0c8f0, #a090e0); }
-.gcard-icon.s3 { background: linear-gradient(135deg, #c0d8f0, #80a8d8); }
-.gcard-body { flex: 1; }
-.gcard-name { font-family: var(--font-story); font-weight: 600; font-size: 14px; color: #3a2010; margin-bottom: 3px; }
-.gcard-sci  { font-family: var(--font-story); font-style: italic; font-size: 11px; color: #9a7040; margin-bottom: 6px; }
-.gcard-tip  { font-size: 13px; color: #5a3a18; line-height: 1.6; }
-.gcard-tag  { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 8px; padding: 2px 8px; margin-top: 6px; }
-.tag-water  { background: #d0eaf8; color: #205878; }
-.tag-light  { background: #fff0c0; color: #806010; }
-.tag-soil   { background: #e8f0d0; color: #305820; }
-.tag-native { background: #f0e8d0; color: #704020; }
-
-#guide-footer {
-  background: #f0e4cc; padding: 14px 24px; text-align: center;
-  font-family: var(--font-story); font-style: italic; font-size: 13px; color: #8a6030;
-  border-top: 1px solid #d8c090;
-}
 
 
 /* ═══════════════════════════════════════════════════
@@ -1123,21 +957,6 @@ html, body {
   100% { left: 130%; }
 }
 
-.btn-share {
-  background: linear-gradient(135deg, #2a6820, #3a9030);
-  color: #e8f8d8;
-  box-shadow:
-    0 6px 28px rgba(40, 140, 30, 0.55),
-    0 0 0 1px rgba(80, 200, 60, 0.25),
-    inset 0 1px 0 rgba(180, 255, 130, 0.20);
-  animation: green-pulse 2.5s ease-in-out infinite;
-}
-
-@keyframes green-pulse {
-  0%,100% { box-shadow: 0 6px 28px rgba(40,140,30,0.55), 0 0 0 1px rgba(80,200,60,0.25), inset 0 1px 0 rgba(180,255,130,0.20); }
-  50%      { box-shadow: 0 8px 40px rgba(40,180,30,0.75), 0 0 0 2px rgba(100,230,70,0.40), inset 0 1px 0 rgba(200,255,150,0.25); }
-}
-
 .btn-restart-ending {
   background: rgba(255, 255, 255, 0.06);
   color: #90c878;
@@ -1164,4 +983,359 @@ html, body {
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════
+   MODAL: GUIA DE PLANTAS — Catálogo Botânico
+═══════════════════════════════════════════════════ */
+#guia-modal {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(8, 6, 2, 0.76);
+  backdrop-filter: blur(8px);
+  z-index: 1000; padding: 16px;
+}
+#guia-modal:not(.hidden) { display: flex; }
+#guia-modal.hidden       { display: none !important; }
+
+#guia-modal-box {
+  background: linear-gradient(168deg, #fefaf0 0%, #f9edd8 55%, #f1e3c6 100%);
+  border: 2px solid var(--afternoon-gold);
+  border-radius: 24px;
+  width: 100%; max-width: 700px; max-height: 92vh;
+  display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,.54), inset 0 1px 0 rgba(255,245,165,.38);
+  animation: dialog-in 0.32s cubic-bezier(0.36,1.4,0.64,1);
+}
+
+#guia-header {
+  background: linear-gradient(135deg, #2a1604 0%, #512c0c 50%, #724418 100%);
+  padding: 17px 20px 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-shrink: 0; border-bottom: 2px solid rgba(225,165,45,.25);
+}
+#guia-header-info { display: flex; align-items: center; gap: 11px; min-width: 0; }
+#guia-header-icone { font-size: 22px; line-height: 1; flex-shrink: 0; }
+#guia-titulo { font-family: var(--font-story); font-size: 17px; font-weight: 600; color: #f8e8c0; margin: 0 0 2px; }
+#guia-subtitulo { font-family: var(--font-story); font-style: italic; font-size: 11px; color: #aa8845; margin: 0; }
+#btn-fechar-guia {
+  flex-shrink: 0; width: 34px; height: 34px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,205,95,.26); border-radius: 50%;
+  font-size: 14px; cursor: pointer; color: #e0c060;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, transform .12s;
+}
+#btn-fechar-guia:hover  { background: rgba(255,255,255,.18); color: #fff5d0; }
+#btn-fechar-guia:active { transform: scale(.88); }
+
+#guia-nav {
+  display: flex; background: #ede0bf; border-bottom: 2px solid #d9bc60;
+  padding: 0 6px; gap: 2px; flex-shrink: 0; overflow-x: auto; scrollbar-width: none;
+}
+#guia-nav::-webkit-scrollbar { display: none; }
+.guia-nav-btn {
+  font-family: var(--font-ui); font-size: 12px; font-weight: 700;
+  background: transparent; border: none; border-bottom: 3px solid transparent;
+  padding: 11px 14px 9px; cursor: pointer; color: #8a5e28;
+  white-space: nowrap; margin-bottom: -2px;
+  display: flex; align-items: center; gap: 5px;
+  border-radius: 8px 8px 0 0;
+  transition: color .14s, border-color .14s, background .14s;
+}
+.guia-nav-btn:hover  { color: #3e1e06; background: rgba(180,130,40,.10); }
+.guia-nav-btn.active { color: #2a1006; border-bottom-color: var(--cat-cor, #c87820); background: rgba(180,130,40,.13); }
+.guia-nav-icone { font-size: 14px; line-height: 1; }
+
+#guia-conteudo {
+  overflow-y: auto; flex: 1;
+  scrollbar-width: thin; scrollbar-color: #c09840 transparent;
+}
+#guia-conteudo::-webkit-scrollbar       { width: 5px; }
+#guia-conteudo::-webkit-scrollbar-thumb { background: #c09840; border-radius: 4px; }
+
+.guia-cat-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 15px 22px 12px;
+  border-bottom: 1px solid rgba(195,155,55,.18);
+  border-left: 4px solid var(--cat-cor, #c87820);
+}
+.guia-cat-icone { font-size: 20px; flex-shrink: 0; }
+.guia-cat-nome  { display: block; font-family: var(--font-story); font-size: 14px; font-weight: 700; color: #3a2010; margin-bottom: 2px; }
+.guia-cat-desc  { font-size: 11.5px; color: #9a7040; font-style: italic; }
+.guia-cat-badge { margin-left: auto; font-family: var(--font-ui); font-size: 11px; font-weight: 700; color: #7a5020; background: rgba(195,150,45,.14); border: 1px solid rgba(195,150,45,.26); border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; }
+
+.guia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 22px 22px; }
+@media (max-width: 520px) { .guia-grid { grid-template-columns: 1fr; } }
+
+.guia-card {
+  display: flex; flex-direction: column;
+  background: rgba(255,252,236,.74);
+  border: 1px solid rgba(205,165,80,.26);
+  border-top: 3px solid var(--cat-cor, #c87820);
+  border-radius: 4px 4px 14px 14px; overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.guia-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(70,45,5,.15); }
+.guia-card-img-wrap { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #e8f0d8, #d0e0b0); overflow: hidden; flex-shrink: 0; }
+.guia-card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.guia-card:hover .guia-card-img { transform: scale(1.04); }
+.guia-card-img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px; background: linear-gradient(135deg, #e8f0d0, #c8dca0); }
+.guia-card-body { padding: 12px 13px 13px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.guia-card-nome { font-family: var(--font-story); font-size: 13.5px; font-weight: 700; color: #3a2010; margin: 0; }
+.guia-card-sci  { font-family: var(--font-story); font-style: italic; font-size: 10.5px; color: #9a7040; }
+.guia-card-desc { font-size: 12px; color: #5a3a18; line-height: 1.65; flex: 1; }
+.guia-card-dica { display: flex; flex-direction: column; gap: 3px; background: rgba(190,148,42,.10); border: 1px solid rgba(190,148,42,.22); border-radius: 8px; padding: 8px 10px; margin-top: 4px; }
+.guia-card-dica-label { font-family: var(--font-ui); font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #8a5e20; }
+.guia-card-dica-texto { font-size: 11.5px; color: #6a4618; line-height: 1.55; font-style: italic; }
+
+#guia-rodape {
+  background: linear-gradient(to right, #ece0bf, #e2d19e, #ece0bf);
+  padding: 10px 22px; text-align: center;
+  font-family: var(--font-story); font-style: italic;
+  font-size: 11.5px; color: #8a6030;
+  border-top: 1px solid rgba(195,155,50,.26); flex-shrink: 0;
+}
+   BOTÃO CERTIFICADO
+═══════════════════════════════════════════════════ */
+.btn-certificado {
+  background: linear-gradient(135deg, #7a4e08, #c08020, #7a4e08);
+  background-size: 200% 100%;
+  color: #fff8e0;
+  box-shadow: 0 6px 26px rgba(160,100,10,.55), inset 0 1px 0 rgba(255,240,140,.25);
+  animation: cert-gold-shimmer 3s ease-in-out infinite;
+}
+@keyframes cert-gold-shimmer {
+  0%,100% { background-position: 0%   50%; box-shadow: 0 6px 26px rgba(160,100,10,.55), inset 0 1px 0 rgba(255,240,140,.25); }
+  50%      { background-position: 100% 50%; box-shadow: 0 8px 36px rgba(200,140,10,.75), inset 0 1px 0 rgba(255,240,140,.35); }
+}
+
+/* ═══════════════════════════════════════════════════
+   MODAL: NOME DO GUARDIÃO
+═══════════════════════════════════════════════════ */
+#nome-modal {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(6,4,1,.82); backdrop-filter: blur(10px);
+  z-index: 1100; padding: 20px;
+}
+#nome-modal:not(.hidden) { display: flex; }
+#nome-modal.hidden { display: none !important; }
+#nome-modal-box {
+  background: linear-gradient(160deg, #fdf8ee 0%, #f5e8cc 100%);
+  border: 2px solid var(--afternoon-gold, #c87820);
+  border-radius: 22px; padding: 36px 32px 28px;
+  max-width: 420px; width: 100%; text-align: center;
+  box-shadow: 0 24px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,245,165,.4);
+  animation: dialog-in 0.3s cubic-bezier(0.36,1.4,0.64,1);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+#nome-modal-icone { font-size: 44px; line-height: 1; filter: drop-shadow(0 3px 8px rgba(160,100,10,.35)); }
+#nome-modal-titulo { font-family: var(--font-story); font-size: 20px; font-weight: 600; color: #3a1e06; margin: 0; }
+#nome-modal-desc { font-family: var(--font-story); font-style: italic; font-size: 14px; color: #7a5020; margin: 0; }
+#nome-input {
+  width: 100%; box-sizing: border-box;
+  font-family: var(--font-story); font-size: 18px; font-weight: 600; color: #2a1006;
+  background: rgba(255,248,225,.9); border: 2px solid rgba(184,136,58,.45);
+  border-radius: 12px; padding: 12px 16px; text-align: center; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+#nome-input:focus { border-color: #c08020; box-shadow: 0 0 0 3px rgba(192,128,32,.18); }
+#nome-input::placeholder { color: #c0a060; font-weight: 400; }
+#nome-modal-acoes { display: flex; gap: 10px; width: 100%; margin-top: 4px; }
+#nome-modal-cancelar {
+  flex: 1; font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(180,130,50,.3);
+  border-radius: 10px; padding: 11px; cursor: pointer; color: #8a6030;
+  transition: background .15s;
+}
+#nome-modal-cancelar:hover { background: rgba(255,255,255,.22); }
+#nome-modal-confirmar {
+  flex: 2; font-family: var(--font-ui); font-size: 14px; font-weight: 700;
+  background: linear-gradient(135deg, #7a4e08, #c08020); border: none;
+  border-radius: 10px; padding: 11px 16px; cursor: pointer; color: #fff8e0;
+  box-shadow: 0 4px 16px rgba(160,100,10,.40); transition: filter .15s, transform .1s;
+}
+#nome-modal-confirmar:hover  { filter: brightness(1.12); }
+#nome-modal-confirmar:active { transform: scale(.97); }
+
+/* ═══════════════════════════════════════════════════
+   CERTIFICADO DE GUARDIÃO — 1080×756px fora do viewport
+═══════════════════════════════════════════════════ */
+#certificado-wrapper {
+  position: fixed; left: -9999px; top: 0;
+  width: 1080px; height: 756px; pointer-events: none; z-index: -1;
+}
+#certificado {
+  width: 1080px; height: 756px;
+  background: linear-gradient(160deg, #fdf8ee 0%, #f7ecce 45%, #f2e4b8 100%);
+  position: relative; font-family: 'Lora', Georgia, serif;
+  color: #2a1a06; overflow: hidden; box-sizing: border-box;
+}
+.cert-corner { position: absolute; font-size: 52px; line-height: 1; opacity: .55; filter: drop-shadow(0 2px 4px rgba(0,0,0,.15)); }
+.cert-corner.tl { top: 18px;    left: 22px;  transform: rotate(-30deg); }
+.cert-corner.tr { top: 18px;    right: 22px; transform: rotate(30deg) scaleX(-1); }
+.cert-corner.bl { bottom: 18px; left: 22px;  transform: rotate(30deg); }
+.cert-corner.br { bottom: 18px; right: 22px; transform: rotate(-30deg) scaleX(-1); }
+.cert-border {
+  position: absolute; inset: 30px; border: 3px solid #b8883a;
+  box-shadow: inset 0 0 0 6px rgba(184,136,58,.18), inset 0 0 0 8px #b8883a, inset 0 0 0 14px rgba(184,136,58,.12);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 28px 52px 24px; box-sizing: border-box;
+}
+.cert-header { text-align: center; margin-bottom: 2px; }
+.cert-emblema { font-size: 54px; line-height: 1; filter: drop-shadow(0 3px 8px rgba(80,50,0,.25)); margin-bottom: 6px; }
+.cert-supertitulo { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #8a5e18; margin: 0 0 8px; }
+.cert-titulo { font-size: 42px; font-weight: 700; color: #4a2e08; margin: 0 0 10px; letter-spacing: .04em; }
+.cert-divisor { font-size: 22px; color: #b8883a; letter-spacing: .4em; }
+.cert-corpo { text-align: center; }
+.cert-texto-intro { font-size: 16px; font-style: italic; color: #7a5020; margin: 0 0 4px; }
+.cert-nome { font-size: 36px; font-weight: 700; color: #3a1e06; margin: 0 0 10px; letter-spacing: .03em; border-bottom: 2px solid rgba(184,136,58,.4); display: inline-block; padding-bottom: 4px; min-width: 280px; }
+.cert-texto { font-size: 15px; color: #5a3a10; line-height: 1.7; max-width: 680px; margin: 0 auto 10px; }
+.cert-nivel { font-size: 17px; color: #7a4e12; letter-spacing: .08em; margin: 0; }
+.cert-nivel strong { color: #4a2e08; font-size: 19px; }
+.cert-selos { display: flex; gap: 32px; justify-content: center; margin: 4px 0; }
+.cert-selo { display: flex; flex-direction: column; align-items: center; gap: 5px; background: rgba(184,136,58,.10); border: 2px solid rgba(184,136,58,.35); border-radius: 12px; padding: 10px 18px 8px; min-width: 80px; }
+.cert-selo-icone { font-size: 28px; line-height: 1; }
+.cert-selo-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .10em; color: #7a4e18; }
+.cert-rodape { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 8px; border-top: 1px solid rgba(184,136,58,.28); }
+.cert-assinatura { text-align: center; }
+.cert-assinatura-linha { width: 180px; height: 1px; background: #b8883a; margin: 0 auto 5px; }
+.cert-assinatura-texto { font-size: 13px; font-style: italic; color: #7a5020; margin: 0; letter-spacing: .08em; }
+.cert-data-wrap { text-align: center; }
+.cert-data { font-size: 15px; font-weight: 600; color: #3a2010; margin: 0 0 3px; }
+.cert-data-label { font-size: 11px; color: #9a7040; font-style: italic; margin: 0; text-transform: uppercase; letter-spacing: .08em; }
+
+
+/* ═══════════════════════════════════════════════════
+   OVERLAY: GIRAR DISPOSITIVO
+═══════════════════════════════════════════════════ */
+#orientation-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 99999;
+  background: #0e1a0e;
+  align-items: center; justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 32px;
+}
+#orientation-box {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  max-width: 280px;
+}
+#orientation-icon {
+  font-size: 64px;
+  animation: rotate-hint 2s ease-in-out infinite;
+}
+@keyframes rotate-hint {
+  0%,100% { transform: rotate(0deg); }
+  40%      { transform: rotate(90deg); }
+  60%      { transform: rotate(90deg); }
+}
+#orientation-title {
+  font-family: var(--font-story);
+  font-size: 22px; font-weight: 700;
+  color: #c8e8a0; margin: 0;
+}
+#orientation-desc {
+  font-family: var(--font-ui);
+  font-size: 15px; color: #8aaa70;
+  line-height: 1.6; margin: 0;
+}
+
+/* Mostrar overlay apenas em mobile portrait */
+@media (max-width: 768px) and (orientation: portrait) {
+  #orientation-overlay { display: flex; }
+  body > *:not(#orientation-overlay) { visibility: hidden; }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVO — Mobile landscape
+   Escala o jogo inteiro para caber na tela
+═══════════════════════════════════════════════════ */
+
+/* Wrapper central que vai escalar */
+#game-scaler {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Tablet landscape (768–1024px) */
+@media (max-width: 1024px) and (orientation: landscape) {
+  :root {
+    --room-width:   700px;
+    --room-height:  434px;
+    --floor-height: 116px;
+  }
+  .plant-img         { height: 100px; }
+  .plant-img--tall   { height: 124px; }
+  .plant-img--tree   { height: 100px; }
+  .plant-img--street { height: 85px;  }
+  .sofa  { width: 234px; bottom: 115px; }
+  .rug   { width: 296px; bottom: 107px; }
+  .coffee-table { width: 124px; bottom: 99px; }
+}
+
+/* Mobile landscape pequeno (até 768px wide, landscape) */
+@media (max-width: 812px) and (orientation: landscape) {
+  :root {
+    --room-width:   560px;
+    --room-height:  348px;
+    --floor-height: 92px;
+  }
+  body { font-size: 13px; }
+  #hud { padding: 5px 14px; font-size: 12px; margin-bottom: 10px; }
+  #hud-stage-label { font-size: 11px; }
+  .plant-img         { height: 80px; }
+  .plant-img--tall   { height: 100px; }
+  .plant-img--tree   { height: 80px; }
+  .plant-img--street { height: 68px; }
+  .sofa  { width: 188px; bottom: 92px; }
+  .rug   { width: 238px; bottom: 86px; }
+  .coffee-table { width: 100px; bottom: 79px; }
+  .lamp-pole { height: 110px; }
+  #next-stage-btn { font-size: 14px; padding: 11px 28px; }
+  /* Diálogo menor */
+  #dialog-overlay { padding: 10px; }
+  #dialog-box { max-width: 420px; padding: 18px 20px; }
+  /* Guia modal */
+  #guia-modal-box { max-height: 88vh; }
+  .guia-grid { grid-template-columns: 1fr; gap: 10px; padding: 12px 14px; }
+  /* Certificado / nome modal */
+  #nome-modal-box { padding: 24px 20px 20px; }
+}
+
+/* Mobile landscape muito pequeno (iPhones SE, Galaxy S série) */
+@media (max-width: 667px) and (orientation: landscape) {
+  :root {
+    --room-width:   500px;
+    --room-height:  310px;
+    --floor-height: 82px;
+  }
+  #hud { padding: 4px 10px; font-size: 11px; margin-bottom: 8px; }
+  .plant-img         { height: 68px; }
+  .plant-img--tall   { height: 86px; }
+  .plant-img--tree   { height: 68px; }
+  .plant-img--street { height: 58px; }
+  .sofa  { width: 168px; bottom: 82px; }
+  .rug   { width: 210px; bottom: 76px; }
+  .coffee-table { width: 88px; bottom: 70px; }
+  .lamp-pole { height: 92px; }
+  .lamp-shade { border-left-width: 16px; border-right-width: 16px; border-bottom-width: 26px; }
+  .lamp-base  { width: 22px; }
+  #next-stage-btn { font-size: 13px; padding: 9px 22px; }
+  #dialog-box { max-width: 360px; }
+  .ending-btn { font-size: 13px; padding: 11px 20px; }
+}
+
+/* Garantir que scene-wrapper nunca ultrapasse a largura da tela */
+@media (max-width: 900px) {
+  #scene-wrapper {
+    width: 100%;
+    max-width: 100vw;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
 }

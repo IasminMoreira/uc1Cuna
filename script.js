@@ -90,8 +90,8 @@ const PLANT_DATA = {
     stage: 3, mode: 'visit',
     name: 'Íris-da-praia', icon: '🪻',
     needIcon: '☔', visitedIcon: '🏠',
-    action: 'Me abrigar aqui',
-    flavor: 'Vem, fica aqui embaixo das minhas folhas largas. Eu nasci para lidar com a água — minha raiz bebe tudo isso que a calçada rejeita. Em São Paulo a chuva é forte, mas eu fui feita para isso. Descansa um pouco.',
+    action: 'Observar a íris',
+    flavor: 'Veja como minhas raízes bebem cada gota que cai. Nasci para isso — capturar a água das chuvas antes que ela escorra pelo concreto sem deixar rastro. Cada folha minha é um canal. Estou filtrando a cidade agora mesmo.',
   },
   guaivira: {
     stage: 3, mode: 'visit',
@@ -111,8 +111,8 @@ const PLANT_DATA = {
     stage: 3, mode: 'visit',
     name: 'Taboa', icon: '🌾',
     needIcon: '☔', visitedIcon: '🏠',
-    action: 'Entender a taboa',
-    flavor: 'Eu vivo onde a água para — nas beiras de córrego, nas poças persistentes. Não preciso de proteção; sou a proteção. Minhas raízes seguram as margens, filtram o que a cidade descarta. Aqui nessa calçada encharcada, eu sou em casa.',
+    action: 'Conhecer a taboa',
+    flavor: 'Sou uma filtradora. Minhas raízes absorvem metais pesados, fósforo, nitrogênio — tudo o que a cidade descarta nas águas. Onde outros não sobrevivem, eu prospero. Cada chuva assim é o meu momento de trabalhar.',
   },
 
   /* ── Estágio 4 — Reflexão: plantas felizes ──
@@ -149,93 +149,9 @@ const PLANT_DATA = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   2. GUIA DE CUIDADOS — dados reais das plantas
-═══════════════════════════════════════════════════════════ */
-const GUIDE_DATA = {
-  s1: [
-    {
-      icon: '🌿', stage: 's1', sci: 'Maranta leuconeura var. kerchoveana',
-      name: 'Maranta-zebrina',
-      tip: 'Prefere luz indireta e meia-sombra. Regue quando o primeiro centímetro do substrato estiver seco. Pulverize as folhas 2x/semana para manter a umidade. Evite correntes de ar frio.',
-      tags: ['💧 2×/semana', '🌑 Meia-sombra', '🌡 18–28°C'],
-    },
-    {
-      icon: '🌿', stage: 's1', sci: 'Asplenium nidus',
-      name: 'Samambaia-asplênio',
-      tip: 'Aprecia ambientes úmidos. Regue diretamente no substrato (nunca no centro da roseta). Bruma fina nas folhas é bem-vinda. Fertilize mensalmente com adubo foliar diluído.',
-      tags: ['💧 3×/semana', '🌑 Sombra', '💦 Alta umidade'],
-    },
-    {
-      icon: '🌴', stage: 's1', sci: 'Euterpe edulis',
-      name: 'Palmeira-juçara',
-      tip: 'Nativa da Mata Atlântica e ameaçada de extinção. Prefere luz indireta intensa. Gire o vaso mensalmente para crescimento simétrico. Solo bem drenado, rico em matéria orgânica.',
-      tags: ['🌿 Nativa', '☀️ Luz indireta', '💧 Moderada'],
-    },
-    {
-      icon: '🌺', stage: 's1', sci: 'Guzmania lingulata',
-      name: 'Bromélia-gusmânia',
-      tip: 'Mantenha a roseta central sempre com água fresca — troque a cada 15 dias para evitar mosquito. A flor dura até 6 meses. Após florir, a planta-mãe gera filhotes ("rebentões").',
-      tags: ['🌺 Roseta c/ água', '☀️ Luz indireta', '🌿 Nativa'],
-    },
-  ],
-  s2: [
-    {
-      icon: '🌼', stage: 's2', sci: 'Handroanthus albus',
-      name: 'Ipê-amarelo',
-      tip: 'Árvore símbolo do Brasil, floresce antes das folhas (jun–ago). Em vaso, precisa de espaço para raízes. Rega generosa no verão, reduzida no inverno. Adube com NPK no início do verão.',
-      tags: ['🌿 Nativa', '☀️ Pleno sol', '💧 Abundante'],
-    },
-    {
-      icon: '💜', stage: 's2', sci: 'Tibouchina mutabilis',
-      name: 'Manacá-da-serra',
-      tip: 'Flores que mudam de cor: brancas → lilás → roxas. Poda leve após a floração estimula nova brotação. Aprecia sol pleno e substrato ácido. Nativa da Mata Atlântica.',
-      tags: ['🌿 Nativa', '☀️ Sol pleno', '✂️ Podar pós-flor'],
-    },
-    {
-      icon: '🌸', stage: 's2', sci: 'Tibouchina granulosa',
-      name: 'Quaresmeira',
-      tip: 'Uma das árvores mais vibrantes das calçadas paulistanas. Floresce entre fevereiro e abril (Quaresma). Solo levemente ácido. Adube com composto orgânico na primavera.',
-      tags: ['🌿 Nativa', '☀️ Sol pleno', '🌱 Solo ácido'],
-    },
-    {
-      icon: '🫐', stage: 's2', sci: 'Plinia cauliflora',
-      name: 'Jabuticabeira',
-      tip: 'Rara peculiaridade: frutos nascem diretamente no tronco e galhos grossos. Crescimento lento — pode demorar 8–15 anos para frutificar. Regue ao redor do caule. Tolera poda suave.',
-      tags: ['🌿 Nativa', '☀️ Sol pleno', '⏳ Paciência'],
-    },
-  ],
-  s3: [
-    {
-      icon: '🪻', stage: 's3', sci: 'Neomarica longifolia',
-      name: 'Íris-da-praia',
-      tip: 'Também chamada de "maraca" ou "íris-amarela". Adapta-se bem a canteiros urbanos e tolera solos compactados. Filhos aparecem nas flores velhas — replante-os para multiplicar.',
-      tags: ['🌿 Nativa', '🌤 Sol parcial', '💧 Tolerante à seca'],
-    },
-    {
-      icon: '🌀', stage: 's3', sci: 'Guaiacum officinale / Patagonula americana',
-      name: 'Guaivira',
-      tip: 'Nativa do cerrado e campos sulinos. Madeira de altíssima densidade, usada ancestralmente por povos indígenas. Em arborização urbana, auxilia na infiltração de águas pluviais.',
-      tags: ['🌿 Nativa Cerrado', '☀️ Sol pleno', '🌧 Absorve chuva'],
-    },
-    {
-      icon: '🌳', stage: 's3', sci: 'Inga marginata',
-      name: 'Ingá-feijão',
-      tip: 'Copa ampla e crescimento rápido — excelente para arborização de calçadas. Sementes cobertas por polpa branca doce comestível. Fixa nitrogênio no solo e atrai aves e morcegos.',
-      tags: ['🌿 Nativa', '🌳 Copa ampla', '🐦 Atrai fauna'],
-    },
-    {
-      icon: '🌾', stage: 's3', sci: 'Typha domingensis',
-      name: 'Taboa',
-      tip: 'Planta aquática essencial para a fitorremediação: suas raízes filtram metais pesados, fósforo e nitrogênio de águas urbanas. Usada em parques lineares e jardins de chuva em São Paulo.',
-      tags: ['🌿 Nativa', '💧 Aquática', '🔬 Filtra água'],
-    },
-  ],
-};
-
 
 /* ═══════════════════════════════════════════════════════════
-   3. ITENS DE INVENTÁRIO
+   2. ITENS DE INVENTÁRIO
 ═══════════════════════════════════════════════════════════ */
 const ITEM_DATA = {
   jabuticaba: {
@@ -292,10 +208,6 @@ const DOM = {
   iapName:       () => document.getElementById('iap-name'),
   iapDesc:       () => document.getElementById('iap-desc'),
   finalActions:  () => document.getElementById('final-actions'),
-  guideOverlay:  () => document.getElementById('guide-overlay'),
-  guideContent:  () => document.getElementById('guide-content'),
-  guideClose:    () => document.getElementById('guide-close'),
-  guideTabs:     () => document.querySelectorAll('.gtab'),
 };
 
 const el = id => document.getElementById(id);
@@ -314,26 +226,13 @@ function init() {
   const closeBtnEl = document.getElementById('dlg-close-btn');
   if (closeBtnEl) closeBtnEl.addEventListener('click', closeDialog);
 
-  /* Clique no overlay NÃO fecha o diálogo — previne fechar o SFX por acidente */
-  /* ESC fecha apenas o guia de cuidados, não o diálogo de planta */
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeGuide();
-  });
-
   DOM.nextBtn().addEventListener('click', handleNextStageBtn);
 
-  /* Botões finais */
+  /* Botão final */
   el('btn-restart').addEventListener('click', reiniciarJornada);
-  el('btn-guide').addEventListener('click', abrirGuia);
-  DOM.guideClose().addEventListener('click', closeGuide);
-  DOM.guideOverlay().addEventListener('click', e => {
-    if (e.target === DOM.guideOverlay()) closeGuide();
-  });
 
-  /* Tabs do guia */
-  DOM.guideTabs().forEach(tab => {
-    tab.addEventListener('click', () => switchGuideTab(tab.dataset.tab));
-  });
+  /* Guia de Plantas */
+  _bindGuia();
 
   renderAll();
 
@@ -695,54 +594,150 @@ function scheduleItemPopup(itemData, delayMs = 0) {
 
 
 /* ═══════════════════════════════════════════════════════════
-   13. GUIA DE CUIDADOS
-═══════════════════════════════════════════════════════════ */
-function abrirGuia() {
-  switchGuideTab('s1');
-  DOM.guideOverlay().classList.add('open');
-  DOM.guideOverlay().removeAttribute('aria-hidden');
-}
-
-function closeGuide() {
-  DOM.guideOverlay().classList.remove('open');
-  DOM.guideOverlay().setAttribute('aria-hidden', 'true');
-}
-
-function switchGuideTab(tab) {
-  DOM.guideTabs().forEach(t => {
-    t.classList.toggle('active', t.dataset.tab === tab);
-    t.setAttribute('aria-selected', t.dataset.tab === tab);
-  });
-  renderGuideContent(tab);
-}
-
-function renderGuideContent(tabKey) {
-  const content = DOM.guideContent();
-  const plants  = GUIDE_DATA[tabKey] || [];
-
-  content.innerHTML = plants.map(p => `
-    <div class="gcard">
-      <div class="gcard-icon ${p.stage}">${p.icon}</div>
-      <div class="gcard-body">
-        <div class="gcard-name">${p.name}</div>
-        <div class="gcard-sci">${p.sci}</div>
-        <div class="gcard-tip">${p.tip}</div>
-        <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px;">
-          ${p.tags.map(t => `<span class="gcard-tag tag-native">${t}</span>`).join('')}
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-
-/* ═══════════════════════════════════════════════════════════
-   14. REINICIAR JORNADA
+   13. REINICIAR JORNADA
 ═══════════════════════════════════════════════════════════ */
 function reiniciarJornada() {
   window.location.reload();
 }
 
+/* ═══════════════════════════════════════════════════════════
+   GUIA DE PLANTAS — Catálogo por categorias
+═══════════════════════════════════════════════════════════ */
+const PLANT_GUIDE_DATA = {
+  iniciantes: {
+    label: 'Para Iniciantes', desc: 'Resistentes e Adaptáveis', icon: '🌱', cor: '#5a9e3a',
+    plantas: [
+      { id: 'pitangueira', nome: 'Pitangueira',  sci: 'Eugenia uniflora',               img: 'img/pitangueira.png', desc: 'Arbusto nativo da Mata Atlântica, produz pitangas ricas em vitamina C. Tolera poda, sol pleno e períodos de seca após estabelecida.', dica: 'Regue abundantemente nos primeiros 6 meses. Depois, a planta se vira com a chuva.' },
+      { id: 'guaimbe',     nome: 'Guaimbê',       sci: 'Thaumatophyllum bipinnatifidum', img: 'img/guaimbe.png',     desc: 'Popular como "costela-de-adão". Tolera meia-sombra e esquecimentos de rega. Suas folhas fenestradas reduzem a resistência ao vento.', dica: 'Deixe o substrato secar parcialmente entre regas. Evite sol direto forte no verão.' },
+      { id: 'clusia',      nome: 'Clúsia',         sci: 'Clusia fluminensis',              img: 'img/clusia.png',      desc: 'Espécie da restinga carioca. Extremamente resistente ao vento salino, seca e solo pobre. Produz frutos ornamentais e atrai pássaros.', dica: 'Praticamente não precisa de cuidados após o primeiro ano. Ideal para jardins de baixa manutenção.' },
+      { id: 'peperomia',   nome: 'Peperômia',      sci: 'Peperomia scandens',              img: 'img/peperomia.png',   desc: 'Pequena suculenta tropical que acumula água nos caules carnosos. Perfeita para iniciantes por tolerar irrigações irregulares.', dica: 'Regue apenas quando o substrato estiver completamente seco. Excesso de água é o único erro fatal.' },
+    ],
+  },
+  internos: {
+    label: 'Ambientes Internos', desc: 'Meia-sombra e Sombra', icon: '🏠', cor: '#7b5ea7',
+    plantas: [
+      { id: 'maranta',   nome: 'Maranta-zebrina',    sci: 'Goeppertia zebrina',  img: 'img/maranta.png',   desc: 'As folhas listradas dobram-se à noite num fenômeno chamado nictinastia. Nativa do sudeste do Brasil, prefere ambientes úmidos e sombreados.', dica: 'Borrife as folhas 2×/semana. Nunca deixe o prato acumular água parada.' },
+      { id: 'samambaia', nome: 'Samambaia-asplênio', sci: 'Asplenium nidus',     img: 'img/samambaia.png', desc: 'Suas frondes largas e brilhantes captam luz difusa com eficiência. Não tolera sol direto — as folhas queimam com facilidade.', dica: 'Regue sempre no substrato, nunca no centro da roseta. Fertilize mensalmente com adubo foliar diluído.' },
+      { id: 'palmeira',  nome: 'Palmeira-juçara',    sci: 'Euterpe edulis',      img: 'img/palmeira.png',  desc: 'Espécie criticamente ameaçada da Mata Atlântica. Cultivá-la é um ato de conservação. Cresce lentamente e aceita meia-sombra.', dica: 'Gire o vaso 90° a cada mês para crescimento simétrico. Solo bem drenado é essencial.' },
+      { id: 'bromelia',  nome: 'Bromélia-gusmânia',  sci: 'Guzmania lingulata',  img: 'img/bromelia.png',  desc: 'Epífita da Mata Atlântica que acumula água na roseta central. A bráctea colorida dura até 6 meses e atrai beija-flores.', dica: 'Mantenha a roseta com água fresca; troque a cada 15 dias. Nunca regue diretamente no solo.' },
+    ],
+  },
+  jardim: {
+    label: 'Para Jardim', desc: 'Sol Pleno e Paisagismo', icon: '☀️', cor: '#c47b1a',
+    plantas: [
+      { id: 'ipe',           nome: 'Ipê-amarelo',    sci: 'Handroanthus albus',  img: 'img/ipe.png',           desc: 'Símbolo nacional do Brasil. Floresce antes das folhas (jun–ago) cobrindo calçadas de amarelo puro. Atrai beija-flores.', dica: 'Rega generosa no verão, reduzida no inverno. Adube com NPK 10-10-10 no início do verão.' },
+      { id: 'manaca',        nome: 'Manacá-da-serra', sci: 'Pleroma mutabile',    img: 'img/manaca.png',        desc: 'Produz flores que mudam de cor: surgem brancas, viram lilás e terminam roxas — às vezes as três cores coexistem no mesmo arbusto.', dica: 'Poda leve após a floração estimula nova brotação. Prefere solo levemente ácido.' },
+      { id: 'jabuticabeira', nome: 'Jabuticabeira',   sci: 'Plinia cauliflora',   img: 'img/jabuticabeira.png', desc: 'Os frutos nascem diretamente no tronco, num fenômeno chamado caulifloria. Crescimento lento, mas altamente recompensador.', dica: 'Pode demorar 8–15 anos para frutificar. Regue ao redor do caule; fertilize anualmente.' },
+      { id: 'quaresmeira',   nome: 'Quaresmeira',     sci: 'Pleroma granulosum',  img: 'img/quaresmeira.png',   desc: 'Uma das árvores mais exuberantes das calçadas paulistanas. Floresce entre fevereiro e abril, cobrindo ruas de lilás intenso.', dica: 'Adube com composto orgânico na primavera. Tolera sol pleno e períodos de seca leve.' },
+    ],
+  },
+  chuva: {
+    label: 'Jardim de Chuva', desc: 'Suportam Encharcamento', icon: '🌧', cor: '#2077b4',
+    plantas: [
+      { id: 'iris',    nome: 'Íris-da-praia', sci: 'Neomarica candida',         img: 'img/iris.png',    desc: 'Produz flores efêmeras que duram apenas um dia, mas surgem em sucessão ao longo de semanas. Tolera solos encharcados.', dica: 'Plante em bordas de canteiros inundáveis. Replante os filhotes que surgem nas flores velhas.' },
+      { id: 'guaivira', nome: 'Guaivira',     sci: 'Campomanesia guazumifolia', img: 'img/guaivira.png', desc: 'Mirtácea nativa do cerrado e da Mata Atlântica. Tolera solos temporariamente encharcados e auxilia na infiltração pluvial.', dica: 'Resistente após estabelecida. Ideal para jardins de chuva com inundação periódica de curta duração.' },
+      { id: 'inga',    nome: 'Ingá-feijão',   sci: 'Inga edulis',               img: 'img/inga.png',    desc: 'Leguminosa fixadora de nitrogênio. Atrai pássaros e morcegos com seus frutos de polpa branca adocicada.', dica: 'Tolera solos temporariamente encharcados. Plante em canteiros com boa drenagem lateral.' },
+      { id: 'taboa',   nome: 'Taboa',         sci: 'Typha domingensis',         img: 'img/taboa.png',   desc: 'Planta aquática essencial para jardins de chuva. Suas raízes filtram metais pesados, fósforo e nitrogênio.', dica: 'Plante em solo permanentemente úmido ou alagado. Corte as espigas secas no inverno.' },
+    ],
+  },
+};
+
+const PLANT_GUIDE_KEYS = ['iniciantes', 'internos', 'jardim', 'chuva'];
+let _guiaCatActiva = PLANT_GUIDE_KEYS[0];
+
+function abrirGuia() {
+  const modal = document.getElementById('guia-modal');
+  if (!modal) return;
+  _guiaCatActiva = PLANT_GUIDE_KEYS[0];
+  _buildGuiaTabs();
+  mostrarCategoria(_guiaCatActiva);
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+  document.getElementById('btn-fechar-guia')?.focus();
+}
+
+function fecharGuia() {
+  const modal = document.getElementById('guia-modal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function _buildGuiaTabs() {
+  const nav = document.getElementById('guia-nav');
+  if (!nav) return;
+  nav.innerHTML = PLANT_GUIDE_KEYS.map(key => {
+    const cat = PLANT_GUIDE_DATA[key];
+    return `<button class="guia-nav-btn${key === _guiaCatActiva ? ' active' : ''}"
+      data-cat="${key}" role="tab" aria-selected="${key === _guiaCatActiva}"
+      style="--cat-cor: ${cat.cor}">
+      <span class="guia-nav-icone">${cat.icon}</span>
+      <span>${cat.label}</span>
+    </button>`;
+  }).join('');
+  nav.querySelectorAll('.guia-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      _guiaCatActiva = btn.dataset.cat;
+      nav.querySelectorAll('.guia-nav-btn').forEach(b => {
+        const active = b.dataset.cat === _guiaCatActiva;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active);
+      });
+      mostrarCategoria(_guiaCatActiva);
+    });
+  });
+}
+
+function mostrarCategoria(categoria) {
+  const conteudo = document.getElementById('guia-conteudo');
+  if (!conteudo) return;
+  const cat = PLANT_GUIDE_DATA[categoria];
+  if (!cat) return;
+  conteudo.innerHTML = `
+    <div class="guia-cat-header" style="--cat-cor: ${cat.cor}">
+      <span class="guia-cat-icone">${cat.icon}</span>
+      <div>
+        <strong class="guia-cat-nome">${cat.label}</strong>
+        <span class="guia-cat-desc">${cat.desc}</span>
+      </div>
+      <span class="guia-cat-badge">${cat.plantas.length} espécies</span>
+    </div>
+    <div class="guia-grid">
+      ${cat.plantas.map(p => _plantaCardHTML(p, cat.cor)).join('')}
+    </div>`;
+  conteudo.scrollTop = 0;
+}
+
+function _plantaCardHTML(p, cor) {
+  return `
+    <article class="guia-card" style="--cat-cor: ${cor}">
+      <div class="guia-card-img-wrap">
+        <img src="${p.img}" alt="${p.nome}" class="guia-card-img" loading="lazy"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="guia-card-img-fallback" style="display:none">🌿</div>
+      </div>
+      <div class="guia-card-body">
+        <h3 class="guia-card-nome">${p.nome}</h3>
+        <em class="guia-card-sci">${p.sci}</em>
+        <p class="guia-card-desc">${p.desc}</p>
+        <div class="guia-card-dica">
+          <span class="guia-card-dica-label">💡 Dica de cuidado</span>
+          <span class="guia-card-dica-texto">${p.dica}</span>
+        </div>
+      </div>
+    </article>`;
+}
+
+function _bindGuia() {
+  document.getElementById('btn-fechar-guia')
+    ?.addEventListener('click', fecharGuia);
+  document.getElementById('guia-modal')
+    ?.addEventListener('click', e => { if (e.target.id === 'guia-modal') fecharGuia(); });
+  document.addEventListener('keydown', e => {
+    const modal = document.getElementById('guia-modal');
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) fecharGuia();
+  });
+}
 
 /* ═══════════════════════════════════════════════════════════
    14b. TELA DE ENCERRAMENTO
@@ -960,16 +955,86 @@ function _iniciarMusicaFinal() {
 
 /** Vincula os botões da tela de encerramento */
 function _bindBotoesEncerramento() {
-  const btnGuia    = document.getElementById('btn-share');
+  const btnCert    = document.getElementById('btn-certificado');
+  const btnGuia    = document.getElementById('btn-abrir-guia');
   const btnRestart = document.getElementById('btn-restart-ending');
+  const btnFechar  = document.getElementById('btn-fechar-guia');
 
-  /* "Abrir Guia de Plantas" — reutiliza a mesma função do jogo */
-  if (btnGuia) {
-    btnGuia.addEventListener('click', abrirGuia, { once: true });
+  if (btnCert)    btnCert.addEventListener('click', baixarCertificado);
+  if (btnGuia)    btnGuia.addEventListener('click', abrirGuia);
+  if (btnRestart) btnRestart.addEventListener('click', reiniciarJornada, { once: true });
+  if (btnFechar)  btnFechar.addEventListener('click', fecharGuia);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   CERTIFICADO DE GUARDIÃO
+═══════════════════════════════════════════════════════════ */
+function baixarCertificado() {
+  const modal = document.getElementById('nome-modal');
+  if (!modal) return;
+  const input = document.getElementById('nome-input');
+  if (input) {
+    const nome = ENDING_CONFIG.playerName;
+    input.value = (nome && nome !== 'Cunan') ? nome : '';
   }
-  if (btnRestart) {
-    btnRestart.addEventListener('click', reiniciarJornada, { once: true });
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+  setTimeout(() => input && input.focus(), 50);
+
+  const btnConfirmar = document.getElementById('nome-modal-confirmar');
+  const btnCancelar  = document.getElementById('nome-modal-cancelar');
+
+  function onConfirmar() {
+    const nome = (input?.value || '').trim() || 'Guardião';
+    _fecharNomeModal(); _gerarPNGCertificado(nome); cleanup();
   }
+  function onCancelar() { _fecharNomeModal(); cleanup(); }
+  function onKeydown(e) {
+    if (e.key === 'Enter') onConfirmar();
+    if (e.key === 'Escape') onCancelar();
+  }
+  function cleanup() {
+    btnConfirmar?.removeEventListener('click', onConfirmar);
+    btnCancelar?.removeEventListener('click', onCancelar);
+    input?.removeEventListener('keydown', onKeydown);
+  }
+  btnConfirmar?.addEventListener('click', onConfirmar);
+  btnCancelar?.addEventListener('click', onCancelar);
+  input?.addEventListener('keydown', onKeydown);
+}
+
+function _fecharNomeModal() {
+  const modal = document.getElementById('nome-modal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function _gerarPNGCertificado(nome) {
+  const nomeEl = document.getElementById('cert-nome');
+  const dataEl = document.getElementById('cert-data');
+  if (nomeEl) nomeEl.textContent = nome;
+  if (dataEl) {
+    const hoje = new Date();
+    dataEl.textContent = hoje.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+  const cert = document.getElementById('certificado');
+  if (!cert) return;
+  const btnOrig = document.getElementById('btn-certificado');
+  if (btnOrig) { btnOrig.textContent = '⏳ Gerando…'; btnOrig.disabled = true; }
+  html2canvas(cert, { scale: 1, useCORS: true, backgroundColor: null, width: 1080, height: 756, logging: false })
+    .then(canvas => {
+      const link = document.createElement('a');
+      const nomeSanitizado = nome.replace(/[^a-zA-Z0-9À-ÿ\s-]/g, '').trim().replace(/\s+/g, '-');
+      link.download = `certificado-guardiao-${nomeSanitizado}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      if (btnOrig) { btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião'; btnOrig.disabled = false; }
+    })
+    .catch(() => {
+      if (btnOrig) { btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião'; btnOrig.disabled = false; }
+    });
 }
 
 
@@ -1174,4 +1239,30 @@ function renderHUD() {
 /* ═══════════════════════════════════════════════════════════
    18. ARRANQUE
 ═══════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', init);
+/* ═══════════════════════════════════════════════════════════
+   ORIENTAÇÃO — detecta portrait em mobile e exibe overlay
+═══════════════════════════════════════════════════════════ */
+function _setupOrientationGuard() {
+  const overlay = document.getElementById('orientation-overlay');
+  if (!overlay) return;
+
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+           (navigator.maxTouchPoints > 1 && window.innerWidth < 1024);
+  }
+
+  function check() {
+    if (!isMobile()) { overlay.style.display = 'none'; return; }
+    const portrait = window.innerHeight > window.innerWidth;
+    overlay.style.display = portrait ? 'flex' : 'none';
+  }
+
+  check();
+  window.addEventListener('resize', check);
+  window.addEventListener('orientationchange', () => setTimeout(check, 150));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  _setupOrientationGuard();
+  init();
+});

@@ -11,6 +11,15 @@
 </head>
 <body>
 
+  <!-- Overlay: pede para girar o dispositivo (só mobile portrait) -->
+  <div id="orientation-overlay" aria-live="polite">
+    <div id="orientation-box">
+      <div id="orientation-icon">📱</div>
+      <p id="orientation-title">Gire o dispositivo</p>
+      <p id="orientation-desc">Jardim Urbano funciona melhor na horizontal.<br>Vire seu celular para continuar.</p>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════
        BOTÃO MUDO — fixo, fora do HUD, canto superior direito
   ═══════════════════════════════════════════════════ -->
@@ -57,43 +66,29 @@
         <div class="plant" id="plant-maranta" data-plant="maranta" role="button" tabindex="0" aria-label="Cuidar da Maranta-zebrina">
           <div class="plant-need-indicator" id="need-maranta">💧</div>
           <div class="plant-label">Maranta-zebrina</div>
-          <div class="foliage foliage-maranta">
-            <div class="leaf leaf-maranta l1"></div><div class="leaf leaf-maranta l2"></div>
-            <div class="leaf leaf-maranta l3"></div><div class="leaf leaf-maranta l4"></div>
-          </div>
-          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/maranta.png" class="plant-img" alt="Maranta-zebrina">
+          
         </div>
         <!-- PLANTA 2 — Samambaia-asplênio -->
         <div class="plant" id="plant-samambaia" data-plant="samambaia" role="button" tabindex="0" aria-label="Cuidar da Samambaia-asplênio">
           <div class="plant-need-indicator" id="need-samambaia">🌿</div>
           <div class="plant-label">Samambaia-asplênio</div>
-          <div class="foliage foliage-samambaia">
-            <div class="frond frond-1"></div><div class="frond frond-2"></div><div class="frond frond-3"></div>
-            <div class="frond frond-4"></div><div class="frond frond-5"></div>
-          </div>
-          <div class="pot-assembly pot-assembly--tall"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/samambaia.png" class="plant-img" alt="Samambaia-asplênio">
+          
         </div>
         <!-- PLANTA 3 — Palmeira-juçara -->
         <div class="plant" id="plant-palmeira" data-plant="palmeira" role="button" tabindex="0" aria-label="Cuidar da Palmeira-juçara">
           <div class="plant-need-indicator" id="need-palmeira">☀️</div>
           <div class="plant-label">Palmeira-juçara</div>
-          <div class="foliage foliage-palmeira">
-            <div class="palm-trunk"></div>
-            <div class="palm-leaf pl-1"></div><div class="palm-leaf pl-2"></div><div class="palm-leaf pl-3"></div>
-            <div class="palm-leaf pl-4"></div><div class="palm-leaf pl-5"></div><div class="palm-leaf pl-6"></div>
-          </div>
-          <div class="pot-assembly pot-assembly--wide"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/palmeira.png" class="plant-img plant-img--tall" alt="Palmeira-juçara">
+          
         </div>
         <!-- PLANTA 4 — Bromélia-gusmânia -->
         <div class="plant" id="plant-bromelia" data-plant="bromelia" role="button" tabindex="0" aria-label="Cuidar da Bromélia-gusmânia">
           <div class="plant-need-indicator" id="need-bromelia">🌺</div>
           <div class="plant-label">Bromélia-gusmânia</div>
-          <div class="foliage foliage-bromelia">
-            <div class="bract bract-1"></div><div class="bract bract-2"></div>
-            <div class="bract bract-3"></div><div class="bract bract-4"></div>
-            <div class="bromelia-flower"></div>
-          </div>
-          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body pot-body--terracotta"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/bromelia.png" class="plant-img" alt="Bromélia-gusmânia">
+          
         </div>
       </div>
     </div><!-- /#scene-stage1 -->
@@ -115,29 +110,29 @@
         <div class="plant plant-s2" id="plant-ipe" data-plant="ipe" role="button" tabindex="0" aria-label="Cuidar do Ipê-amarelo">
           <div class="plant-need-indicator" id="need-ipe">💧</div>
           <div class="plant-label">Ipê-amarelo</div>
-          <div class="foliage foliage-ipe"><div class="ipe-trunk"></div><div class="ipe-canopy"></div><div class="ipe-flower if-1"></div><div class="ipe-flower if-2"></div><div class="ipe-flower if-3"></div></div>
-          <div class="ground-planted"></div>
+          <img src="/draw/ipe.png" class="plant-img plant-img--tree" alt="Ipê-amarelo">
+          
         </div>
         <!-- PLANTA 6 — Manacá-da-serra -->
         <div class="plant plant-s2" id="plant-manaca" data-plant="manaca" role="button" tabindex="0" aria-label="Cuidar do Manacá-da-serra">
           <div class="plant-need-indicator" id="need-manaca">✂️</div>
           <div class="plant-label">Manacá-da-serra</div>
-          <div class="foliage foliage-manaca"><div class="manaca-stem ms-1"></div><div class="manaca-stem ms-2"></div><div class="manaca-stem ms-3"></div><div class="manaca-bloom mb-1"></div><div class="manaca-bloom mb-2"></div><div class="manaca-bloom mb-3"></div></div>
-          <div class="pot-assembly pot-assembly--concrete"><div class="pot-rim"></div><div class="pot-body pot-body--gray"></div><div class="pot-saucer pot-saucer--gray"></div></div>
+          <img src="/draw/manaca.png" class="plant-img plant-img--tree" alt="Manacá-da-serra">
+          
         </div>
         <!-- PLANTA 7 — Quaresmeira -->
         <div class="plant plant-s2" id="plant-quaresmeira" data-plant="quaresmeira" role="button" tabindex="0" aria-label="Cuidar da Quaresmeira">
           <div class="plant-need-indicator" id="need-quaresmeira">🌸</div>
           <div class="plant-label">Quaresmeira</div>
-          <div class="foliage foliage-quaresmeira"><div class="quar-trunk"></div><div class="quar-branch qb-1"></div><div class="quar-branch qb-2"></div><div class="quar-branch qb-3"></div><div class="quar-petal qp-1"></div><div class="quar-petal qp-2"></div><div class="quar-petal qp-3"></div><div class="quar-petal qp-4"></div></div>
-          <div class="ground-planted ground-planted--wide"></div>
+          <img src="/draw/quaresmeira.png" class="plant-img plant-img--tree" alt="Quaresmeira">
+          
         </div>
         <!-- PLANTA 8 — Jabuticabeira (ESPECIAL) -->
         <div class="plant plant-s2 plant--locked" id="plant-jabuticabeira" data-plant="jabuticabeira" role="button" tabindex="0" aria-label="Jabuticabeira — cuide das outras primeiro">
           <div class="plant-need-indicator" id="need-jabuticabeira">🔒</div>
           <div class="plant-label">Jabuticabeira</div>
-          <div class="foliage foliage-jabuticabeira"><div class="jabuti-trunk"></div><div class="jabuti-canopy"></div><div class="jabuti-fruit jf-1 hidden"></div><div class="jabuti-fruit jf-2 hidden"></div><div class="jabuti-fruit jf-3 hidden"></div><div class="jabuti-fruit jf-4 hidden"></div></div>
-          <div class="ground-planted"></div>
+          <img src="/draw/jabuticabeira.png" class="plant-img plant-img--tree" alt="Jabuticabeira">
+          
           <div class="lock-overlay" id="lock-overlay-jabuticabeira"><span>Cuide das<br>outras primeiro</span></div>
         </div>
       </div>
@@ -165,29 +160,29 @@
         <div class="plant plant-s3" id="plant-iris" data-plant="iris" role="button" tabindex="0" aria-label="Conversar com a Íris-da-praia">
           <div class="plant-need-indicator" id="need-iris">☔</div>
           <div class="plant-label">Íris-da-praia</div>
-          <div class="foliage foliage-iris"><div class="iris-leaf il-1"></div><div class="iris-leaf il-2"></div><div class="iris-leaf il-3"></div><div class="iris-bloom ib-1"></div><div class="iris-bloom ib-2"></div></div>
-          <div class="ground-planted ground-planted--street"></div>
+          <img src="/draw/iris.png" class="plant-img plant-img--street" alt="Íris-da-praia">
+          
         </div>
         <!-- PLANTA 10 — Guaivira -->
         <div class="plant plant-s3" id="plant-guaivira" data-plant="guaivira" role="button" tabindex="0" aria-label="Conversar com a Guaivira">
           <div class="plant-need-indicator" id="need-guaivira">☔</div>
           <div class="plant-label">Guaivira</div>
-          <div class="foliage foliage-guaivira"><div class="guai-trunk"></div><div class="guai-canopy"></div><div class="guai-petal gp-1"></div><div class="guai-petal gp-2"></div><div class="guai-petal gp-3"></div></div>
-          <div class="ground-planted ground-planted--street"></div>
+          <img src="/draw/guaivira.png" class="plant-img plant-img--tree" alt="Guaivira">
+          
         </div>
         <!-- PLANTA 11 — Ingá-feijão -->
         <div class="plant plant-s3" id="plant-inga" data-plant="inga" role="button" tabindex="0" aria-label="Conversar com o Ingá-feijão">
           <div class="plant-need-indicator" id="need-inga">☔</div>
           <div class="plant-label">Ingá-feijão</div>
-          <div class="foliage foliage-inga"><div class="inga-trunk"></div><div class="inga-canopy c1"></div><div class="inga-canopy c2"></div><div class="inga-pod ip-1"></div><div class="inga-pod ip-2"></div></div>
-          <div class="ground-planted ground-planted--street"></div>
+          <img src="/draw/inga.png" class="plant-img plant-img--tree" alt="Ingá-feijão">
+          
         </div>
         <!-- PLANTA 12 — Taboa -->
         <div class="plant plant-s3" id="plant-taboa" data-plant="taboa" role="button" tabindex="0" aria-label="Conversar com a Taboa">
           <div class="plant-need-indicator" id="need-taboa">☔</div>
           <div class="plant-label">Taboa</div>
-          <div class="foliage foliage-taboa"><div class="taboa-stem ts-1"></div><div class="taboa-stem ts-2"></div><div class="taboa-stem ts-3"></div><div class="taboa-cattail tc-1"></div><div class="taboa-cattail tc-2"></div><div class="taboa-cattail tc-3"></div></div>
-          <div class="ground-planted ground-planted--wet"></div>
+          <img src="/draw/taboa.png" class="plant-img plant-img--street" alt="Taboa">
+          
         </div>
       </div>
     </div><!-- /#scene-stage3 -->
@@ -239,7 +234,6 @@
           <!-- Prato com jabuticaba sobre a mesa -->
           <div class="s4-fruit-display" id="s4-jabuticaba-display" role="button" tabindex="0"
                aria-label="Jabuticaba — clique para a mensagem final">
-            <div class="s4-plate"></div>
             <div class="s4-fruit-pile">
               <div class="s4-fruit sf1"></div>
               <div class="s4-fruit sf2"></div>
@@ -247,6 +241,7 @@
               <div class="s4-fruit sf4"></div>
               <div class="s4-fruit sf5"></div>
             </div>
+            <div class="s4-plate"></div>
             <div class="s4-fruit-label">Jabuticaba</div>
           </div>
         </div>
@@ -258,11 +253,8 @@
              role="button" tabindex="0" aria-label="Maranta-zebrina — feliz">
           <div class="plant-need-indicator" id="need-s4maranta">🌿</div>
           <div class="plant-label">Maranta-zebrina</div>
-          <div class="foliage foliage-maranta foliage--lush">
-            <div class="leaf leaf-maranta l1"></div><div class="leaf leaf-maranta l2"></div>
-            <div class="leaf leaf-maranta l3"></div><div class="leaf leaf-maranta l4"></div>
-          </div>
-          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/maranta.png" class="plant-img plant-img--lush" alt="Maranta-zebrina">
+          
         </div>
 
         <!-- PLANTA 2 — Samambaia-asplênio (happy) -->
@@ -270,11 +262,8 @@
              role="button" tabindex="0" aria-label="Samambaia-asplênio — feliz">
           <div class="plant-need-indicator" id="need-s4samambaia">🌿</div>
           <div class="plant-label">Samambaia-asplênio</div>
-          <div class="foliage foliage-samambaia foliage--lush">
-            <div class="frond frond-1"></div><div class="frond frond-2"></div><div class="frond frond-3"></div>
-            <div class="frond frond-4"></div><div class="frond frond-5"></div>
-          </div>
-          <div class="pot-assembly pot-assembly--tall"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/samambaia.png" class="plant-img plant-img--lush" alt="Samambaia-asplênio">
+          
         </div>
 
         <!-- PLANTA 3 — Palmeira-juçara (happy) -->
@@ -282,12 +271,8 @@
              role="button" tabindex="0" aria-label="Palmeira-juçara — feliz">
           <div class="plant-need-indicator" id="need-s4palmeira">🌴</div>
           <div class="plant-label">Palmeira-juçara</div>
-          <div class="foliage foliage-palmeira foliage--lush">
-            <div class="palm-trunk"></div>
-            <div class="palm-leaf pl-1"></div><div class="palm-leaf pl-2"></div><div class="palm-leaf pl-3"></div>
-            <div class="palm-leaf pl-4"></div><div class="palm-leaf pl-5"></div><div class="palm-leaf pl-6"></div>
-          </div>
-          <div class="pot-assembly pot-assembly--wide"><div class="pot-rim"></div><div class="pot-body"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/palmeira.png" class="plant-img plant-img--tall plant-img--lush" alt="Palmeira-juçara">
+          
         </div>
 
         <!-- PLANTA 4 — Bromélia-gusmânia (happy) -->
@@ -295,12 +280,8 @@
              role="button" tabindex="0" aria-label="Bromélia-gusmânia — feliz">
           <div class="plant-need-indicator" id="need-s4bromelia">🌺</div>
           <div class="plant-label">Bromélia-gusmânia</div>
-          <div class="foliage foliage-bromelia foliage--lush">
-            <div class="bract bract-1"></div><div class="bract bract-2"></div>
-            <div class="bract bract-3"></div><div class="bract bract-4"></div>
-            <div class="bromelia-flower"></div>
-          </div>
-          <div class="pot-assembly"><div class="pot-rim"></div><div class="pot-body pot-body--terracotta"></div><div class="pot-saucer"></div></div>
+          <img src="/draw/bromelia.png" class="plant-img plant-img--lush" alt="Bromélia-gusmânia">
+          
         </div>
 
         <!-- Partículas de poeira dourada (CSS puro) -->
@@ -328,35 +309,6 @@
     <button id="btn-restart" class="final-btn btn-restart">
       🌱 Recomeçar a Jornada
     </button>
-    <button id="btn-guide" class="final-btn btn-guide">
-      📖 Guia de Cuidados
-    </button>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════
-       MODAL: GUIA DE CUIDADOS
-  ═══════════════════════════════════════════════════ -->
-  <div id="guide-overlay" role="dialog" aria-modal="true" aria-labelledby="guide-title" aria-hidden="true">
-    <div id="guide-box">
-      <button id="guide-close" aria-label="Fechar guia">✕</button>
-      <div id="guide-header">
-        <div id="guide-icon">🌿</div>
-        <h2 id="guide-title">Guia de Cuidados</h2>
-        <p id="guide-subtitle">As plantas da sua jornada</p>
-      </div>
-      <div id="guide-tabs" role="tablist">
-        <button class="gtab active" data-tab="s1" role="tab" aria-selected="true">Apartamento</button>
-        <button class="gtab" data-tab="s2" role="tab" aria-selected="false">Jardim</button>
-        <button class="gtab" data-tab="s3" role="tab" aria-selected="false">Rua</button>
-      </div>
-      <div id="guide-content">
-        <!-- Conteúdo injetado por JS -->
-      </div>
-      <div id="guide-footer">
-        <p>🌿 Plantar é um ato político. Cada espécie nativa é memória da paisagem brasileira.</p>
-      </div>
-    </div>
   </div>
 
 
@@ -433,15 +385,41 @@
       </div>
 
       <!-- Botões de ação -->
-      <div id="ending-actions">
-        <button id="btn-share" class="ending-btn btn-share">
+       <div id="ending-actions">
+        <button id="btn-certificado" class="ending-btn btn-certificado">
+          <span class="btn-icon">🏅</span>
+          Gerar Certificado de Guardião
+        </button>
+        <button id="btn-abrir-guia" class="ending-btn">
           <span class="btn-icon">📖</span>
-          Abrir Guia de Plantas
+          Guia de Plantas
         </button>
         <button id="btn-restart-ending" class="ending-btn btn-restart-ending">
           <span class="btn-icon">🌱</span>
           Recomeçar a Jornada
         </button>
+      </div>
+      
+      <!-- Modal: Guia de Plantas -->
+      <div id="guia-modal" class="hidden" role="dialog" aria-modal="true"
+           aria-labelledby="guia-titulo" aria-hidden="true">
+        <div id="guia-modal-box">
+          <header id="guia-header">
+            <div id="guia-header-info">
+              <span id="guia-header-icone" aria-hidden="true">🌿</span>
+              <div>
+                <h2 id="guia-titulo">Guia de Plantas</h2>
+                <p id="guia-subtitulo">Catálogo botânico · Jardim Urbano</p>
+              </div>
+            </div>
+            <button id="btn-fechar-guia" aria-label="Fechar guia">✕</button>
+          </header>
+          <nav id="guia-nav" role="tablist" aria-label="Categorias de cuidado"></nav>
+          <div id="guia-conteudo" role="tabpanel"></div>
+          <footer id="guia-rodape">
+            🌱 Plantar é um ato político. Cada espécie nativa é memória da paisagem brasileira.
+          </footer>
+        </div>
       </div>
 
       <!-- Crédito / rodapé narrativo -->
@@ -452,6 +430,73 @@
     </div>
   </div>
 
+
+  <!-- ═══════════════════════════════════════════════════
+       MODAL: NOME DO GUARDIÃO
+  ═══════════════════════════════════════════════════ -->
+  <div id="nome-modal" class="hidden" role="dialog" aria-modal="true"
+       aria-labelledby="nome-modal-titulo" aria-hidden="true">
+    <div id="nome-modal-box">
+      <div id="nome-modal-icone" aria-hidden="true">🏅</div>
+      <h2 id="nome-modal-titulo">Seu Certificado de Guardião</h2>
+      <p id="nome-modal-desc">Como o seu nome deve aparecer no certificado?</p>
+      <input id="nome-input" type="text" maxlength="40" placeholder="Digite seu nome"
+             autocomplete="name" aria-label="Seu nome para o certificado"/>
+      <div id="nome-modal-acoes">
+        <button id="nome-modal-cancelar">Cancelar</button>
+        <button id="nome-modal-confirmar">Gerar Certificado 🏅</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CERTIFICADO DE GUARDIÃO — capturado por html2canvas
+  ═══════════════════════════════════════════════════ -->
+  <div id="certificado-wrapper" aria-hidden="true">
+    <div id="certificado">
+      <div class="cert-corner tl" aria-hidden="true">🌿</div>
+      <div class="cert-corner tr" aria-hidden="true">🌿</div>
+      <div class="cert-corner bl" aria-hidden="true">🌿</div>
+      <div class="cert-corner br" aria-hidden="true">🌿</div>
+      <div class="cert-border">
+        <div class="cert-header">
+          <div class="cert-emblema" aria-hidden="true">🌳</div>
+          <p class="cert-supertitulo">Jardim Urbano · Mata Atlântica</p>
+          <h1 class="cert-titulo">Certificado de Guardião</h1>
+          <div class="cert-divisor" aria-hidden="true">❧ ✦ ❧</div>
+        </div>
+        <div class="cert-corpo">
+          <p class="cert-texto-intro">Este certificado reconhece que</p>
+          <p id="cert-nome" class="cert-nome">—</p>
+          <p class="cert-texto">completou a jornada <em>Jardim Urbano</em>, cuidou de espécies nativas
+            da Mata Atlântica em todos os estágios e demonstrou comprometimento com a
+            conservação da flora brasileira.</p>
+          <p class="cert-nivel">Nível · <strong>Guardião Expert</strong></p>
+        </div>
+        <div class="cert-selos" aria-label="Conquistas">
+          <div class="cert-selo"><span class="cert-selo-icone">🌱</span><span class="cert-selo-label">Iniciante</span></div>
+          <div class="cert-selo"><span class="cert-selo-icone">🏠</span><span class="cert-selo-label">Internas</span></div>
+          <div class="cert-selo"><span class="cert-selo-icone">☀️</span><span class="cert-selo-label">Jardim</span></div>
+          <div class="cert-selo"><span class="cert-selo-icone">🌧</span><span class="cert-selo-label">Chuva</span></div>
+        </div>
+        <div class="cert-rodape">
+          <div class="cert-assinatura">
+            <div class="cert-assinatura-linha"></div>
+            <p class="cert-assinatura-texto">Jardim Urbano</p>
+          </div>
+          <div class="cert-data-wrap">
+            <p id="cert-data" class="cert-data">—</p>
+            <p class="cert-data-label">Data de conclusão</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- html2canvas — captura do certificado -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <!-- audio.js deve vir ANTES de script.js pois expõe funções usadas por ele -->
   <script src="audio.js"></script>
   <script src="script.js"></script>
