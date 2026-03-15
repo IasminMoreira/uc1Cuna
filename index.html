@@ -23,20 +23,21 @@
   <!-- ═══════════════════════════════════════════════════
        BOTÃO MUDO — fixo, fora do HUD, canto superior direito
   ═══════════════════════════════════════════════════ -->
-  <button id="mute-btn"
-          aria-pressed="false"
-          aria-label="Silenciar trilha sonora"
-          title="Silenciar">
-    <span id="mute-icon" aria-hidden="true">🔊</span>
-    <span id="mute-label">Mudo</span>
-  </button>
-
-  <button id="fullscreen-btn"
-          aria-pressed="false"
-          aria-label="Tela cheia"
-          title="Tela cheia">
-    <span id="fullscreen-icon" aria-hidden="true">⛶</span>
-  </button>
+  <div id="ui-controls">
+    <button id="fullscreen-btn"
+            aria-pressed="false"
+            aria-label="Tela cheia"
+            title="Tela cheia">
+      <span id="fullscreen-icon" aria-hidden="true">⛶</span>
+    </button>
+    <button id="mute-btn"
+            aria-pressed="false"
+            aria-label="Silenciar trilha sonora"
+            title="Silenciar">
+      <span id="mute-icon" aria-hidden="true">🔊</span>
+      <span id="mute-label">Mudo</span>
+    </button>
+  </div>
 
   <!-- ═══════════════════════════════════════════════════
        HUD GLOBAL

@@ -89,84 +89,81 @@ html, body {
 /* ════════════════════════════════════════════════════
    BOTÃO MUDO — fixo no canto superior direito
 ════════════════════════════════════════════════════ */
-#mute-btn {
+/* ════════════════════════════════════════════════════
+   CONTROLES UI — container fixo no canto superior direito
+════════════════════════════════════════════════════ */
+#ui-controls {
   position: fixed;
-  top: 18px;
-  right: 22px;
+  top:   max(14px, env(safe-area-inset-top,   14px));
+  right: max(16px, env(safe-area-inset-right, 16px));
   z-index: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  pointer-events: all;
+}
 
+/* Estilo base compartilhado pelos dois botões */
+#mute-btn,
+#fullscreen-btn {
+  /* Remove position individual — o container cuida disso */
+  position: static;
   display: flex;
   align-items: center;
   gap: 5px;
-
   background: rgba(15, 15, 20, 0.82);
   border: 1px solid rgba(200, 190, 160, 0.22);
   border-radius: 20px;
-  padding: 6px 14px 6px 10px;
+  padding: 6px 12px 6px 10px;
   cursor: pointer;
   backdrop-filter: blur(6px);
   transition: background 0.2s, border-color 0.2s, transform 0.12s;
   outline: none;
-
-  /* Não interfere com cliques nas cenas */
-  pointer-events: all;
+  color: #e8dfc0;
+  white-space: nowrap;
 }
 
-#mute-btn:hover {
+#mute-btn:hover,
+#fullscreen-btn:hover {
   background: rgba(30, 25, 15, 0.92);
   border-color: rgba(240, 190, 80, 0.35);
   transform: scale(1.05);
 }
+#mute-btn:active,
+#fullscreen-btn:active  { transform: scale(0.97); }
 
-#mute-btn:active  { transform: scale(0.97); }
-
-#mute-btn:focus-visible {
+#mute-btn:focus-visible,
+#fullscreen-btn:focus-visible {
   box-shadow: 0 0 0 2px rgba(240, 190, 80, 0.6);
 }
 
-/* Estado MUDO — visual ligeiramente esmaecido */
+/* Estado MUDO */
 #mute-btn[aria-pressed="true"] {
   background: rgba(40, 35, 25, 0.88);
   border-color: rgba(160, 130, 80, 0.30);
   opacity: 0.80;
 }
 
-#mute-icon {
+/* Botão fullscreen — quadrado com ícone centrado */
+#fullscreen-btn {
+  width: 36px; height: 36px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 17px;
+}
+
+#mute-icon, #fullscreen-icon {
   font-size: 16px;
   line-height: 1;
-  /* Transição suave ao trocar ícone */
   display: inline-block;
   transition: transform 0.2s;
 }
+#mute-btn:hover #mute-icon,
+#fullscreen-btn:hover #fullscreen-icon { transform: scale(1.15); }
 
-#mute-btn:hover #mute-icon { transform: scale(1.15); }
-
-/* ── Botão Tela Cheia ── */
-#fullscreen-btn {
-  position: fixed;
-  top: 18px;
-  right: 90px;          /* fica à esquerda do mute-btn */
-  z-index: 500;
-  width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(15, 15, 20, 0.82);
-  border: 1px solid rgba(200, 190, 160, 0.22);
-  border-radius: 50%;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: background 0.2s, border-color 0.2s, transform 0.12s;
-  outline: none; pointer-events: all;
-  font-size: 18px; line-height: 1; color: #e8dfc0;
-}
-#fullscreen-btn:hover {
-  background: rgba(30, 25, 15, 0.92);
-  border-color: rgba(240, 190, 80, 0.35);
-  transform: scale(1.08);
-}
-#fullscreen-btn:active { transform: scale(0.95); }
-#fullscreen-btn:focus-visible { box-shadow: 0 0 0 2px rgba(240, 190, 80, 0.6); }
-
-/* Quando em fullscreen: fundo preto, sem margens */
+/* Quando em fullscreen: fundo preto total */
 :fullscreen,
 :-webkit-full-screen,
 :-moz-full-screen,
@@ -174,18 +171,6 @@ html, body {
   background: #000 !important;
   width: 100vw !important;
   height: 100vh !important;
-}
-
-/* Botões fixos com safe-area para notch/barra de status */
-#mute-btn,
-#fullscreen-btn {
-  top: max(18px, env(safe-area-inset-top, 18px));
-}
-#mute-btn {
-  right: max(22px, env(safe-area-inset-right, 22px));
-}
-#fullscreen-btn {
-  right: max(90px, calc(env(safe-area-inset-right, 0px) + 90px));
 }
 
 #mute-label {
