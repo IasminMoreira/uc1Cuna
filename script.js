@@ -1277,8 +1277,14 @@ function _scaleGame() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
-  /* Calcula a escala para preencher a tela sem cortar */
-  const scale = Math.min(vw / GAME_W, vh / GAME_H);
+  /* Escala para preencher SEMPRE a largura total da tela.
+     Em portrait extremo (altura < 60% da largura escalada),
+     limita pela altura para não cortar conteúdo crítico. */
+  const scaleByW = vw / GAME_W;
+  const scaleByH = vh / GAME_H;
+  const scale = (GAME_H * scaleByW) > vh * 1.4
+    ? scaleByH          /* portrait muito estreito — limita pela altura */
+    : scaleByW;         /* preenche largura total — sem margens laterais */
 
   scaler.style.transform       = `scale(${scale})`;
   scaler.style.transformOrigin = 'top left';
@@ -1287,14 +1293,6 @@ function _scaleGame() {
   scaler.style.top             = '0';
   scaler.style.left            = '0';
 
-  /* Centraliza horizontalmente se sobrar espaço */
-  const scaledW = GAME_W * scale;
-  const scaledH = GAME_H * scale;
-  if (scaledW < vw) {
-    scaler.style.left = ((vw - scaledW) / 2) + 'px';
-  }
-
-  /* Garante que body não cria scroll */
   document.body.style.width    = vw + 'px';
   document.body.style.height   = vh + 'px';
   document.body.style.overflow = 'hidden';
