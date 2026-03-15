@@ -141,6 +141,42 @@ html, body {
 
 #mute-btn:hover #mute-icon { transform: scale(1.15); }
 
+/* ── Botão Tela Cheia ── */
+#fullscreen-btn {
+  position: fixed;
+  top: 18px;
+  right: 90px;          /* fica à esquerda do mute-btn */
+  z-index: 500;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 15, 20, 0.82);
+  border: 1px solid rgba(200, 190, 160, 0.22);
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s, transform 0.12s;
+  outline: none; pointer-events: all;
+  font-size: 18px; line-height: 1; color: #e8dfc0;
+}
+#fullscreen-btn:hover {
+  background: rgba(30, 25, 15, 0.92);
+  border-color: rgba(240, 190, 80, 0.35);
+  transform: scale(1.08);
+}
+#fullscreen-btn:active { transform: scale(0.95); }
+#fullscreen-btn:focus-visible { box-shadow: 0 0 0 2px rgba(240, 190, 80, 0.6); }
+
+/* Quando em fullscreen: força ocupação total */
+:fullscreen            #game-scaler,
+:-webkit-full-screen   #game-scaler,
+:-moz-full-screen      #game-scaler,
+:-ms-fullscreen        #game-scaler { background: #111; }
+
+:fullscreen,
+:-webkit-full-screen,
+:-moz-full-screen,
+:-ms-fullscreen { background: #000; }
+
 #mute-label {
   font-family: var(--font-ui);
   font-size: 11px;

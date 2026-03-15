@@ -1325,8 +1325,69 @@ function _setupOrientationGuard() {
   window.addEventListener('orientationchange', () => setTimeout(check, 200));
 }
 
+/* ═══════════════════════════════════════════════════════════
+   TELA CHEIA — Fullscreen API com prefixos cross-browser
+═══════════════════════════════════════════════════════════ */
+function _setupFullscreen() {
+  const btn  = document.getElementById('fullscreen-btn');
+  const icon = document.getElementById('fullscreen-icon');
+  if (!btn) return;
+
+  /* Verifica suporte */
+  const canFS = document.documentElement.requestFullscreen
+    || document.documentElement.webkitRequestFullscreen
+    || document.documentElement.mozRequestFullScreen
+    || document.documentElement.msRequestFullscreen;
+
+  if (!canFS) { btn.style.display = 'none'; return; }
+
+  function isFullscreen() {
+    return !!(document.fullscreenElement
+      || document.webkitFullscreenElement
+      || document.mozFullScreenElement
+      || document.msFullscreenElement);
+  }
+
+  function enterFS() {
+    const el = document.documentElement;
+    if      (el.requestFullscreen)       el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+    else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+  }
+
+  function exitFS() {
+    if      (document.exitFullscreen)       document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
+    else if (document.msExitFullscreen)     document.msExitFullscreen();
+  }
+
+  function updateBtn() {
+    const active = isFullscreen();
+    btn.setAttribute('aria-pressed', active);
+    btn.setAttribute('aria-label', active ? 'Sair da tela cheia' : 'Tela cheia');
+    btn.setAttribute('title',      active ? 'Sair da tela cheia' : 'Tela cheia');
+    /* ⛶ = expandir  |  ⛶ rotacionado = comprimir (usa unicode direto) */
+    icon.textContent = active ? '✕' : '⛶';
+    /* Re-escala após entrar/sair do fullscreen */
+    setTimeout(_scaleGame, 100);
+  }
+
+  btn.addEventListener('click', () => {
+    isFullscreen() ? exitFS() : enterFS();
+  });
+
+  /* Escuta mudanças de estado fullscreen */
+  ['fullscreenchange', 'webkitfullscreenchange',
+   'mozfullscreenchange', 'MSFullscreenChange'].forEach(ev => {
+    document.addEventListener(ev, updateBtn);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   _setupOrientationGuard();
+  _setupFullscreen();
   _scaleGame();
   window.addEventListener('resize', _scaleGame);
   init();
