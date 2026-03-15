@@ -1274,29 +1274,31 @@ function _scaleGame() {
   const scaler = document.getElementById('game-scaler');
   if (!scaler) return;
 
+  /* Usa a viewport real — funciona tanto normal quanto fullscreen */
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
-  /* Escala para preencher SEMPRE a largura total da tela.
-     Em portrait extremo (altura < 60% da largura escalada),
-     limita pela altura para não cortar conteúdo crítico. */
-  const scaleByW = vw / GAME_W;
-  const scaleByH = vh / GAME_H;
-  const scale = (GAME_H * scaleByW) > vh * 1.4
-    ? scaleByH          /* portrait muito estreito — limita pela altura */
-    : scaleByW;         /* preenche largura total — sem margens laterais */
+  /* Escala "contain": cabe inteiro na tela sem cortar nada */
+  const scale = Math.min(vw / GAME_W, vh / GAME_H);
+
+  /* Tamanho real do jogo após escala */
+  const scaledW = GAME_W * scale;
+  const scaledH = GAME_H * scale;
+
+  /* Centraliza horizontal e verticalmente */
+  const offsetX = (vw - scaledW) / 2;
+  const offsetY = (vh - scaledH) / 2;
 
   scaler.style.transform       = `scale(${scale})`;
   scaler.style.transformOrigin = 'top left';
   scaler.style.width           = GAME_W + 'px';
-  scaler.style.position        = 'absolute';
-  scaler.style.top             = '0';
-  scaler.style.left            = '0';
+  scaler.style.position        = 'fixed';   /* fixed = ignora scroll, funciona em fullscreen */
+  scaler.style.top             = offsetY + 'px';
+  scaler.style.left            = offsetX + 'px';
 
-  document.body.style.width    = vw + 'px';
-  document.body.style.height   = vh + 'px';
+  /* Body sem scroll */
   document.body.style.overflow = 'hidden';
-  document.body.style.position = 'relative';
+  document.body.style.background = '#000';
   document.documentElement.style.overflow = 'hidden';
   document.documentElement.style.height   = '100%';
 }

@@ -79,7 +79,7 @@ html, body {
   width: 100%; height: 100%;
   overflow: hidden;
   display: block;
-  background: #111; font-family: var(--font-ui);
+  background: #000; font-family: var(--font-ui);
   position: relative;
 }
 
@@ -166,16 +166,27 @@ html, body {
 #fullscreen-btn:active { transform: scale(0.95); }
 #fullscreen-btn:focus-visible { box-shadow: 0 0 0 2px rgba(240, 190, 80, 0.6); }
 
-/* Quando em fullscreen: força ocupação total */
-:fullscreen            #game-scaler,
-:-webkit-full-screen   #game-scaler,
-:-moz-full-screen      #game-scaler,
-:-ms-fullscreen        #game-scaler { background: #111; }
-
+/* Quando em fullscreen: fundo preto, sem margens */
 :fullscreen,
 :-webkit-full-screen,
 :-moz-full-screen,
-:-ms-fullscreen { background: #000; }
+:-ms-fullscreen {
+  background: #000 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Botões fixos com safe-area para notch/barra de status */
+#mute-btn,
+#fullscreen-btn {
+  top: max(18px, env(safe-area-inset-top, 18px));
+}
+#mute-btn {
+  right: max(22px, env(safe-area-inset-right, 22px));
+}
+#fullscreen-btn {
+  right: max(90px, calc(env(safe-area-inset-right, 0px) + 90px));
+}
 
 #mute-label {
   font-family: var(--font-ui);
