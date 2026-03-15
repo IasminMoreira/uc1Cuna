@@ -1240,8 +1240,33 @@ function renderHUD() {
    18. ARRANQUE
 ═══════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════
-   ORIENTAÇÃO — detecta portrait em mobile e exibe overlay
+   ESCALA RESPONSIVA — encaixa o jogo na tela sem scroll
+   O jogo tem 900×560px internamente. Em telas menores,
+   aplica transform:scale para caber exatamente.
 ═══════════════════════════════════════════════════════════ */
+const GAME_W = 900;  /* --room-width base */
+const GAME_H = 560;  /* --room-height base + hud */
+
+function _scaleGame() {
+  const scaler = document.getElementById('game-scaler');
+  if (!scaler) return;
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  const scaleX = vw / GAME_W;
+  const scaleY = vh / GAME_H;
+  const scale  = Math.min(scaleX, scaleY, 1); /* nunca amplia, só reduz */
+
+  scaler.style.transform       = `scale(${scale})`;
+  scaler.style.transformOrigin = 'top center';
+  scaler.style.width           = GAME_W + 'px';
+
+  /* Ajusta a altura do body para o conteúdo escalado */
+  document.body.style.height    = vh + 'px';
+  document.body.style.overflow  = 'hidden';
+}
+
 function _setupOrientationGuard() {
   const overlay = document.getElementById('orientation-overlay');
   if (!overlay) return;
@@ -1252,9 +1277,13 @@ function _setupOrientationGuard() {
   }
 
   function check() {
-    if (!isMobile()) { overlay.style.display = 'none'; return; }
     const portrait = window.innerHeight > window.innerWidth;
-    overlay.style.display = portrait ? 'flex' : 'none';
+    if (isMobile() && portrait) {
+      overlay.style.display = 'flex';
+    } else {
+      overlay.style.display = 'none';
+      _scaleGame();
+    }
   }
 
   check();
@@ -1264,5 +1293,7 @@ function _setupOrientationGuard() {
 
 document.addEventListener('DOMContentLoaded', () => {
   _setupOrientationGuard();
+  _scaleGame();
+  window.addEventListener('resize', _scaleGame);
   init();
 });
