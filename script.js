@@ -1251,13 +1251,23 @@ const GAME_W = 900;   /* largura interna do jogo */
 const GAME_H = 680;   /* altura total: hud + room + botão */
 
 function _scrollToTop() {
-  /* Reseta todos os pontos de scroll possíveis */
-  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  /* 1. Scroll suave nativo — cobre a maioria dos browsers */
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+
+  /* 2. Fallback para Safari/iOS e WebViews que ignoram o behavior */
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-  /* Reposiciona o scaler para top:0 */
+
+  /* 3. scrollIntoView no topo do game-scaler — garante mobile */
   const scaler = document.getElementById('game-scaler');
-  if (scaler) scaler.style.top = '0';
+  if (scaler) {
+    scaler.style.top = '0';
+    scaler.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* 4. HUD como âncora visual — sobe até ele aparecer */
+  const hud = document.getElementById('hud');
+  if (hud) hud.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function _scaleGame() {
