@@ -428,6 +428,9 @@ function mudarParaEstagio2() {
   renderHUD();
   bindPlantEvents();
   if (typeof tocarSom === 'function') tocarSom(2);
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 function irParaEstagio3() {
@@ -443,6 +446,9 @@ function irParaEstagio3() {
   DOM.hudCount().closest('#hud').classList.remove('hud-golden');
   renderHUD();
   bindPlantEvents();
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 /**
@@ -471,6 +477,9 @@ function irParaEstagioFinal() {
 
   renderHUD();
   if (typeof tocarSom === 'function') tocarSom(4);
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   setTimeout(() => {
     const display = el('s4-jabuticaba-display');
     if (display) {
