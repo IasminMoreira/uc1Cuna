@@ -1715,7 +1715,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     margin:          auto                                           !important;
     flex-shrink:     0                                              !important;
     padding-top:     50px                                           !important;
-    padding-bottom:  max(50px, env(safe-area-inset-bottom, 50px))   !important;
+    padding-bottom:  max(80px, env(safe-area-inset-bottom, 80px))   !important; /* extra para botões finais */
     padding-left:    16px                                           !important;
     padding-right:   16px                                           !important;
     box-sizing:      border-box                                     !important;
@@ -1749,11 +1749,19 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   .ending-btn-half a.ending-btn-galeria {
     width:           100%                                           !important;
     min-height:      48px                                           !important;
-    font-size:       0.9rem                                         !important;
-    padding:         12px 6px                                       !important;
-    white-space:     normal                                         !important;
+    font-size:       0.82rem                                        !important; /* menor para caber em 1 linha */
+    padding:         10px 4px                                       !important;
+    white-space:     nowrap                                         !important; /* impede quebra de linha */
     text-align:      center                                         !important;
     box-sizing:      border-box                                     !important;
+    overflow:        hidden                                         !important;
+    text-overflow:   ellipsis                                       !important;
+  }
+
+  /* Ícone do botão — reduz para caber junto do texto */
+  .ending-btn-half .ending-btn .btn-icon {
+    font-size:       14px                                           !important;
+    flex-shrink:     0                                              !important;
   }
 
   #ending-actions > .ending-btn,
