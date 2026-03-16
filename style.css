@@ -1936,3 +1936,119 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   #orientation-overlay { display: flex; }
   body > *:not(#orientation-overlay) { visibility: hidden; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE FINAL FIX — Corte vertical definitivo
+   Causa raiz: html/body { overflow: hidden } bloqueia todo
+   scroll no mobile. Os overlays fixos precisam rolar sozinhos.
+   ISOLADO em @media (max-width: 768px).
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── 1. Destrava o scroll global no mobile ────────────────
+     O jogo usa transform:scale via JS, não depende do body
+     overflow para funcionar. Os overlays fixos sim. */
+  html, body {
+    overflow:   auto    !important;
+    height:     auto    !important;
+    min-height: 100%    !important;
+  }
+
+  /* ── 2. Tela de Início — scroll próprio do overlay ──────── */
+  #start-screen {
+    position:        fixed           !important;
+    inset:           0               !important;
+    overflow-y:      scroll          !important;
+    overflow-x:      hidden          !important;
+    -webkit-overflow-scrolling: touch !important;
+    /* Ancora no topo para o scroll descer */
+    align-items:     flex-start      !important;
+    justify-content: flex-start      !important;
+  }
+
+  /* Step ocupa no mínimo a tela toda, pode crescer */
+  .start-step.active {
+    position:        relative        !important;
+    min-height:      100svh          !important;
+    height:          auto            !important;
+    width:           100%            !important;
+    display:         flex            !important;
+    flex-direction:  column          !important;
+    align-items:     center          !important;
+    justify-content: center          !important;
+    padding-top:     52px            !important;
+    padding-bottom:  max(52px, env(safe-area-inset-bottom, 52px)) !important;
+  }
+
+  /* Conteúdo: usa MAIS largura para reduzir altura necessária */
+  .start-content {
+    width:          96%              !important;
+    max-width:      480px            !important;
+    padding-left:   16px             !important;
+    padding-right:  16px             !important;
+    box-sizing:     border-box       !important;
+    gap:            14px             !important;
+  }
+
+  /* ── 3. Tela de Encerramento — scroll próprio ───────────── */
+  #ending-overlay,
+  #ending-overlay.open {
+    position:        fixed           !important;
+    inset:           0               !important;
+    overflow-y:      scroll          !important;
+    overflow-x:      hidden          !important;
+    -webkit-overflow-scrolling: touch !important;
+    align-items:     flex-start      !important;
+    justify-content: flex-start      !important;
+    /* Padding top respeita notch */
+    padding-top:     max(0px, env(safe-area-inset-top, 0px)) !important;
+  }
+
+  /* Caixa de encerramento: largura máxima, cresce livremente */
+  #ending-content {
+    width:           96vw            !important;
+    max-width:       560px           !important;
+    height:          auto            !important;
+    max-height:      none            !important;
+    margin:          auto            !important;
+    padding:         36px 16px max(48px, env(safe-area-inset-bottom, 48px)) !important;
+    box-sizing:      border-box      !important;
+    flex-shrink:     0               !important;
+  }
+
+  /* ── 4. Botões finais — largura total, sem quebra de linha ─ */
+  #ending-actions {
+    width:      100%   !important;
+    max-width:  100%   !important;
+  }
+
+  /* Linha Guia + Galeria: garante que os textos não quebrem */
+  .ending-btn-row {
+    display:         flex            !important;
+    flex-direction:  row             !important;   /* mantém lado a lado */
+    gap:             8px             !important;
+    width:           100%            !important;
+  }
+  .ending-btn-half {
+    flex:            1               !important;
+    min-width:       0               !important;  /* permite encolher */
+  }
+  /* Botão dentro do par: tamanho mínimo de toque */
+  .ending-btn-half .ending-btn,
+  .ending-btn-half a.ending-btn-galeria {
+    width:           100%            !important;
+    min-height:      48px            !important;
+    font-size:       0.95rem         !important;  /* reduz para caber */
+    white-space:     normal          !important;
+    text-align:      center          !important;
+    padding:         12px 8px        !important;
+  }
+
+  /* Botão de largura total (Gerar Certificado, Recomeçar) */
+  #ending-actions > .ending-btn,
+  #ending-actions > button.ending-btn {
+    width:      100%   !important;
+    min-height: 48px   !important;
+  }
+
+}
