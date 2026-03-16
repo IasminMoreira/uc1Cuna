@@ -1691,7 +1691,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
      O design visual permanece limpo: sem card, sem folhas.
   ════════════════════════════════════════════════════════════ */
 
-  /* PAI: height:100vh + overflow:hidden — nunca rola. Centraliza a caixa */
+  /* Overlay: scroll interno — nunca corta conteúdo */
   #ending-overlay,
   #ending-overlay.open {
     position:        fixed           !important;
@@ -1709,11 +1709,12 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   /* Folhas caindo: desativadas */
   #leaves-container { display: none !important; }
 
-  /* FILHO SCROLLAVEL: max-height:85vh + overflow-y:auto = caixa que rola */
+  /* Caixa: sem card, layout aberto sobre o fundo verde */
   #ending-content {
     width:           92%             !important;
     max-width:       92%             !important;
     max-height:      85vh            !important;
+    min-height:      0               !important;
     height:          auto            !important;
     overflow-y:      auto            !important;
     overflow-x:      hidden          !important;
@@ -1804,7 +1805,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     flex-shrink:     0                                               !important;
   }
 
-  /* Par Guia+Galeria: coluna unica — sem risco de quebra de linha */
+  /* Par Guia+Galeria: coluna única */
   .ending-btn-row {
     display:         flex            !important;
     flex-direction:  column          !important;
@@ -1838,7 +1839,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     flex-shrink:     0                                               !important;
   }
 
-  /* BOTAO RECOMECAR — margem de seguranca + z-index para nao ser coberto */
+  /* BOTÃO RECOMEÇAR — margem de segurança da barra home */
   #btn-restart-ending {
     margin-bottom:   max(20px, env(safe-area-inset-bottom, 20px)) !important;
     z-index:         10               !important;
