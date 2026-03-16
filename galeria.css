@@ -277,3 +277,168 @@ body {
 @media (max-width: 380px) {
   #galeria-grid { grid-template-columns: 1fr; }
 }
+/* ═══════════════════════════════════════════════════════════
+   MOBILE FIXES — Cole no FINAL do galeria.css
+   Cobre: viewport, grid 2-colunas, touch targets, clamp(),
+   safe-area e ajuste fino de cards pequenos.
+═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Viewport — bloqueia scroll horizontal ── */
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+body {
+  overflow-x: hidden;
+}
+
+/* Garante que nenhum container vaze lateralmente */
+#galeria-header-inner,
+#galeria-stats,
+#galeria-toolbar,
+#galeria-grid,
+#galeria-empty,
+#galeria-loading,
+#galeria-erro {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+
+/* ── 2. Grade Responsiva — minmax(150px) garante 2 colunas
+   em qualquer celular acima de 320 px ── */
+#galeria-grid {
+  /* Sobrescreve o minmax(260px) original em todos os tamanhos.
+     Em mobile encaixa 2 colunas; em tablet/desktop cresce sozinho. */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+/* Em telas muito pequenas (< 320 px) cai para 1 coluna */
+@media (max-width: 320px) {
+  #galeria-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ── 3. Títulos — clamp() refinado ── */
+#galeria-titulo {
+  /* Já usa clamp() no original; ajuste do limite inferior */
+  font-size: clamp(14px, 3.5vw, 26px);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#galeria-subtitulo {
+  font-size: clamp(11px, 2vw, 13px);
+}
+
+/* Marca Cuna no header */
+#galeria-logo-marca {
+  font-size: clamp(15px, 3vw, 20px);
+}
+
+
+/* ── 4. Botões de toque — mínimo 44 × 44 px ── */
+#galeria-btn-jogar {
+  min-height: 44px;
+  padding: 0 18px;          /* Redefine padding mantendo altura */
+}
+
+#galeria-btn-retry {
+  min-height: 44px;
+}
+
+#galeria-busca,
+#galeria-ordenar {
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+
+/* ── 5. Safe-area: notch / barra home ── */
+#galeria-header {
+  /* Empurra conteúdo abaixo do notch/câmera */
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+#galeria-header-inner {
+  /* Respeta as laterais do notch em landscape */
+  padding-left:  max(24px, env(safe-area-inset-left,  24px));
+  padding-right: max(24px, env(safe-area-inset-right, 24px));
+}
+
+#galeria-footer {
+  /* Garante espaço acima da barra de navegação do sistema */
+  padding-bottom: max(32px, env(safe-area-inset-bottom, 32px));
+}
+
+#galeria-grid {
+  padding-bottom: max(60px, env(safe-area-inset-bottom, 60px));
+}
+
+
+/* ── 6. Breakpoint 600 px — sobrescreve o bloco original com
+   valores refinados e acrescenta safe-area ── */
+@media (max-width: 600px) {
+  #galeria-header-inner {
+    padding: 10px 14px;
+    padding-top: max(10px, env(safe-area-inset-top, 10px));
+  }
+
+  #galeria-header-text { display: none; }   /* já existia */
+
+  #galeria-stats {
+    gap: 10px;
+    padding: 16px 14px 6px;
+  }
+
+  .stat-card {
+    padding: 11px 16px;
+    min-width: 76px;
+  }
+
+  .stat-num   { font-size: 24px; }
+  .stat-label { font-size: 11px; }
+
+  #galeria-toolbar {
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  #galeria-grid {
+    gap: 10px;
+    padding: 0 12px;
+    padding-bottom: max(48px, env(safe-area-inset-bottom, 48px));
+  }
+
+  .guardiao-card {
+    padding: 15px 13px 13px;
+  }
+
+  .card-nome     { font-size: 14px; }
+  .card-emblema  { font-size: 26px; }
+  .card-nivel    { font-size: 10px; }
+
+  .card-selos    { gap: 4px; }
+  .card-selo     { font-size: 10px; padding: 2px 7px; }
+  .card-selo-icon{ font-size: 11px; }
+
+  .card-data     { font-size: 10px; }
+  .card-cuna     { font-size: 9px; bottom: 10px; right: 12px; }
+}
+
+
+/* ── 7. Breakpoint 380 px — 1 coluna (já existia, reforçado) ── */
+@media (max-width: 380px) {
+  #galeria-grid {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+    padding-bottom: max(48px, env(safe-area-inset-bottom, 48px));
+  }
+
+  .stat-num { font-size: 20px; }
+
+  #galeria-logo-marca { font-size: 14px; }
+  #galeria-logo-icon  { font-size: 26px; }
+}
