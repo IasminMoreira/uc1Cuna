@@ -600,12 +600,6 @@ function scheduleItemPopup(itemData, delayMs = 0) {
    13. REINICIAR JORNADA
 ═══════════════════════════════════════════════════════════ */
 function reiniciarJornada() {
-  /* Restaura body antes de recarregar (iOS cleanup) */
-  const overlay = document.getElementById('ending-overlay');
-  if (overlay && overlay._touchMoveHandler) {
-    overlay.removeEventListener('touchmove', overlay._touchMoveHandler);
-  }
-  document.body.style.overflow = '';
   window.location.reload();
 }
 
@@ -808,20 +802,6 @@ function abrirTelaEncerramento() {
   /* Mostrar overlay (dispara animação CSS ending-reveal) */
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
-
-  /* iOS Safari fix: body overflow:hidden bloqueia scroll em elementos fixed.
-     Ao abrir o overlay, remove o bloqueio do body e transfere o controle
-     de scroll para o próprio overlay via stopPropagation no touchmove. */
-  if (window.innerWidth <= 768) {
-    document.body.style.overflow = 'hidden';
-    overlay.style.overflowY = 'scroll';
-    overlay.style.webkitOverflowScrolling = 'touch';
-    overlay.scrollTop = 0;
-
-    /* stopPropagation impede que o toque chegue ao body bloqueado */
-    overlay._touchMoveHandler = function(e) { e.stopPropagation(); };
-    overlay.addEventListener('touchmove', overlay._touchMoveHandler, { passive: true });
-  }
 
   /* Iniciar folhas caindo */
   _iniciarFolhas();
