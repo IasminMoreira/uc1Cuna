@@ -1684,34 +1684,40 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
   /* ══════════════════════════════════════════════════════════
      [TELA-ENCERRAMENTO] — Design Mobile Nativo
-     Layout: 3 zonas em space-evenly dentro de 100vh.
-     Sem card translúcido, sem folhas, sem scroll.
-     Topo  → flora + supertítulo
-     Meio  → título + texto
-     Base  → botões 90% de largura
+     Estratégia: overlay com scroll interno próprio.
+     overflow-y:scroll no overlay garante que TODOS os botões
+     (inclusive Recomeçar) sejam sempre visíveis e clicáveis,
+     mesmo em celulares com tela pequena ou barra de navegação.
+     O design visual permanece limpo: sem card, sem folhas.
   ════════════════════════════════════════════════════════════ */
 
+  /* Overlay: scroll interno — nunca corta conteúdo */
   #ending-overlay,
   #ending-overlay.open {
     position:        fixed                                           !important;
     inset:           0                                               !important;
     height:          100vh                                           !important;
-    overflow:        hidden                                          !important;
+    /* MUDANÇA CHAVE: scroll em vez de hidden — garante Recomeçar */
+    overflow-y:      scroll                                          !important;
+    overflow-x:      hidden                                          !important;
+    -webkit-overflow-scrolling: touch                                !important;
     display:         flex                                            !important;
     flex-direction:  column                                          !important;
     align-items:     center                                          !important;
-    justify-content: space-evenly                                    !important;
-    padding:         max(16px, env(safe-area-inset-top, 16px))
-                     20px
-                     max(16px, env(safe-area-inset-bottom, 16px))
-                     20px                                            !important;
+    /* flex-start: conteúdo começa do topo e flui para baixo */
+    justify-content: flex-start                                      !important;
+    padding-top:     max(16px, env(safe-area-inset-top, 16px))       !important;
+    padding-left:    20px                                            !important;
+    padding-right:   20px                                            !important;
+    /* MARGEM DE SEGURANÇA: botão Recomeçar longe da barra home */
+    padding-bottom:  max(40px, env(safe-area-inset-bottom, 40px))    !important;
     box-sizing:      border-box                                      !important;
   }
 
-  /* Folhas caindo: desativadas (economizam espaço e CPU) */
+  /* Folhas caindo: desativadas */
   #leaves-container { display: none !important; }
 
-  /* Caixa: sem card, sem vidro — layout aberto sobre o fundo */
+  /* Caixa: sem card, layout aberto sobre o fundo verde */
   #ending-content {
     width:           100%                                            !important;
     max-width:       100%                                            !important;
@@ -1728,7 +1734,8 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     flex-direction:  column                                          !important;
     align-items:     center                                          !important;
     gap:             0                                               !important;
-    flex-shrink:     0                                               !important;
+    /* flex-shrink:1 — permite comprimir se necessário */
+    flex-shrink:     1                                               !important;
   }
 
   /* TOPO — ícones de flora */
@@ -1736,6 +1743,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     display:         flex                                            !important;
     gap:             6px                                             !important;
     font-size:       18px                                            !important;
+    margin-top:      4px                                             !important;
     margin-bottom:   4px                                             !important;
     opacity:         1                                               !important;
   }
@@ -1745,30 +1753,31 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     font-size:       0.65rem                                         !important;
     letter-spacing:  0.22em                                          !important;
     color:           #78c860                                         !important;
-    margin-bottom:   0                                               !important;
+    margin-bottom:   6px                                             !important;
     opacity:         1                                               !important;
   }
 
-  /* MEIO — título principal */
+  /* MEIO — título (o JS controla opacity via .visible — forçamos 1) */
   #ending-headline {
-    font-size:       clamp(1.15rem, 5.5vw, 1.6rem)                  !important;
+    font-size:       clamp(1.15rem, 5.5vw, 1.55rem)                 !important;
     line-height:     1.25                                            !important;
     text-align:      center                                          !important;
-    padding:         0 20px                                          !important;
-    margin-top:      10px                                            !important;
-    margin-bottom:   10px                                            !important;
+    padding:         0 16px                                          !important;
+    margin-top:      6px                                             !important;
+    margin-bottom:   8px                                             !important;
     word-break:      break-word                                      !important;
     overflow-wrap:   break-word                                      !important;
+    /* Força visibilidade independente do estado JS */
     opacity:         1                                               !important;
   }
 
   /* MEIO — texto narrativo */
   #ending-body {
-    font-size:       0.88rem                                         !important;
-    line-height:     1.55                                            !important;
+    font-size:       0.85rem                                         !important;
+    line-height:     1.5                                             !important;
     text-align:      center                                          !important;
-    padding:         0 20px                                          !important;
-    margin-bottom:   6px                                             !important;
+    padding:         0 16px                                          !important;
+    margin-bottom:   8px                                             !important;
     opacity:         1                                               !important;
     transform:       none                                            !important;
     color:           #b0d8a0                                         !important;
@@ -1779,12 +1788,13 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
   /* Crédito final: compacto */
   #ending-credit {
-    font-size:       0.68rem                                         !important;
+    font-size:       0.65rem                                         !important;
     margin-top:      4px                                             !important;
+    margin-bottom:   6px                                             !important;
     opacity:         1                                               !important;
   }
 
-  /* BASE — botões em coluna, 90% de largura */
+  /* BASE — botões em coluna, 90% de largura, todos visíveis */
   #ending-actions {
     display:         flex                                            !important;
     flex-direction:  column                                          !important;
@@ -1792,20 +1802,28 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     width:           90%                                             !important;
     max-width:       90%                                             !important;
     gap:             8px                                             !important;
-    margin-top:      8px                                             !important;
+    margin-top:      10px                                            !important;
     opacity:         1                                               !important;
     transform:       none                                            !important;
+    /* flex-shrink:0 nos botões — eles nunca desaparecem */
+    flex-shrink:     0                                               !important;
   }
 
+  /* Par Guia+Galeria: coluna única */
   .ending-btn-row {
     display:         flex                                            !important;
     flex-direction:  column                                          !important;
     width:           100%                                            !important;
     gap:             8px                                             !important;
+    flex-shrink:     0                                               !important;
   }
 
-  .ending-btn-half { width: 100% !important; flex: none !important; }
+  .ending-btn-half {
+    width:           100%                                            !important;
+    flex:            none                                            !important;
+  }
 
+  /* Todos os botões: 48px altura, 100% largura */
   .ending-btn-half .ending-btn,
   .ending-btn-half a.ending-btn-galeria,
   #ending-actions > .ending-btn,
@@ -1822,6 +1840,14 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     justify-content: center                                          !important;
     gap:             8px                                             !important;
     border-radius:   30px                                            !important;
+    flex-shrink:     0                                               !important;
+  }
+
+  /* BOTÃO RECOMEÇAR — margem de segurança da barra home */
+  #btn-restart-ending {
+    margin-bottom:   max(20px, env(safe-area-inset-bottom, 20px))    !important;
+    z-index:         10                                              !important;
+    position:        relative                                        !important;
   }
 
 
