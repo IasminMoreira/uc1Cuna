@@ -1926,3 +1926,155 @@ a.ending-btn-galeria,
   }
 
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HOTFIX — Restaura max-width dos modais no Desktop
+   (corrige regressão do patch anterior que aplicou
+   max-width:100% globalmente fora de media query)
+═══════════════════════════════════════════════════════════ */
+
+/* Desktop: tamanhos compactos originais */
+#dialog-box    { max-width: 400px !important; }
+#nome-modal-box { max-width: 420px !important; }
+#guia-modal-box { max-width: 700px !important; }
+#ending-content { max-width: 680px !important; }
+.start-content  { max-width: 480px !important; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — Bloco único, isolado, não afeta desktop
+═══════════════════════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+
+  /* ── 1. Containers com respiro lateral ── */
+  .start-content,
+  #ending-content,
+  #dialog-box,
+  #nome-modal-box {
+    padding-left:  15px !important;
+    padding-right: 15px !important;
+    box-sizing: border-box;
+    width: 92% !important;
+    max-width: 92% !important;  /* permite crescer mais em mobile */
+  }
+
+  /* ── 2. Correção de cortes de texto — todos os parágrafos ── */
+  p, h1, h2, h3, h4, span, li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Foco nos elementos mais críticos */
+  #dlg-body,
+  #dlg-title,
+  .start-title,
+  .start-body,
+  #ending-headline,
+  #ending-body,
+  #nome-modal-titulo,
+  #nome-modal-desc {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  /* ── 3. Tamanho de fonte — legível no mobile ── */
+  #dlg-body {
+    font-size: 1.1rem !important;   /* era 14px ≈ 0.875rem */
+    line-height: 1.75;
+  }
+
+  .start-body {
+    font-size: 1.1rem !important;
+  }
+
+  .start-body.secondary {
+    font-size: 1rem !important;
+  }
+
+  #ending-body {
+    font-size: 1.05rem !important;
+    line-height: 1.8;
+  }
+
+  #nome-modal-desc {
+    font-size: 1rem !important;
+  }
+
+  /* ── 4. Botões e inputs — 90% de largura, sem encostar nas bordas ── */
+  .start-btn,
+  #btn-galeria-inicio,
+  .ending-btn,
+  #nome-modal-confirmar,
+  #nome-modal-cancelar,
+  #dlg-action-btn,
+  #dlg-close-btn {
+    width: 90% !important;
+    max-width: 90% !important;
+    min-height: 44px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  /* Par Cancelar + Confirmar: mantém side-by-side mas com 90% total */
+  #nome-modal-acoes {
+    width: 90%;
+    margin: 0 auto;
+  }
+  #nome-modal-cancelar,
+  #nome-modal-confirmar {
+    width: auto !important;   /* dentro do flex, divide o espaço */
+    max-width: none !important;
+  }
+
+  /* Botões de diálogo: empilha quando são 2 */
+  #dlg-btn-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  #dlg-action-btn,
+  #dlg-close-btn {
+    width: 90% !important;
+    max-width: 90% !important;
+  }
+
+  #start-name-input,
+  #nome-input {
+    width: 90% !important;
+    max-width: 90% !important;
+    min-height: 44px;
+    box-sizing: border-box;
+    font-size: 1.1rem !important;
+  }
+
+  /* Ending: empilha par de botões */
+  .ending-btn-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .ending-btn-half {
+    flex: none;
+    width: 90%;
+  }
+
+  /* ── 5. Botões HUD — posição fixa, não sobrepõe cena ── */
+  #ui-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 500;
+  }
+  #mute-btn,
+  #fullscreen-btn {
+    position: static;
+  }
+
+}
