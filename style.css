@@ -2078,3 +2078,171 @@ a.ending-btn-galeria,
   }
 
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE FOCUS — Fontes e Cortes Laterais
+   ISOLADO: apenas dentro de @media (max-width: 768px)
+   Não altera nenhuma linha fora desta media query.
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── 1. Fontes narrativas — legibilidade aumentada ── */
+
+  /* Corpo do diálogo de plantas */
+  #dlg-body {
+    font-size: 1.3rem !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Título do diálogo */
+  #dlg-title {
+    font-size: 1.25rem !important;
+  }
+
+  /* Textos narrativos da tela de início */
+  .start-body {
+    font-size: 1.2rem !important;
+    line-height: 1.75 !important;
+  }
+  .start-body.secondary {
+    font-size: 1.1rem !important;
+  }
+
+  /* Corpo da tela de encerramento */
+  #ending-body {
+    font-size: 1.2rem !important;
+    line-height: 1.80 !important;
+  }
+
+  /* Descrição do modal de nome */
+  #nome-modal-desc {
+    font-size: 1.1rem !important;
+    line-height: 1.7 !important;
+  }
+
+  /* HUD — estágio e inventário */
+  #hud {
+    font-size: 0.95rem !important;
+  }
+  #hud-stage-label {
+    font-size: 0.9rem !important;
+  }
+
+
+  /* ── 2. Fim dos cortes laterais ── */
+
+  /* Container principal do jogo */
+  #game-scaler,
+  #scene-wrapper {
+    padding-left:  20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Modais */
+  #dialog-box,
+  #nome-modal-box,
+  #ending-content,
+  .start-content {
+    padding-left:  20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+    width: 92vw !important;
+    max-width: 92vw !important;
+  }
+
+  /* Guia de plantas */
+  #guia-modal {
+    padding: 12px 16px !important;
+  }
+  #guia-modal-box {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    box-sizing: border-box !important;
+  }
+
+
+  /* ── 3. Quebra de texto — títulos e parágrafos ── */
+
+  .start-title,
+  .start-body,
+  #dlg-title,
+  #dlg-body,
+  #ending-headline,
+  #ending-body,
+  #nome-modal-titulo,
+  #nome-modal-desc,
+  .guia-card-nome,
+  .guia-card-desc,
+  .guia-card-dica-texto,
+  p, h1, h2, h3 {
+    overflow-wrap: break-word !important;
+    word-break:    break-word !important;
+    hyphens:       auto       !important;
+    white-space:   normal     !important;
+    max-width:     100%       !important;
+  }
+
+
+  /* ── 4. Botão principal e campo de nome ── */
+
+  /* "Entrar na Floresta" */
+  .start-btn {
+    min-height:   48px     !important;
+    width:        90%      !important;
+    max-width:    90%      !important;
+    margin-left:  auto     !important;
+    margin-right: auto     !important;
+    box-sizing:   border-box !important;
+    font-size:    1.15rem  !important;
+  }
+
+  /* "Galeria de Guardiões" (botão secundário) */
+  #btn-galeria-inicio {
+    min-height:   48px     !important;
+    width:        90%      !important;
+    max-width:    90%      !important;
+    margin-left:  auto     !important;
+    margin-right: auto     !important;
+    box-sizing:   border-box !important;
+  }
+
+  /* Campo de nome */
+  #start-name-input,
+  #nome-input {
+    min-height:   48px     !important;
+    width:        90%      !important;
+    max-width:    90%      !important;
+    margin-left:  auto     !important;
+    margin-right: auto     !important;
+    box-sizing:   border-box !important;
+    font-size:    1.1rem   !important;
+  }
+
+  /* Botões de ação dos diálogos */
+  #dlg-action-btn,
+  #dlg-close-btn {
+    min-height:   48px   !important;
+    font-size:    1rem   !important;
+    box-sizing:   border-box !important;
+  }
+
+  /* Confirmar / Cancelar no modal de nome */
+  #nome-modal-confirmar,
+  #nome-modal-cancelar {
+    min-height: 48px   !important;
+    font-size:  1rem   !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ending actions */
+  .ending-btn {
+    min-height: 48px   !important;
+    font-size:  1.05rem !important;
+    box-sizing: border-box !important;
+  }
+
+}
