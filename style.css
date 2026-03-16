@@ -1553,7 +1553,41 @@ html, body {
 }
 
 
-/* ── Botão Galeria — tela de início ── */
+/* ═══════════════════════════════════════════════════
+   BOTÕES GALERIA
+═══════════════════════════════════════════════════ */
+
+/* Par de botões lado a lado na tela de encerramento */
+.ending-btn-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.ending-btn-half {
+  flex: 1;
+}
+
+/* Botão galeria — encerramento */
+a.ending-btn-galeria {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(80, 160, 40, 0.12);
+  border: 1px solid rgba(100, 190, 50, 0.45);
+  color: #a8e070;
+  font-weight: 700;
+  transition: background .2s, border-color .2s, transform .15s;
+}
+a.ending-btn-galeria:hover {
+  background: rgba(80, 160, 40, 0.22);
+  border-color: rgba(120, 210, 60, 0.7);
+  transform: translateY(-2px);
+}
+a.ending-btn-galeria:active { transform: scale(0.98); }
+
+/* Botão galeria — tela de início */
 #btn-galeria-inicio {
   display: flex;
   align-items: center;
@@ -1581,11 +1615,3 @@ html, body {
   transform: scale(1.03);
 }
 #btn-galeria-inicio:active { transform: scale(0.98); }
-
-/* ── Botão Galeria — tela de encerramento ── */
-#btn-galeria-ending {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}

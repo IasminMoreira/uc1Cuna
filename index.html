@@ -441,19 +441,24 @@
       </div>
 
       <!-- Botões de ação -->
-       <div id="ending-actions">
+      <div id="ending-actions">
+        <!-- Linha 1: botão principal (largura total) -->
         <button id="btn-certificado" class="ending-btn btn-certificado">
           <span class="btn-icon">🏅</span>
           Gerar Certificado de Guardião
         </button>
-        <button id="btn-abrir-guia" class="ending-btn">
-          <span class="btn-icon">📖</span>
-          Guia de Plantas
-        </button>
-        <a href="galeria.html" id="btn-galeria-ending" class="ending-btn">
-          <span class="btn-icon">🌿</span>
-          Galeria de Guardiões
-        </a>
+        <!-- Linha 2: dois botões lado a lado -->
+        <div class="ending-btn-row">
+          <button id="btn-abrir-guia" class="ending-btn ending-btn-half">
+            <span class="btn-icon">📖</span>
+            Guia de Plantas
+          </button>
+          <a href="galeria.html" id="btn-galeria-ending" class="ending-btn ending-btn-half ending-btn-galeria">
+            <span class="btn-icon">🌿</span>
+            Galeria
+          </a>
+        </div>
+        <!-- Linha 3: recomeçar -->
         <button id="btn-restart-ending" class="ending-btn btn-restart-ending">
           <span class="btn-icon">🌱</span>
           Recomeçar a Jornada
