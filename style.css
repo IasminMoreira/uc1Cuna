@@ -1590,30 +1590,30 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
 /* ┌─────────────────────────────────────────────────────────────┐
    │  SEÇÃO MOBILE — style.css                                   │
-   │  Um único bloco @media. Nunca editar fora daqui.            │
+   │  Estratégia: TODO o conteúdo cabe em 100vh. Sem scroll.     │
+   │  Usa largura, comprime margens e fontes para caber.         │
    │                                                             │
    │  ÍNDICE                                                     │
-   │  [DESKTOP-RESTORE]    max-width originais dos modais        │
-   │  [GLOBAL-OVERFLOW]    Destrava height/scroll do body        │
-   │  [TELA-INICIO]        #start-screen, .start-step            │
-   │  [TELA-ENCERRAMENTO]  #ending-overlay, #ending-content      │
-   │  [BOTOES-FINAIS]      Par Guia+Galeria, Certificado         │
-   │  [MODAL-PLANTA]       #dialog-overlay, #dialog-box          │
-   │  [MODAL-NOME]         #nome-modal, #nome-input              │
-   │  [GUIA-PLANTAS]       #guia-modal-box                       │
-   │  [FONTES-MOBILE]      Escala tipográfica 1.4rem             │
+   │  [DESKTOP-RESTORE]    max-width dos modais no desktop       │
+   │  [GLOBAL]             html/body no mobile                   │
+   │  [TELA-INICIO]        start-screen, step, content           │
+   │  [TELA-ENCERRAMENTO]  ending-overlay, ending-content        │
+   │  [BOTOES-FINAIS]      botões da tela final                  │
+   │  [MODAL-PLANTA]       dialog-overlay, dialog-box            │
+   │  [MODAL-NOME]         nome-modal                            │
+   │  [GUIA-PLANTAS]       guia-modal                            │
+   │  [FONTES-MOBILE]      tipografia compacta 1rem–1.1rem       │
    │  [QUEBRA-TEXTO]       overflow-wrap, hyphens                │
-   │  [BOTOES-ACAO]        Touch 48px, largura 90%               │
+   │  [BOTOES-ACAO]        touch targets 48px                    │
    │  [HUD-CONTROLS]       Mudo + Fullscreen                     │
-   │  [POPUP-INVENTARIO]   #item-acquired-popup                  │
-   │  [ORIENTACAO]         Overlay portrait (bloco separado)     │
+   │  [POPUP-INVENTARIO]   item-acquired-popup                   │
+   │  [ORIENTACAO]         overlay portrait                      │
    └─────────────────────────────────────────────────────────────┘ */
 
 
 /* ══════════════════════════════════════════════════════════════
    [DESKTOP-RESTORE]
-   Fora da media query — garante max-width originais dos modais
-   em desktop, independente de qualquer patch anterior.
+   Fora de media query — protege tamanhos originais no desktop.
 ══════════════════════════════════════════════════════════════ */
 #dialog-box     { max-width: 400px; }
 #nome-modal-box { max-width: 420px; }
@@ -1623,173 +1623,203 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
 
 /* ══════════════════════════════════════════════════════════════
-   MOBILE — tudo abaixo se aplica APENAS a telas <= 768px
+   MOBILE — exclusivo para telas <= 768px
+   Nenhuma regra aqui afeta o desktop.
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ────────────────────────────────────────────────────────────
-     [GLOBAL-OVERFLOW]
-     O desktop usa overflow:hidden no body para o jogo.
-     No mobile liberamos scroll — o jogo escala via JS transform.
+  /* ── [GLOBAL] ─────────────────────────────────────────────
+     Trava o body em 100vh. O jogo usa transform:scale via JS
+     e não depende do overflow do body.
   ──────────────────────────────────────────────────────────── */
   html {
-    overflow-x: hidden   !important;
+    overflow:    hidden          !important;
+    height:      100%            !important;
   }
 
   body {
-    height:      auto    !important;
-    min-height:  100%    !important;
-    overflow-y:  visible !important;
-    overflow-x:  hidden  !important;
+    height:      100vh           !important;
+    overflow:    hidden          !important;
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [TELA-INICIO]
-     justify-content:flex-start = flui do topo para baixo.
-     padding-top/bottom:50px = respiro nas bordas.
+  /* ── [TELA-INICIO] ────────────────────────────────────────
+     Ocupa exatamente 100vh. Conteúdo distribuído com
+     space-between: emblema no topo, botão embaixo.
   ──────────────────────────────────────────────────────────── */
   #start-screen {
     position:        fixed                                          !important;
     inset:           0                                              !important;
-    height:          auto                                           !important;
-    min-height:      100svh                                         !important;
-    overflow-y:      scroll                                         !important;
-    overflow-x:      hidden                                         !important;
-    -webkit-overflow-scrolling: touch                               !important;
-    align-items:     flex-start                                     !important;
-    justify-content: flex-start                                     !important;
+    height:          100vh                                          !important;
+    overflow:        hidden                                         !important;
+    align-items:     center                                         !important;
+    justify-content: center                                         !important;
   }
 
   .start-step.active {
-    position:        relative                                       !important;
-    height:          auto                                           !important;
-    min-height:      100svh                                         !important;
+    position:        absolute                                       !important;
+    inset:           0                                              !important;
+    height:          100%                                           !important;
     width:           100%                                           !important;
+    overflow:        hidden                                         !important;
     display:         flex                                           !important;
-    flex-direction:  column                                         !important;
     align-items:     center                                         !important;
-    justify-content: flex-start                                     !important;
-    padding-top:     50px                                           !important;
-    padding-bottom:  max(50px, env(safe-area-inset-bottom, 50px))   !important;
+    justify-content: center                                         !important;
   }
 
   .start-content {
-    width:           96%                                            !important;
-    max-width:       96%                                            !important;
-    padding-left:    16px                                           !important;
-    padding-right:   16px                                           !important;
-    padding-top:     0                                              !important;
-    padding-bottom:  0                                              !important;
-    box-sizing:      border-box                                     !important;
+    width:           100%                                           !important;
+    max-width:       100%                                           !important;
+    height:          100%                                           !important;
     display:         flex                                           !important;
     flex-direction:  column                                         !important;
     align-items:     center                                         !important;
-    justify-content: flex-start                                     !important;
-    gap:             16px                                           !important;
+    justify-content: space-between                                  !important;
+    padding:         max(20px, env(safe-area-inset-top, 20px))
+                     15px
+                     max(20px, env(safe-area-inset-bottom, 20px))
+                     15px                                           !important;
+    box-sizing:      border-box                                     !important;
+    gap:             0                                              !important;
+    overflow:        hidden                                         !important;
+  }
+
+  /* Emblema menor para economizar altura */
+  .start-emblem {
+    font-size:       clamp(32px, 8vw, 48px)                        !important;
+    margin-bottom:   0                                              !important;
+  }
+
+  /* Eyebrow compacto */
+  .start-eyebrow {
+    font-size:       0.75rem                                        !important;
+    margin:          0                                              !important;
+  }
+
+  /* Esconde elementos decorativos secundários */
+  .start-divider {
+    display:         none                                           !important;
+  }
+
+  /* Texto secundário — visível mas menor */
+  .start-body.secondary {
+    font-size:       0.85rem                                        !important;
+    margin:          0                                              !important;
+    line-height:     1.4                                            !important;
+  }
+
+  /* Botão voltar — padding mínimo */
+  #btn-voltar-inicio {
+    padding:         4px                                            !important;
+    margin:          0                                              !important;
+  }
+
+  /* Créditos — visível mas compacto */
+  .start-credits {
+    font-size:       0.7rem                                         !important;
+    margin:          0                                              !important;
+  }
+
+  /* Wrapper do nome */
+  .start-name-wrap {
+    width:           90%                                            !important;
+    margin:          0 auto                                         !important;
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [TELA-ENCERRAMENTO]
-     Mesmo padrao: fixed + scroll proprio + flui do topo.
+  /* ── [TELA-ENCERRAMENTO] ──────────────────────────────────
+     Trava em 100vh. Conteúdo centralizado com scroll interno
+     apenas dentro da caixa de conteúdo.
   ──────────────────────────────────────────────────────────── */
   #ending-overlay,
   #ending-overlay.open {
     position:        fixed                                          !important;
     inset:           0                                              !important;
-    height:          auto                                           !important;
-    min-height:      100svh                                         !important;
-    overflow-y:      scroll                                         !important;
-    overflow-x:      hidden                                         !important;
-    -webkit-overflow-scrolling: touch                               !important;
-    align-items:     flex-start                                     !important;
-    justify-content: flex-start                                     !important;
+    height:          100vh                                          !important;
+    overflow:        hidden                                         !important;
+    align-items:     center                                         !important;
+    justify-content: center                                         !important;
   }
 
   #ending-content {
     width:           96vw                                           !important;
     max-width:       96vw                                           !important;
+    max-height:      calc(100vh - 40px)                             !important;
     height:          auto                                           !important;
-    max-height:      none                                           !important;
+    overflow-y:      auto                                           !important;
+    -webkit-overflow-scrolling: touch                               !important;
     margin:          auto                                           !important;
     flex-shrink:     0                                              !important;
-    padding-top:     50px                                           !important;
-    padding-bottom:  max(80px, env(safe-area-inset-bottom, 80px))   !important; /* extra para botões finais */
-    padding-left:    16px                                           !important;
-    padding-right:   16px                                           !important;
+    padding:         20px 15px max(20px, env(safe-area-inset-bottom, 20px)) !important;
     box-sizing:      border-box                                     !important;
   }
 
+  /* Decorativos da tela final — reduzidos */
+  #ending-flora    { margin-bottom: 8px  !important; font-size: 16px !important; }
+  #ending-supertitle { margin-bottom: 8px  !important; }
+  #ending-divider  { margin-bottom: 12px !important; }
+  #ending-body     { margin-bottom: 12px !important; }
 
-  /* ────────────────────────────────────────────────────────────
-     [BOTOES-FINAIS]
-     "Gerar Certificado" e "Recomear" - largura total.
-     "Guia de Plantas" + "Galeria" - lado a lado (row).
+
+  /* ── [BOTOES-FINAIS] ──────────────────────────────────────
+     Todos em coluna — sem risco de quebra de linha.
   ──────────────────────────────────────────────────────────── */
   #ending-actions {
+    display:         flex                                           !important;
+    flex-direction:  column                                         !important;
     width:           100%                                           !important;
     max-width:       100%                                           !important;
-    gap:             10px                                           !important;
+    gap:             8px                                            !important;
   }
 
   .ending-btn-row {
     display:         flex                                           !important;
-    flex-direction:  row                                            !important;
-    gap:             8px                                            !important;
+    flex-direction:  column                                         !important;
     width:           100%                                           !important;
+    gap:             8px                                            !important;
   }
 
   .ending-btn-half {
-    flex:            1                                              !important;
-    min-width:       0                                              !important;
+    width:           100%                                           !important;
+    flex:            none                                           !important;
   }
 
   .ending-btn-half .ending-btn,
-  .ending-btn-half a.ending-btn-galeria {
-    width:           100%                                           !important;
-    min-height:      48px                                           !important;
-    font-size:       0.82rem                                        !important; /* menor para caber em 1 linha */
-    padding:         10px 4px                                       !important;
-    white-space:     nowrap                                         !important; /* impede quebra de linha */
-    text-align:      center                                         !important;
-    box-sizing:      border-box                                     !important;
-    overflow:        hidden                                         !important;
-    text-overflow:   ellipsis                                       !important;
-  }
-
-  /* Ícone do botão — reduz para caber junto do texto */
-  .ending-btn-half .ending-btn .btn-icon {
-    font-size:       14px                                           !important;
-    flex-shrink:     0                                              !important;
-  }
-
+  .ending-btn-half a.ending-btn-galeria,
   #ending-actions > .ending-btn,
   #ending-actions > button.ending-btn {
     width:           100%                                           !important;
     min-height:      48px                                           !important;
+    font-size:       1rem                                           !important;
+    padding:         12px 15px                                      !important;
+    white-space:     nowrap                                         !important;
+    text-align:      center                                         !important;
+    box-sizing:      border-box                                     !important;
+    display:         flex                                           !important;
+    align-items:     center                                         !important;
+    justify-content: center                                         !important;
+    gap:             8px                                            !important;
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [MODAL-PLANTA]
-     Ancora no topo + scroll para textos longos de plantas.
+  /* ── [MODAL-PLANTA] ───────────────────────────────────────
+     Centralizado, nunca maior que 90vh.
   ──────────────────────────────────────────────────────────── */
   #dialog-overlay {
-    align-items:     flex-start                                     !important;
-    justify-content: flex-start                                     !important;
-    overflow-y:      auto                                           !important;
-    padding:         50px 16px                                      !important;
-    -webkit-overflow-scrolling: touch                               !important;
+    align-items:     center                                         !important;
+    justify-content: center                                         !important;
+    padding:         16px                                           !important;
   }
 
   #dialog-box {
     width:           92vw                                           !important;
     max-width:       92vw                                           !important;
+    max-height:      85vh                                           !important;
+    overflow-y:      auto                                           !important;
+    -webkit-overflow-scrolling: touch                               !important;
     height:          auto                                           !important;
-    max-height:      none                                           !important;
     margin:          0 auto                                         !important;
-    padding:         28px 20px                                      !important;
+    padding:         24px 15px                                      !important;
     box-sizing:      border-box                                     !important;
     display:         flex                                           !important;
     flex-direction:  column                                         !important;
@@ -1811,25 +1841,23 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [MODAL-NOME]
-     Modal para digitar o nome do guardiao.
+  /* ── [MODAL-NOME] ─────────────────────────────────────────
+     Centralizado, nunca maior que 85vh.
   ──────────────────────────────────────────────────────────── */
   #nome-modal {
-    align-items:     flex-start                                     !important;
-    justify-content: flex-start                                     !important;
-    overflow-y:      auto                                           !important;
-    padding:         50px 16px                                      !important;
-    -webkit-overflow-scrolling: touch                               !important;
+    align-items:     center                                         !important;
+    justify-content: center                                         !important;
+    padding:         16px                                           !important;
   }
 
   #nome-modal-box {
     width:           92vw                                           !important;
     max-width:       92vw                                           !important;
+    max-height:      85vh                                           !important;
+    overflow-y:      auto                                           !important;
     height:          auto                                           !important;
-    max-height:      none                                           !important;
     margin:          0 auto                                         !important;
-    padding:         32px 20px 28px                                 !important;
+    padding:         28px 15px 24px                                 !important;
     box-sizing:      border-box                                     !important;
   }
 
@@ -1838,7 +1866,7 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   #nome-input {
     width:           100%                                           !important;
     min-height:      48px                                           !important;
-    font-size:       1.1rem                                         !important;
+    font-size:       1rem                                           !important;
     box-sizing:      border-box                                     !important;
   }
 
@@ -1846,16 +1874,15 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   #nome-modal-confirmar { min-height: 48px !important; }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [GUIA-PLANTAS]
-     Catalogo botanico — scroll interno preservado, 1 coluna.
+  /* ── [GUIA-PLANTAS] ───────────────────────────────────────
+     Máximo 90vh com scroll interno.
   ──────────────────────────────────────────────────────────── */
-  #guia-modal          { padding: 12px !important; }
+  #guia-modal { padding: 12px !important; }
 
   #guia-modal-box {
     width:           96vw                                           !important;
     max-width:       96vw                                           !important;
-    max-height:      92svh                                          !important;
+    max-height:      90vh                                           !important;
     box-sizing:      border-box                                     !important;
   }
 
@@ -1870,25 +1897,55 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [FONTES-MOBILE]
-     1.4rem nos textos narrativos e dialogos das fases.
-     Com height:auto liberado no step, o texto cresce para baixo.
+  /* ── [FONTES-MOBILE] ──────────────────────────────────────
+     Entre 1rem e 1.1rem. Margens comprimidas para caber em 100vh.
   ──────────────────────────────────────────────────────────── */
-  .start-title          { font-size: clamp(1.5rem, 7vw, 2.2rem)  !important; line-height: 1.2  !important; }
-  .start-body           { font-size: 1.4rem                       !important; line-height: 1.7  !important; }
-  .start-body.secondary { font-size: 1.2rem                       !important; }
-  .start-eyebrow        { font-size: 0.85rem                      !important; }
-  #ending-headline      { font-size: clamp(1.4rem, 5.5vw, 2rem)   !important; line-height: 1.25 !important; }
-  #ending-body          { font-size: 1.4rem                       !important; line-height: 1.75 !important; }
-  #dlg-title            { font-size: 1.3rem                       !important; }
-  #dlg-body             { font-size: 1.4rem                       !important; line-height: 1.7  !important; }
-  #nome-modal-titulo    { font-size: 1.2rem                       !important; }
-  #nome-modal-desc      { font-size: 1.1rem                       !important; }
+  .start-title {
+    font-size:       clamp(1.3rem, 6vw, 1.8rem)                    !important;
+    line-height:     1.2                                            !important;
+    margin:          0                                              !important;
+    text-align:      center                                         !important;
+  }
+
+  .start-body {
+    font-size:       1rem                                           !important;
+    line-height:     1.5                                            !important;
+    margin:          0                                              !important;
+    text-align:      center                                         !important;
+    padding:         0 15px                                         !important;
+  }
+
+  #ending-headline {
+    font-size:       clamp(1.1rem, 5vw, 1.6rem)                    !important;
+    line-height:     1.2                                            !important;
+    margin-bottom:   10px                                           !important;
+    text-align:      center                                         !important;
+  }
+
+  #ending-body {
+    font-size:       1rem                                           !important;
+    line-height:     1.55                                           !important;
+    text-align:      center                                         !important;
+    padding:         0 15px                                         !important;
+  }
+
+  #dlg-title {
+    font-size:       1.1rem                                         !important;
+    text-align:      center                                         !important;
+  }
+
+  #dlg-body {
+    font-size:       1rem                                           !important;
+    line-height:     1.6                                            !important;
+    text-align:      center                                         !important;
+    padding:         0 15px                                         !important;
+  }
+
+  #nome-modal-titulo { font-size: 1.1rem !important; text-align: center !important; }
+  #nome-modal-desc   { font-size: 1rem   !important; text-align: center !important; }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [QUEBRA-TEXTO]
+  /* ── [QUEBRA-TEXTO] ───────────────────────────────────────
      Nenhuma palavra vaza para fora da tela.
   ──────────────────────────────────────────────────────────── */
   .start-title, .start-body,
@@ -1904,38 +1961,33 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [BOTOES-ACAO]
-     48px de altura minima, 90% de largura, centralizados.
+  /* ── [BOTOES-ACAO] ────────────────────────────────────────
+     Touch targets 48px. Largura 90%, centralizados.
   ──────────────────────────────────────────────────────────── */
   .start-btn,
   #btn-galeria-inicio {
     width:           90%          !important;
     max-width:       90%          !important;
     min-height:      48px         !important;
-    margin-left:     auto         !important;
-    margin-right:    auto         !important;
+    margin:          0 auto       !important;
+    font-size:       1.05rem      !important;
     box-sizing:      border-box   !important;
   }
-
-  .start-btn             { font-size: 1.1rem !important; }
 
   #start-name-input {
     width:           90%          !important;
     max-width:       90%          !important;
     min-height:      48px         !important;
-    margin-left:     auto         !important;
-    margin-right:    auto         !important;
-    font-size:       1.1rem       !important;
+    margin:          0 auto       !important;
+    font-size:       1rem         !important;
     box-sizing:      border-box   !important;
   }
 
   .ending-btn { min-height: 48px !important; }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [HUD-CONTROLS]
-     Botoes Mudo e Fullscreen no canto sem cobrir a cena.
+  /* ── [HUD-CONTROLS] ───────────────────────────────────────
+     z-index 1001 para ficar acima do ending-overlay (z:1000).
   ──────────────────────────────────────────────────────────── */
   #ui-controls {
     position:        fixed        !important;
@@ -1944,87 +1996,32 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     display:         flex         !important;
     flex-direction:  row          !important;
     gap:             8px          !important;
-    z-index:         500          !important;
+    z-index:         1001         !important;
   }
 
   #mute-btn,
-  #fullscreen-btn { position: static !important; }
+  #fullscreen-btn {
+    position:        static       !important;
+  }
 
 
-  /* ────────────────────────────────────────────────────────────
-     [POPUP-INVENTARIO]
-     Notificacao de item — nao sai da tela.
+  /* ── [POPUP-INVENTARIO] ───────────────────────────────────
+     Não sai da tela.
   ──────────────────────────────────────────────────────────── */
   #item-acquired-popup {
     right:           10px         !important;
     top:             max(16px, env(safe-area-inset-top, 16px)) !important;
     max-width:       calc(100vw - 20px) !important;
+    z-index:         1002         !important;
   }
 
 } /* ── fim @media (max-width: 768px) ── */
 
 
 /* ══════════════════════════════════════════════════════════════
-   [ORIENTACAO]
-   Bloco separado — condicao diferente (portrait).
+   [ORIENTACAO] — bloco separado (condição diferente: portrait)
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) and (orientation: portrait) {
   #orientation-overlay { display: flex; }
   body > *:not(#orientation-overlay) { visibility: hidden; }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   MOBILE FINAL — Botões de encerramento + HUD sobre overlay
-   Isolado em @media (max-width: 768px)
-══════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-
-  /* ── [BOTOES-FINAIS OVERRIDE]
-     Todos em coluna única — elimina o par lado a lado
-     que causava quebra de linha em "Guia de Plantas". ── */
-  #ending-actions {
-    display:         flex          !important;
-    flex-direction:  column        !important;
-    width:           100%          !important;
-    max-width:       100%          !important;
-    gap:             10px          !important;
-  }
-
-  .ending-btn-row {
-    display:         flex          !important;
-    flex-direction:  column        !important;
-    width:           100%          !important;
-    gap:             10px          !important;
-  }
-
-  .ending-btn-half {
-    width:           100%          !important;
-    flex:            none          !important;
-    min-width:       0             !important;
-  }
-
-  .ending-btn-half .ending-btn,
-  .ending-btn-half a.ending-btn-galeria,
-  #ending-actions > .ending-btn,
-  #ending-actions > button.ending-btn {
-    width:           100%          !important;
-    min-height:      52px          !important;
-    font-size:       1rem          !important;
-    padding:         14px 16px     !important;
-    white-space:     nowrap        !important;
-    text-align:      center        !important;
-    box-sizing:      border-box    !important;
-    display:         flex          !important;
-    align-items:     center        !important;
-    justify-content: center        !important;
-    gap:             8px           !important;
-  }
-
-  /* ── [HUD sobre ending overlay]
-     #ending-overlay tem z-index:1000, HUD tem 500.
-     No mobile elevamos o HUD para ficar visível sobre o overlay. ── */
-  #ui-controls {
-    z-index:         1001          !important;
-  }
-
 }

@@ -294,8 +294,7 @@ body {
 
 
 /* ══════════════════════════════════════════════════════════════
-   [GLOBAL]
-   Fora da media query: bloqueia scroll horizontal e safe-area.
+   [GLOBAL] — fora da media query
 ══════════════════════════════════════════════════════════════ */
 html { overflow-x: hidden; }
 body { overflow-x: hidden; }
@@ -314,7 +313,7 @@ body { overflow-x: hidden; }
 
 
 /* ══════════════════════════════════════════════════════════════
-   MOBILE — tudo abaixo se aplica APENAS a telas <= 768px
+   MOBILE — telas até 768px
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
@@ -327,7 +326,6 @@ body { overflow-x: hidden; }
     box-sizing:    border-box                                        !important;
   }
 
-  /* Esconde titulo central — economiza espaco vertical */
   #galeria-header-text { display: none !important; }
 
   #galeria-logo-marca {
@@ -372,7 +370,7 @@ body { overflow-x: hidden; }
   }
 
 
-  /* ── [GRID] — 2 colunas entre 480-768px ──────────────────── */
+  /* ── [GRID] ───────────────────────────────────────────────── */
   #galeria-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))     !important;
     gap:            12px                                            !important;
@@ -415,9 +413,7 @@ body { overflow-x: hidden; }
 } /* ── fim @media (max-width: 768px) ── */
 
 
-/* ══════════════════════════════════════════════════════════════
-   1 coluna abaixo de 480px — bloco separado (condicao diferente)
-══════════════════════════════════════════════════════════════ */
+/* ── 1 coluna abaixo de 480px ── */
 @media (max-width: 480px) {
   #galeria-grid {
     grid-template-columns: 1fr                                      !important;
@@ -426,9 +422,7 @@ body { overflow-x: hidden; }
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   Telas muito pequenas (< 380px)
-══════════════════════════════════════════════════════════════ */
+/* ── Telas muito pequenas (< 380px) ── */
 @media (max-width: 380px) {
   .stat-num           { font-size: 20px !important; }
   #galeria-logo-marca { font-size: 13px !important; }
