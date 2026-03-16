@@ -21,43 +21,63 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════
-       TELA DE INÍCIO
+       TELA DE PRÉVIA — Introdução narrativa da Cunan
   ═══════════════════════════════════════════════════ -->
-  <div id="start-screen" role="dialog" aria-modal="true" aria-label="Tela de início">
+  <div id="start-screen" role="dialog" aria-modal="true" aria-label="Tela de introdução">
 
-    <!-- Partículas decorativas de folhas -->
+    <!-- Partículas decorativas -->
     <div class="start-leaf sl1" aria-hidden="true">🌿</div>
     <div class="start-leaf sl2" aria-hidden="true">🍃</div>
     <div class="start-leaf sl3" aria-hidden="true">🌱</div>
     <div class="start-leaf sl4" aria-hidden="true">🍃</div>
     <div class="start-leaf sl5" aria-hidden="true">🌿</div>
 
-    <div id="start-content">
-      <!-- Logo / título -->
-      <div id="start-emblem" aria-hidden="true">🌳</div>
-      <h1 id="start-title">Jardim Urbano</h1>
-      <p id="start-sub">Uma jornada pela Mata Atlântica</p>
-
-      <div id="start-divider" aria-hidden="true">❧ ✦ ❧</div>
-
-      <!-- Campo de nome -->
-      <div id="start-name-wrap">
-        <label for="start-name-input" id="start-name-label">Como você se chama?</label>
-        <input id="start-name-input" type="text" maxlength="30"
-               placeholder="Digite seu nome" autocomplete="given-name"
-               aria-label="Seu nome no jogo" />
+    <!-- ETAPA 1 — Apresentação da Cunan -->
+    <div id="start-step-1" class="start-step active">
+      <div id="start-content-1" class="start-content">
+        <div class="start-emblem" aria-hidden="true">🌿</div>
+        <p class="start-eyebrow">Uma iniciativa <strong>Cuna</strong></p>
+        <h1 class="start-title">Esta é a Cunan.</h1>
+        <p class="start-body">
+          Ela carrega em suas folhas a memória de uma floresta<br class="br-desktop">
+          que pede para voltar.
+        </p>
+        <p class="start-body secondary">
+          A <strong>Cuna</strong> acredita que cada planta nativa plantada<br class="br-desktop">
+          numa calçada de São Paulo é um ato de reflorestamento urbano.<br class="br-desktop">
+          Esta jornada começa aqui.
+        </p>
+        <div class="start-divider" aria-hidden="true">❧ ✦ ❧</div>
+        <button class="start-btn" id="btn-conhecer">
+          <span class="start-btn-icon">🌱</span>
+          Entrar na Floresta
+        </button>
+        <p class="start-credits">Jardim Urbano · Mata Atlântica · São Paulo</p>
       </div>
+    </div>
 
-      <!-- Botão principal -->
-      <button id="start-btn" aria-label="Começar a jornada">
-        <span id="start-btn-icon">🌱</span>
-        Começar Jornada
-      </button>
-
-      <!-- Créditos -->
-      <p id="start-credits">
-        Desenvolvido por <strong>Equipe Jardim Urbano</strong> · Mata Atlântica, SP
-      </p>
+    <!-- ETAPA 2 — Momento do nome (Guardião) -->
+    <div id="start-step-2" class="start-step">
+      <div id="start-content-2" class="start-content">
+        <div class="start-emblem" aria-hidden="true">🏅</div>
+        <p class="start-eyebrow">Você vai cuidar da floresta</p>
+        <h2 class="start-title">Como te chamamos?</h2>
+        <p class="start-body">
+          Todo guardião tem um nome.<br>
+          O seu ficará registrado no certificado ao final da jornada.
+        </p>
+        <div class="start-name-wrap">
+          <input id="start-name-input" type="text" maxlength="30"
+                 placeholder="Digite seu nome"
+                 autocomplete="given-name"
+                 aria-label="Seu nome de guardião" />
+        </div>
+        <button class="start-btn" id="btn-comecar">
+          <span class="start-btn-icon">🌳</span>
+          Começar Jornada
+        </button>
+        <button id="btn-voltar-inicio" aria-label="Voltar">← Voltar</button>
+      </div>
     </div>
 
   </div>

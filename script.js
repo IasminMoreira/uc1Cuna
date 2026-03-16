@@ -1388,37 +1388,69 @@ function _setupFullscreen() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TELA DE INÍCIO
+   TELA DE PRÉVIA — fluxo em 2 etapas
+   Etapa 1: Apresentação da Cunan + contexto Cuna
+   Etapa 2: Campo de nome → Começar Jornada
 ═══════════════════════════════════════════════════════════ */
 function _setupStartScreen() {
-  const screen  = document.getElementById('start-screen');
-  const btn     = document.getElementById('start-btn');
-  const input   = document.getElementById('start-name-input');
-  if (!screen || !btn) return;
+  const screen   = document.getElementById('start-screen');
+  const step1    = document.getElementById('start-step-1');
+  const step2    = document.getElementById('start-step-2');
+  const btnConhecer = document.getElementById('btn-conhecer');
+  const btnComecar  = document.getElementById('btn-comecar');
+  const btnVoltar   = document.getElementById('btn-voltar-inicio');
+  const input       = document.getElementById('start-name-input');
 
-  /* Enter no campo confirma */
-  input?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') btn.click();
-  });
+  if (!screen) return;
 
-  btn.addEventListener('click', () => {
-    /* Pega o nome digitado — usa 'Guardião' se vazio */
-    const nome = input?.value.trim() || 'Guardião';
+  /* ── Transição etapa 1 → etapa 2 ── */
+  function irParaEtapa2() {
+    step1.classList.add('exit');
+    step1.addEventListener('animationend', () => {
+      step1.classList.remove('active', 'exit');
+      step2.classList.add('active', 'enter');
+      step2.addEventListener('animationend', () => {
+        step2.classList.remove('enter');
+      }, { once: true });
+      setTimeout(() => input?.focus(), 100);
+    }, { once: true });
+  }
+
+  /* ── Voltar etapa 2 → etapa 1 ── */
+  function irParaEtapa1() {
+    step2.classList.add('exit');
+    step2.addEventListener('animationend', () => {
+      step2.classList.remove('active', 'exit');
+      step1.classList.add('active', 'enter');
+      step1.addEventListener('animationend', () => {
+        step1.classList.remove('enter');
+      }, { once: true });
+    }, { once: true });
+  }
+
+  /* ── Iniciar jogo ── */
+  function lancarJogo() {
+    const nome = (input?.value || '').trim() || 'Guardião';
     ENDING_CONFIG.playerName = nome;
 
-    /* Libera o áudio (requer gesto do usuário) */
+    /* Libera áudio (requer gesto do usuário no mobile) */
     if (typeof initAudio === 'function') initAudio();
     if (typeof tocarSom  === 'function') tocarSom(1);
 
-    /* Fade-out da tela de início */
     screen.classList.add('fade-out');
     screen.addEventListener('animationend', () => {
       screen.style.display = 'none';
     }, { once: true });
-  });
+  }
 
-  /* Foca o input automaticamente */
-  setTimeout(() => input?.focus(), 400);
+  btnConhecer?.addEventListener('click', irParaEtapa2);
+  btnVoltar?.addEventListener('click', irParaEtapa1);
+  btnComecar?.addEventListener('click', lancarJogo);
+
+  /* Enter no campo de nome confirma */
+  input?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') lancarJogo();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
