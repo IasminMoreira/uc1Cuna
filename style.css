@@ -1274,35 +1274,7 @@ html, body {
   line-height: 1.6; margin: 0;
 }
 
-/* Mostrar overlay apenas em mobile portrait */
-@media (max-width: 768px) and (orientation: portrait) {
-  #orientation-overlay { display: flex; }
-  body > *:not(#orientation-overlay) { visibility: hidden; }
-}
-
-
-
-
-/* ═══════════════════════════════════════════════════
-   RESPONSIVO — escala via JS (transform: scale)
-   O jogo mantém sempre 900×560px internamente.
-   O #game-scaler aplica scale para caber na tela.
-═══════════════════════════════════════════════════ */
-#game-scaler {
-  /* transform-origin e position são definidos pelo JS */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Guia modal — coluna única em telas pequenas */
-@media (max-width: 768px) {
-  .guia-grid { grid-template-columns: 1fr; }
-  #guia-modal-box { max-height: 90vh; }
-}
-
-
-/* ═══════════════════════════════════════════════════
+/* ═════════════════════════════════
    TELA DE PRÉVIA — Introdução narrativa
 ═══════════════════════════════════════════════════ */
 #start-screen {
@@ -1616,37 +1588,33 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 }
 #btn-galeria-inicio:active { transform: scale(0.98); }
 
-/* ┌─────────────────────────────────────────────────────────┐
-   │  SEÇÃO MOBILE — style.css                               │
-   │  Único bloco responsivo. Cada sub-seção tem nome.       │
-   │  Nenhuma regra fora deste arquivo afeta o Desktop.      │
-   └─────────────────────────────────────────────────────────┘
-
-   ÍNDICE
-   ──────────────────────────────────────────────────────────
-   [GLOBAL-OVERFLOW]   Destrava scroll vertical
-   [TELA-INICIO]       #start-screen + .start-step + .start-content
-   [TELA-ENCERRAMENTO] #ending-overlay + #ending-content
-   [BOTOES-FINAIS]     .ending-btn-row, .ending-btn-half
-   [MODAL-PLANTA]      #dialog-overlay + #dialog-box
-   [MODAL-NOME]        #nome-modal + #nome-modal-box
-   [GUIA-PLANTAS]      #guia-modal + #guia-modal-box
-   [FONTES-MOBILE]     Escala tipográfica para leitura fácil
-   [QUEBRA-TEXTO]      overflow-wrap, hyphens, white-space
-   [BOTOES-ACAO]       Touch targets 48px, largura 90%
-   [HUD-CONTROLS]      Botões Mudo + Fullscreen
-   [POPUP-INVENTARIO]  #item-acquired-popup
-   [ORIENTACAO]        Overlay "gire o dispositivo"
-   [DESKTOP-RESTORE]   Restaura max-width dos modais no desktop
-   ────────────────────────────────────────────────────────── */
+/* ┌─────────────────────────────────────────────────────────────┐
+   │  SEÇÃO MOBILE — style.css                                   │
+   │  Um único bloco @media. Nunca editar fora daqui.            │
+   │                                                             │
+   │  ÍNDICE                                                     │
+   │  [DESKTOP-RESTORE]    max-width originais dos modais        │
+   │  [GLOBAL-OVERFLOW]    Destrava height/scroll do body        │
+   │  [TELA-INICIO]        #start-screen, .start-step            │
+   │  [TELA-ENCERRAMENTO]  #ending-overlay, #ending-content      │
+   │  [BOTOES-FINAIS]      Par Guia+Galeria, Certificado         │
+   │  [MODAL-PLANTA]       #dialog-overlay, #dialog-box          │
+   │  [MODAL-NOME]         #nome-modal, #nome-input              │
+   │  [GUIA-PLANTAS]       #guia-modal-box                       │
+   │  [FONTES-MOBILE]      Escala tipográfica 1.4rem             │
+   │  [QUEBRA-TEXTO]       overflow-wrap, hyphens                │
+   │  [BOTOES-ACAO]        Touch 48px, largura 90%               │
+   │  [HUD-CONTROLS]       Mudo + Fullscreen                     │
+   │  [POPUP-INVENTARIO]   #item-acquired-popup                  │
+   │  [ORIENTACAO]         Overlay portrait (bloco separado)     │
+   └─────────────────────────────────────────────────────────────┘ */
 
 
-/* ══════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
    [DESKTOP-RESTORE]
-   Garante que os modais NÃO sejam afetados por regras globais
-   adicionadas em patches anteriores.
-   Fica FORA de media query para ter máxima precedência.
-══════════════════════════════════════════════════════════ */
+   Fora da media query — garante max-width originais dos modais
+   em desktop, independente de qualquer patch anterior.
+══════════════════════════════════════════════════════════════ */
 #dialog-box     { max-width: 400px; }
 #nome-modal-box { max-width: 420px; }
 #guia-modal-box { max-width: 700px; }
@@ -1654,33 +1622,38 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 .start-content  { max-width: 480px; }
 
 
-/* ══════════════════════════════════════════════════════════
-   MOBILE — telas até 768px
-   Todas as regras a seguir são exclusivas para mobile.
-══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — tudo abaixo se aplica APENAS a telas <= 768px
+══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [GLOBAL-OVERFLOW]
-     html/body têm overflow:hidden no desktop para o jogo.
-     No mobile precisamos de scroll — o jogo usa transform:scale
-     via JS e não depende do overflow do body.
-  ────────────────────────────────────────────────────── */
-  html, body {
-    overflow:   auto    !important;
-    height:     auto    !important;
-    min-height: 100%    !important;
+     O desktop usa overflow:hidden no body para o jogo.
+     No mobile liberamos scroll — o jogo escala via JS transform.
+  ──────────────────────────────────────────────────────────── */
+  html {
+    overflow-x: hidden   !important;
+  }
+
+  body {
+    height:      auto    !important;
+    min-height:  100%    !important;
+    overflow-y:  visible !important;
+    overflow-x:  hidden  !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [TELA-INICIO]
-     Libera scroll vertical e usa mais largura da tela
-     para que o conteúdo não fique espremido em altura.
-  ────────────────────────────────────────────────────── */
+     justify-content:flex-start = flui do topo para baixo.
+     padding-top/bottom:50px = respiro nas bordas.
+  ──────────────────────────────────────────────────────────── */
   #start-screen {
     position:        fixed                                          !important;
     inset:           0                                              !important;
+    height:          auto                                           !important;
+    min-height:      100svh                                         !important;
     overflow-y:      scroll                                         !important;
     overflow-x:      hidden                                         !important;
     -webkit-overflow-scrolling: touch                               !important;
@@ -1690,44 +1663,48 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
   .start-step.active {
     position:        relative                                       !important;
-    min-height:      100svh                                         !important;
     height:          auto                                           !important;
+    min-height:      100svh                                         !important;
     width:           100%                                           !important;
     display:         flex                                           !important;
     flex-direction:  column                                         !important;
     align-items:     center                                         !important;
-    justify-content: center                                         !important;
-    padding-top:     52px                                           !important;
-    padding-bottom:  max(52px, env(safe-area-inset-bottom, 52px))   !important;
+    justify-content: flex-start                                     !important;
+    padding-top:     50px                                           !important;
+    padding-bottom:  max(50px, env(safe-area-inset-bottom, 50px))   !important;
   }
 
   .start-content {
-    width:          96%                                             !important;
-    max-width:      96%                                             !important;
-    padding-left:   16px                                            !important;
-    padding-right:  16px                                            !important;
-    box-sizing:     border-box                                      !important;
-    gap:            14px                                            !important;
-    display:        flex                                            !important;
-    flex-direction: column                                          !important;
-    align-items:    center                                          !important;
+    width:           96%                                            !important;
+    max-width:       96%                                            !important;
+    padding-left:    16px                                           !important;
+    padding-right:   16px                                           !important;
+    padding-top:     0                                              !important;
+    padding-bottom:  0                                              !important;
+    box-sizing:      border-box                                     !important;
+    display:         flex                                           !important;
+    flex-direction:  column                                         !important;
+    align-items:     center                                         !important;
+    justify-content: flex-start                                     !important;
+    gap:             16px                                           !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [TELA-ENCERRAMENTO]
-     Mesmo padrão da tela de início: fixed + scroll próprio.
-  ────────────────────────────────────────────────────── */
+     Mesmo padrao: fixed + scroll proprio + flui do topo.
+  ──────────────────────────────────────────────────────────── */
   #ending-overlay,
   #ending-overlay.open {
     position:        fixed                                          !important;
     inset:           0                                              !important;
+    height:          auto                                           !important;
+    min-height:      100svh                                         !important;
     overflow-y:      scroll                                         !important;
     overflow-x:      hidden                                         !important;
     -webkit-overflow-scrolling: touch                               !important;
     align-items:     flex-start                                     !important;
     justify-content: flex-start                                     !important;
-    padding-top:     max(0px, env(safe-area-inset-top, 0px))        !important;
   }
 
   #ending-content {
@@ -1737,274 +1714,253 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     max-height:      none                                           !important;
     margin:          auto                                           !important;
     flex-shrink:     0                                              !important;
-    padding:         36px 16px                                      !important;
-    padding-bottom:  max(52px, env(safe-area-inset-bottom, 52px))   !important;
+    padding-top:     50px                                           !important;
+    padding-bottom:  max(50px, env(safe-area-inset-bottom, 50px))   !important;
+    padding-left:    16px                                           !important;
+    padding-right:   16px                                           !important;
     box-sizing:      border-box                                     !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [BOTOES-FINAIS]
-     "Gerar Certificado" — largura total.
-     "Guia de Plantas" + "Galeria" — lado a lado com fonte
-     menor para não quebrar linha.
-     "Recomeçar a Jornada" — largura total.
-  ────────────────────────────────────────────────────── */
+     "Gerar Certificado" e "Recomear" - largura total.
+     "Guia de Plantas" + "Galeria" - lado a lado (row).
+  ──────────────────────────────────────────────────────────── */
   #ending-actions {
-    width:          100%   !important;
-    max-width:      100%   !important;
-    gap:            10px   !important;
+    width:           100%                                           !important;
+    max-width:       100%                                           !important;
+    gap:             10px                                           !important;
   }
 
   .ending-btn-row {
-    display:        flex   !important;
-    flex-direction: row    !important;
-    gap:            8px    !important;
-    width:          100%   !important;
+    display:         flex                                           !important;
+    flex-direction:  row                                            !important;
+    gap:             8px                                            !important;
+    width:           100%                                           !important;
   }
 
   .ending-btn-half {
-    flex:           1      !important;
-    min-width:      0      !important;
+    flex:            1                                              !important;
+    min-width:       0                                              !important;
   }
 
   .ending-btn-half .ending-btn,
   .ending-btn-half a.ending-btn-galeria {
-    width:          100%   !important;
-    min-height:     48px   !important;
-    font-size:      0.9rem !important;
-    padding:        12px 6px !important;
-    white-space:    normal !important;
-    text-align:     center !important;
-    box-sizing:     border-box !important;
+    width:           100%                                           !important;
+    min-height:      48px                                           !important;
+    font-size:       0.9rem                                         !important;
+    padding:         12px 6px                                       !important;
+    white-space:     normal                                         !important;
+    text-align:      center                                         !important;
+    box-sizing:      border-box                                     !important;
   }
 
-  /* Botões de largura total (fora do par) */
   #ending-actions > .ending-btn,
   #ending-actions > button.ending-btn {
-    width:          100%   !important;
-    min-height:     48px   !important;
+    width:           100%                                           !important;
+    min-height:      48px                                           !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [MODAL-PLANTA]
-     Ancora no topo + scroll para textos longos.
-  ────────────────────────────────────────────────────── */
+     Ancora no topo + scroll para textos longos de plantas.
+  ──────────────────────────────────────────────────────────── */
   #dialog-overlay {
-    align-items:    flex-start  !important;
-    overflow-y:     auto        !important;
-    padding:        24px 16px   !important;
-    -webkit-overflow-scrolling: touch !important;
+    align-items:     flex-start                                     !important;
+    justify-content: flex-start                                     !important;
+    overflow-y:      auto                                           !important;
+    padding:         50px 16px                                      !important;
+    -webkit-overflow-scrolling: touch                               !important;
   }
 
   #dialog-box {
-    width:          92vw        !important;
-    max-width:      92vw        !important;
-    height:         auto        !important;
-    max-height:     none        !important;
-    margin:         auto        !important;
-    padding:        28px 20px   !important;
-    box-sizing:     border-box  !important;
-    display:        flex        !important;
-    flex-direction: column      !important;
-    align-items:    center      !important;
+    width:           92vw                                           !important;
+    max-width:       92vw                                           !important;
+    height:          auto                                           !important;
+    max-height:      none                                           !important;
+    margin:          0 auto                                         !important;
+    padding:         28px 20px                                      !important;
+    box-sizing:      border-box                                     !important;
+    display:         flex                                           !important;
+    flex-direction:  column                                         !important;
+    align-items:     center                                         !important;
   }
 
   #dlg-btn-row {
-    flex-direction: column      !important;
-    align-items:    center      !important;
-    gap:            8px         !important;
-    width:          100%        !important;
+    flex-direction:  column                                         !important;
+    align-items:     center                                         !important;
+    gap:             8px                                            !important;
+    width:           100%                                           !important;
   }
 
   #dlg-action-btn,
   #dlg-close-btn {
-    width:          90%         !important;
-    min-height:     48px        !important;
-    box-sizing:     border-box  !important;
+    width:           90%                                            !important;
+    min-height:      48px                                           !important;
+    box-sizing:      border-box                                     !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [MODAL-NOME]
-     Modal para digitar o nome do guardião.
-  ────────────────────────────────────────────────────── */
+     Modal para digitar o nome do guardiao.
+  ──────────────────────────────────────────────────────────── */
   #nome-modal {
-    align-items:    flex-start  !important;
-    overflow-y:     auto        !important;
-    padding:        24px 16px   !important;
-    -webkit-overflow-scrolling: touch !important;
+    align-items:     flex-start                                     !important;
+    justify-content: flex-start                                     !important;
+    overflow-y:      auto                                           !important;
+    padding:         50px 16px                                      !important;
+    -webkit-overflow-scrolling: touch                               !important;
   }
 
   #nome-modal-box {
-    width:          92vw        !important;
-    max-width:      92vw        !important;
-    height:         auto        !important;
-    max-height:     none        !important;
-    margin:         auto        !important;
-    padding:        32px 20px 28px !important;
-    box-sizing:     border-box  !important;
+    width:           92vw                                           !important;
+    max-width:       92vw                                           !important;
+    height:          auto                                           !important;
+    max-height:      none                                           !important;
+    margin:          0 auto                                         !important;
+    padding:         32px 20px 28px                                 !important;
+    box-sizing:      border-box                                     !important;
   }
 
-  #nome-modal-acoes {
-    width:          100%        !important;
-  }
+  #nome-modal-acoes { width: 100% !important; }
 
   #nome-input {
-    width:          100%        !important;
-    min-height:     48px        !important;
-    font-size:      1.1rem      !important;
-    box-sizing:     border-box  !important;
+    width:           100%                                           !important;
+    min-height:      48px                                           !important;
+    font-size:       1.1rem                                         !important;
+    box-sizing:      border-box                                     !important;
   }
 
   #nome-modal-cancelar,
-  #nome-modal-confirmar {
-    min-height:     48px        !important;
-  }
+  #nome-modal-confirmar { min-height: 48px !important; }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [GUIA-PLANTAS]
-     Modal catálogo botânico — scroll interno preservado.
-  ────────────────────────────────────────────────────── */
-  #guia-modal {
-    padding:        12px        !important;
-  }
+     Catalogo botanico — scroll interno preservado, 1 coluna.
+  ──────────────────────────────────────────────────────────── */
+  #guia-modal          { padding: 12px !important; }
 
   #guia-modal-box {
-    width:          96vw        !important;
-    max-width:      96vw        !important;
-    max-height:     92svh       !important;
-    box-sizing:     border-box  !important;
+    width:           96vw                                           !important;
+    max-width:       96vw                                           !important;
+    max-height:      92svh                                          !important;
+    box-sizing:      border-box                                     !important;
   }
 
   #guia-conteudo {
-    overflow-y:     auto        !important;
-    -webkit-overflow-scrolling: touch !important;
+    overflow-y:      auto                                           !important;
+    -webkit-overflow-scrolling: touch                               !important;
   }
 
   .guia-grid {
-    grid-template-columns: 1fr  !important;
-    padding:        12px 14px 18px !important;
+    grid-template-columns: 1fr                                      !important;
+    padding:         12px 14px 18px                                 !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [FONTES-MOBILE]
-     Tamanhos aumentados para leitura confortável no celular.
-  ────────────────────────────────────────────────────── */
-  .start-title      { font-size: clamp(1.4rem, 7vw, 2.2rem) !important; line-height: 1.2 !important; }
-  .start-body       { font-size: 1.15rem !important; line-height: 1.7 !important; }
-  .start-body.secondary { font-size: 1rem !important; }
-  #ending-headline  { font-size: clamp(1.3rem, 5.5vw, 2rem) !important; line-height: 1.25 !important; }
-  #ending-body      { font-size: 1.1rem  !important; line-height: 1.75 !important; }
-  #dlg-title        { font-size: 1.2rem  !important; }
-  #dlg-body         { font-size: 1.1rem  !important; line-height: 1.7  !important; }
-  #nome-modal-titulo { font-size: 1.15rem !important; }
-  #nome-modal-desc   { font-size: 1rem   !important; }
+     1.4rem nos textos narrativos e dialogos das fases.
+     Com height:auto liberado no step, o texto cresce para baixo.
+  ──────────────────────────────────────────────────────────── */
+  .start-title          { font-size: clamp(1.5rem, 7vw, 2.2rem)  !important; line-height: 1.2  !important; }
+  .start-body           { font-size: 1.4rem                       !important; line-height: 1.7  !important; }
+  .start-body.secondary { font-size: 1.2rem                       !important; }
+  .start-eyebrow        { font-size: 0.85rem                      !important; }
+  #ending-headline      { font-size: clamp(1.4rem, 5.5vw, 2rem)   !important; line-height: 1.25 !important; }
+  #ending-body          { font-size: 1.4rem                       !important; line-height: 1.75 !important; }
+  #dlg-title            { font-size: 1.3rem                       !important; }
+  #dlg-body             { font-size: 1.4rem                       !important; line-height: 1.7  !important; }
+  #nome-modal-titulo    { font-size: 1.2rem                       !important; }
+  #nome-modal-desc      { font-size: 1.1rem                       !important; }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [QUEBRA-TEXTO]
-     Garante que nenhuma palavra "vaze" para fora da tela.
-  ────────────────────────────────────────────────────── */
-  .start-title,
-  .start-body,
-  #dlg-title,
-  #dlg-body,
-  #ending-headline,
-  #ending-body,
-  #nome-modal-titulo,
-  #nome-modal-desc,
+     Nenhuma palavra vaza para fora da tela.
+  ──────────────────────────────────────────────────────────── */
+  .start-title, .start-body,
+  #dlg-title, #dlg-body,
+  #ending-headline, #ending-body,
+  #nome-modal-titulo, #nome-modal-desc,
   p, h1, h2, h3 {
-    overflow-wrap:  break-word  !important;
-    word-break:     break-word  !important;
-    hyphens:        auto        !important;
-    white-space:    normal      !important;
-    max-width:      100%        !important;
+    overflow-wrap:   break-word   !important;
+    word-break:      break-word   !important;
+    hyphens:         auto         !important;
+    white-space:     normal       !important;
+    max-width:       100%         !important;
   }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [BOTOES-ACAO]
-     "Entrar na Floresta", campo de nome e botões de ação:
-     mínimo 48px de altura, 90% de largura, centralizados.
-  ────────────────────────────────────────────────────── */
+     48px de altura minima, 90% de largura, centralizados.
+  ──────────────────────────────────────────────────────────── */
   .start-btn,
   #btn-galeria-inicio {
-    width:          90%         !important;
-    max-width:      90%         !important;
-    min-height:     48px        !important;
-    margin-left:    auto        !important;
-    margin-right:   auto        !important;
-    box-sizing:     border-box  !important;
+    width:           90%          !important;
+    max-width:       90%          !important;
+    min-height:      48px         !important;
+    margin-left:     auto         !important;
+    margin-right:    auto         !important;
+    box-sizing:      border-box   !important;
   }
 
-  .start-btn          { font-size: 1.1rem !important; }
+  .start-btn             { font-size: 1.1rem !important; }
 
   #start-name-input {
-    width:          90%         !important;
-    max-width:      90%         !important;
-    min-height:     48px        !important;
-    margin-left:    auto        !important;
-    margin-right:   auto        !important;
-    font-size:      1.1rem      !important;
-    box-sizing:     border-box  !important;
+    width:           90%          !important;
+    max-width:       90%          !important;
+    min-height:      48px         !important;
+    margin-left:     auto         !important;
+    margin-right:    auto         !important;
+    font-size:       1.1rem       !important;
+    box-sizing:      border-box   !important;
   }
 
-  .ending-btn         { min-height: 48px !important; }
+  .ending-btn { min-height: 48px !important; }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [HUD-CONTROLS]
-     Botões Mudo e Fullscreen — cantos sem sobrepor a cena.
-  ────────────────────────────────────────────────────── */
+     Botoes Mudo e Fullscreen no canto sem cobrir a cena.
+  ──────────────────────────────────────────────────────────── */
   #ui-controls {
-    position:       fixed       !important;
-    top:            15px        !important;
-    right:          15px        !important;
-    display:        flex        !important;
-    flex-direction: row         !important;
-    gap:            8px         !important;
-    z-index:        500         !important;
+    position:        fixed        !important;
+    top:             15px         !important;
+    right:           15px         !important;
+    display:         flex         !important;
+    flex-direction:  row          !important;
+    gap:             8px          !important;
+    z-index:         500          !important;
   }
 
   #mute-btn,
-  #fullscreen-btn {
-    position:       static      !important;
-  }
+  #fullscreen-btn { position: static !important; }
 
 
-  /* ──────────────────────────────────────────────────────
+  /* ────────────────────────────────────────────────────────────
      [POPUP-INVENTARIO]
-     Notificação de item adquirido — não sai da tela.
-  ────────────────────────────────────────────────────── */
+     Notificacao de item — nao sai da tela.
+  ──────────────────────────────────────────────────────────── */
   #item-acquired-popup {
-    right:          10px        !important;
-    top:            max(16px, env(safe-area-inset-top, 16px)) !important;
-    max-width:      calc(100vw - 20px) !important;
+    right:           10px         !important;
+    top:             max(16px, env(safe-area-inset-top, 16px)) !important;
+    max-width:       calc(100vw - 20px) !important;
   }
 
-} /* fim @media (max-width: 768px) */
+} /* ── fim @media (max-width: 768px) ── */
 
 
-/* ══════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
    [ORIENTACAO]
-   Overlay "Gire o dispositivo" — portrait only.
-   Bloco separado propositalmente (condição diferente).
-══════════════════════════════════════════════════════════ */
+   Bloco separado — condicao diferente (portrait).
+══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) and (orientation: portrait) {
   #orientation-overlay { display: flex; }
   body > *:not(#orientation-overlay) { visibility: hidden; }
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   [DESKTOP-MIN-600]
-   Ajuste do guia de plantas em tablets pequenos.
-   Bloco separado porque a condição é diferente (520px).
-══════════════════════════════════════════════════════════ */
-@media (max-width: 520px) {
-  .guia-grid { grid-template-columns: 1fr; }
 }
