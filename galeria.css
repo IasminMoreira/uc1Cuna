@@ -442,3 +442,92 @@ body {
   #galeria-logo-marca { font-size: 14px; }
   #galeria-logo-icon  { font-size: 26px; }
 }
+
+@media (max-width: 768px) {
+
+  /* ── 1. Containers — padding lateral ── */
+  #galeria-header-inner,
+  #galeria-stats,
+  #galeria-toolbar,
+  #galeria-grid {
+    padding-left:  20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* ── 2. Títulos — clamp() e quebra de linha correta ── */
+  #galeria-titulo {
+    font-size: clamp(1.2rem, 5vw, 2.5rem);
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  #galeria-subtitulo {
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+    white-space: normal;
+  }
+
+  /* ── 3. Toolbar — busca e select ocupam linha inteira ── */
+  #galeria-toolbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #galeria-busca,
+  #galeria-ordenar {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    white-space: normal;
+  }
+
+  /* ── 4. Grid — 2 colunas entre 480px e 768px ── */
+  #galeria-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── 5. Cards — garante que não vazem ── */
+  .guardiao-card {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .card-selos {
+    flex-wrap: wrap;
+  }
+
+  .card-nome {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* ── 6. Botão Jogar — toque fácil ── */
+  #galeria-btn-jogar {
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+}
+
+/* ── 7. Grid — 1 coluna abaixo de 480px ── */
+@media (max-width: 480px) {
+  #galeria-grid {
+    grid-template-columns: 1fr;
+    padding-left:  16px;
+    padding-right: 16px;
+  }
+
+  .guardiao-card {
+    padding: 18px 16px 14px;
+  }
+
+  .card-nome {
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    white-space: normal;
+    word-break: break-word;
+  }
+}

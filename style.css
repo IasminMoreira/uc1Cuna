@@ -1839,3 +1839,90 @@ a.ending-btn-galeria,
   #orientation-title   { font-size: 18px; }
   #orientation-desc    { font-size: 13px; }
 }
+
+@media (max-width: 768px) {
+
+  /* ── 1. Containers — padding lateral e box-model ── */
+  .start-content,
+  #ending-content,
+  #dialog-box {
+    padding-left:  20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* ── 2. Títulos — redução proporcional via clamp() ── */
+  .start-title {
+    font-size: clamp(1.2rem, 5vw, 2.5rem);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  #ending-headline {
+    font-size: clamp(1.1rem, 4.5vw, 2rem);
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* ── 3. Botões HUD (Mudo + Fullscreen) ── */
+  #ui-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    position: fixed;
+    top:   15px;
+    right: 15px;
+    z-index: 500;
+  }
+
+  #mute-btn,
+  #fullscreen-btn {
+    position: static;
+    white-space: nowrap;
+  }
+
+  /* ── 4. Larguras fixas — substituir por fluidas ── */
+  .sofa,
+  .rug,
+  .coffee-table,
+  .condo-bench {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── 5. Touch targets mínimos ── */
+  .start-btn,
+  #btn-galeria-inicio,
+  .ending-btn,
+  #dlg-action-btn,
+  #dlg-close-btn,
+  #nome-modal-confirmar,
+  #nome-modal-cancelar {
+    min-height: 44px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── 6. Ending actions — empilha botões ── */
+  .ending-btn-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ending-btn-half {
+    flex: none;
+    width: 100%;
+  }
+
+  /* ── 7. Input de nome — largura total ── */
+  #start-name-input,
+  #nome-input {
+    width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    min-height: 44px;
+  }
+
+}
