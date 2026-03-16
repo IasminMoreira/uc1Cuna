@@ -1918,6 +1918,49 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
     z-index:   1002 !important;
   }
 
+
+  /* ── [ELEMENTOS FORA DO #game-scaler] ──────────────────────
+     Estes overlays existem no DOM acima ou abaixo do scaler
+     e NÃO são afetados pelo transform:scale do JS.
+     São eles: #start-screen, #ending-overlay, #dialog-overlay,
+               #guia-modal, #nome-modal.
+     Podemos dar overflow-y:auto livremente pois o #game-scaler
+     (o jogo em si) continua travado por trás.
+  ──────────────────────────────────────────────────────────── */
+
+  /* Caixas internas — largura e altura máximas seguras */
+  #ending-content,
+  #dialog-box,
+  #nome-modal-box,
+  #guia-modal-box {
+    max-width:  90vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fontes maiores — estes textos não são escalados pelo JS */
+  #ending-headline,
+  #ending-body,
+  #dlg-title,
+  #dlg-body,
+  #nome-modal-titulo,
+  #nome-modal-desc,
+  .start-title,
+  .start-body {
+    font-size: 1.3rem !important;
+    line-height: 1.6  !important;
+  }
+
+  /* Supertítulo e créditos: menores que o corpo */
+  #ending-supertitle,
+  #ending-credit,
+  .start-eyebrow,
+  .start-credits {
+    font-size: 0.8rem !important;
+  }
+
 } /* fim @media (max-width: 768px) */
 
 
