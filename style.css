@@ -2401,3 +2401,95 @@ a.ending-btn-galeria,
   }
 
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — Corrige cortes verticais na tela de Início e Encerramento
+   ISOLADO: apenas @media (max-width: 768px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Tela de Início ──
+     Problema: position:fixed + inset:0 = caixa travada no viewport.
+     Quando o conteúdo é maior, o excesso é cortado silenciosamente.
+     Solução: manter fixed mas liberar overflow e ancorar no topo. */
+  #start-screen {
+    position:       fixed          !important;
+    inset:          0              !important;
+    overflow-y:     auto           !important;
+    overflow-x:     hidden         !important;
+    /* Ancora no topo para o scroll funcionar de cima para baixo */
+    align-items:    flex-start     !important;
+    justify-content: flex-start    !important;
+    /* Safe-area: evita que o conteúdo fique atrás da barra home */
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)) !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* O step ativo ocupa no mínimo 100% da altura, mas pode crescer */
+  .start-step.active {
+    min-height:     100%           !important;
+    height:         auto           !important;
+    width:          100%           !important;
+    position:       relative       !important;
+    display:        flex           !important;
+    align-items:    center         !important;
+    justify-content: center        !important;
+    padding-top:    40px           !important;
+    padding-bottom: 40px           !important;
+  }
+
+  /* Conteúdo central — respeita as bordas e tem respiro vertical */
+  .start-content {
+    width:          92%            !important;
+    max-width:      92%            !important;
+    padding-top:    0              !important;
+    padding-bottom: 0              !important;
+    /* gap já foi definido anteriormente */
+  }
+
+
+  /* ── Tela de Encerramento ──
+     Mesmo problema: fixed + inset:0 + align-items:center corta quando
+     o texto é longo. Âncora no topo e libera scroll. */
+  #ending-overlay,
+  #ending-overlay.open {
+    position:       fixed          !important;
+    inset:          0              !important;
+    overflow-y:     auto           !important;
+    overflow-x:     hidden         !important;
+    align-items:    flex-start     !important;
+    justify-content: flex-start    !important;
+    padding-top:    max(24px, env(safe-area-inset-top, 24px))    !important;
+    padding-bottom: max(40px, env(safe-area-inset-bottom, 40px)) !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Caixa de conteúdo do encerramento — cresce livremente */
+  #ending-content {
+    width:          92vw           !important;
+    max-width:      92vw           !important;
+    height:         auto           !important;
+    max-height:     none           !important;
+    margin:         auto           !important;
+    padding-top:    32px           !important;
+    padding-bottom: 40px           !important;
+    flex-shrink:    0              !important; /* não encolhe dentro do flex */
+  }
+
+  /* Ações do encerramento — empilhadas e com espaço suficiente */
+  #ending-actions {
+    width:          100%           !important;
+    max-width:      100%           !important;
+  }
+
+  .ending-btn-row {
+    flex-direction: column         !important;
+    align-items:    center         !important;
+    gap:            10px           !important;
+  }
+  .ending-btn-half {
+    width:          90%            !important;
+    flex:           none           !important;
+  }
+
+}
