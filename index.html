@@ -21,6 +21,49 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════
+       TELA DE INÍCIO
+  ═══════════════════════════════════════════════════ -->
+  <div id="start-screen" role="dialog" aria-modal="true" aria-label="Tela de início">
+
+    <!-- Partículas decorativas de folhas -->
+    <div class="start-leaf sl1" aria-hidden="true">🌿</div>
+    <div class="start-leaf sl2" aria-hidden="true">🍃</div>
+    <div class="start-leaf sl3" aria-hidden="true">🌱</div>
+    <div class="start-leaf sl4" aria-hidden="true">🍃</div>
+    <div class="start-leaf sl5" aria-hidden="true">🌿</div>
+
+    <div id="start-content">
+      <!-- Logo / título -->
+      <div id="start-emblem" aria-hidden="true">🌳</div>
+      <h1 id="start-title">Jardim Urbano</h1>
+      <p id="start-sub">Uma jornada pela Mata Atlântica</p>
+
+      <div id="start-divider" aria-hidden="true">❧ ✦ ❧</div>
+
+      <!-- Campo de nome -->
+      <div id="start-name-wrap">
+        <label for="start-name-input" id="start-name-label">Como você se chama?</label>
+        <input id="start-name-input" type="text" maxlength="30"
+               placeholder="Digite seu nome" autocomplete="given-name"
+               aria-label="Seu nome no jogo" />
+      </div>
+
+      <!-- Botão principal -->
+      <button id="start-btn" aria-label="Começar a jornada">
+        <span id="start-btn-icon">🌱</span>
+        Começar Jornada
+      </button>
+
+      <!-- Créditos -->
+      <p id="start-credits">
+        Desenvolvido por <strong>Equipe Jardim Urbano</strong> · Mata Atlântica, SP
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
        BOTÃO MUDO — fixo, fora do HUD, canto superior direito
   ═══════════════════════════════════════════════════ -->
   <div id="ui-controls">

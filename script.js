@@ -1387,10 +1387,45 @@ function _setupFullscreen() {
   });
 }
 
+/* ═══════════════════════════════════════════════════════════
+   TELA DE INÍCIO
+═══════════════════════════════════════════════════════════ */
+function _setupStartScreen() {
+  const screen  = document.getElementById('start-screen');
+  const btn     = document.getElementById('start-btn');
+  const input   = document.getElementById('start-name-input');
+  if (!screen || !btn) return;
+
+  /* Enter no campo confirma */
+  input?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') btn.click();
+  });
+
+  btn.addEventListener('click', () => {
+    /* Pega o nome digitado — usa 'Guardião' se vazio */
+    const nome = input?.value.trim() || 'Guardião';
+    ENDING_CONFIG.playerName = nome;
+
+    /* Libera o áudio (requer gesto do usuário) */
+    if (typeof initAudio === 'function') initAudio();
+    if (typeof tocarSom  === 'function') tocarSom(1);
+
+    /* Fade-out da tela de início */
+    screen.classList.add('fade-out');
+    screen.addEventListener('animationend', () => {
+      screen.style.display = 'none';
+    }, { once: true });
+  });
+
+  /* Foca o input automaticamente */
+  setTimeout(() => input?.focus(), 400);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   _setupOrientationGuard();
   _setupFullscreen();
   _scaleGame();
   window.addEventListener('resize', _scaleGame);
+  _setupStartScreen();
   init();
 });
