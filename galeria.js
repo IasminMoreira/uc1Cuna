@@ -1,7 +1,7 @@
 'use strict';
 
 const SUPABASE_URL      = 'https://vsibscelximuiciefcgt.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_Lc4tfyjQ6h9HLAVSb9ks1Q_2heTmAup';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzaWJzY2VseGltdWljaWVmY2d0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MzMwMDEsImV4cCI6MjA4OTIwOTAwMX0.imWBF9CX3n-NnONQcWPpgdZo3sw7lgf5fz9iN7L0l3o';
 
 const SELOS = [
   { icon: '🌱', label: 'Iniciante' },
