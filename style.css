@@ -1972,3 +1972,59 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   #orientation-overlay { display: flex; }
   body > *:not(#orientation-overlay) { visibility: hidden; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE FINAL — Botões de encerramento + HUD sobre overlay
+   Isolado em @media (max-width: 768px)
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── [BOTOES-FINAIS OVERRIDE]
+     Todos em coluna única — elimina o par lado a lado
+     que causava quebra de linha em "Guia de Plantas". ── */
+  #ending-actions {
+    display:         flex          !important;
+    flex-direction:  column        !important;
+    width:           100%          !important;
+    max-width:       100%          !important;
+    gap:             10px          !important;
+  }
+
+  .ending-btn-row {
+    display:         flex          !important;
+    flex-direction:  column        !important;
+    width:           100%          !important;
+    gap:             10px          !important;
+  }
+
+  .ending-btn-half {
+    width:           100%          !important;
+    flex:            none          !important;
+    min-width:       0             !important;
+  }
+
+  .ending-btn-half .ending-btn,
+  .ending-btn-half a.ending-btn-galeria,
+  #ending-actions > .ending-btn,
+  #ending-actions > button.ending-btn {
+    width:           100%          !important;
+    min-height:      52px          !important;
+    font-size:       1rem          !important;
+    padding:         14px 16px     !important;
+    white-space:     nowrap        !important;
+    text-align:      center        !important;
+    box-sizing:      border-box    !important;
+    display:         flex          !important;
+    align-items:     center        !important;
+    justify-content: center        !important;
+    gap:             8px           !important;
+  }
+
+  /* ── [HUD sobre ending overlay]
+     #ending-overlay tem z-index:1000, HUD tem 500.
+     No mobile elevamos o HUD para ficar visível sobre o overlay. ── */
+  #ui-controls {
+    z-index:         1001          !important;
+  }
+
+}
