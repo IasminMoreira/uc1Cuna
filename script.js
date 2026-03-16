@@ -765,7 +765,7 @@ const ENDING_CONFIG = {
   textAfter: ' às suas origens da Mata Atlântica.',
 
   /* Parágrafo narrativo final */
-  bodyText: 'Cada folha que você regou foi um ato de memória. Cada planta que você conheceu é um fragmento vivo do bioma que moldou este território antes de ser cidade. A floresta nunca sumiu — ela apenas esperou que alguém voltasse a olhar.',
+  bodyText: 'Cada folha que você regou foi um ato de memória. Cada planta que você conheceu é um fragmento vivo do bioma que moldou este território antes de ser cidade. A floresta nunca sumiu — ela apenas esperou que alguém voltasse a olhar. A Cuna acredita que esse cuidado começa em casa, numa calçada, num vaso. Obrigada por plantar junto.',
 
   /* Velocidade do typewriter: ms por caractere */
   typewriterSpeed: 72,
@@ -1069,7 +1069,8 @@ function openVisitDialog(plantId) {
 
 /**
  * openReflectDialog — fala das plantas felizes no E4.
- * Botão só fecha, não altera estado.
+ * Ao fechar, marca como 'visited' e verifica se as 4 foram lidas.
+ * Quando todas 4 são lidas, revela a jabuticabeira com fade-in.
  */
 function openReflectDialog(plantId) {
   const data = PLANT_DATA[plantId];
@@ -1084,14 +1085,37 @@ function openReflectDialog(plantId) {
   const btn = DOM.dlgActionBtn();
   btn.removeEventListener('click', handleCareAction);
   function onceClose() {
+    /* Marca como visitada */
+    gameState.plants[plantId] = 'visited';
     closeDialog();
     btn.removeEventListener('click', onceClose);
     btn.addEventListener('click', handleCareAction);
+    /* Verifica se as 4 plantas do E4 foram lidas */
+    _verificarPlantasE4();
   }
   btn.addEventListener('click', onceClose);
 
   gameState.activePlantId = plantId;
   _showDialog();
+}
+
+/**
+ * _verificarPlantasE4 — conta quantas plantas do E4 foram lidas.
+ * Quando todas 4 estiverem 'visited', revela a jabuticabeira
+ * com fade-in suave para que o jogador possa encerrar a jornada.
+ */
+function _verificarPlantasE4() {
+  const E4 = ['s4maranta', 's4samambaia', 's4palmeira', 's4bromelia'];
+  const lidas = E4.filter(id => gameState.plants[id] === 'visited').length;
+
+  if (lidas < E4.length) return; /* ainda faltam plantas */
+
+  /* Todas lidas — revela a jabuticabeira com fade-in */
+  const display = document.getElementById('s4-jabuticaba-display');
+  if (display && display.classList.contains('hidden-until-ready')) {
+    display.classList.remove('hidden-until-ready');
+    display.classList.add('reveal-fade');
+  }
 }
 
 function openLockedDialog(data) {
@@ -1388,51 +1412,14 @@ function _setupFullscreen() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TELA DE PRÉVIA — fluxo em 2 etapas
-   Etapa 1: Apresentação da Cunan + contexto Cuna
-   Etapa 2: Campo de nome → Começar Jornada
+   TELA DE PRÉVIA — introdução narrativa, sem coleta de nome
 ═══════════════════════════════════════════════════════════ */
 function _setupStartScreen() {
-  const screen   = document.getElementById('start-screen');
-  const step1    = document.getElementById('start-step-1');
-  const step2    = document.getElementById('start-step-2');
-  const btnConhecer = document.getElementById('btn-conhecer');
-  const btnComecar  = document.getElementById('btn-comecar');
-  const btnVoltar   = document.getElementById('btn-voltar-inicio');
-  const input       = document.getElementById('start-name-input');
+  const screen     = document.getElementById('start-screen');
+  const btnEntrar  = document.getElementById('btn-conhecer');
+  if (!screen || !btnEntrar) return;
 
-  if (!screen) return;
-
-  /* ── Transição etapa 1 → etapa 2 ── */
-  function irParaEtapa2() {
-    step1.classList.add('exit');
-    step1.addEventListener('animationend', () => {
-      step1.classList.remove('active', 'exit');
-      step2.classList.add('active', 'enter');
-      step2.addEventListener('animationend', () => {
-        step2.classList.remove('enter');
-      }, { once: true });
-      setTimeout(() => input?.focus(), 100);
-    }, { once: true });
-  }
-
-  /* ── Voltar etapa 2 → etapa 1 ── */
-  function irParaEtapa1() {
-    step2.classList.add('exit');
-    step2.addEventListener('animationend', () => {
-      step2.classList.remove('active', 'exit');
-      step1.classList.add('active', 'enter');
-      step1.addEventListener('animationend', () => {
-        step1.classList.remove('enter');
-      }, { once: true });
-    }, { once: true });
-  }
-
-  /* ── Iniciar jogo ── */
-  function lancarJogo() {
-    const nome = (input?.value || '').trim() || 'Guardião';
-    ENDING_CONFIG.playerName = nome;
-
+  btnEntrar.addEventListener('click', () => {
     /* Libera áudio (requer gesto do usuário no mobile) */
     if (typeof initAudio === 'function') initAudio();
     if (typeof tocarSom  === 'function') tocarSom(1);
@@ -1441,15 +1428,6 @@ function _setupStartScreen() {
     screen.addEventListener('animationend', () => {
       screen.style.display = 'none';
     }, { once: true });
-  }
-
-  btnConhecer?.addEventListener('click', irParaEtapa2);
-  btnVoltar?.addEventListener('click', irParaEtapa1);
-  btnComecar?.addEventListener('click', lancarJogo);
-
-  /* Enter no campo de nome confirma */
-  input?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') lancarJogo();
   });
 }
 
