@@ -1696,24 +1696,24 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
   /* Overlay: scroll interno — nunca corta conteúdo */
   #ending-overlay,
   #ending-overlay.open {
-    position:        fixed                                                      !important;
-    inset:           0                                                          !important;
-    height:          100vh                                                      !important;
-    /* O PROPRIO overlay rola — nao o filho #ending-content */
-    overflow-y:      scroll                                                     !important;
-    overflow-x:      hidden                                                     !important;
-    -webkit-overflow-scrolling: touch                                           !important;
-    /* touch-action:pan-y — garante que iOS registre o gesto de scroll */
-    touch-action:    pan-y                                                      !important;
-    display:         flex                                                       !important;
-    flex-direction:  column                                                     !important;
-    align-items:     center                                                     !important;
-    justify-content: flex-start                                                 !important;
-    padding:         max(16px, env(safe-area-inset-top, 16px))
-                     16px
-                     max(40px, env(safe-area-inset-bottom, 40px))
-                     16px                                                       !important;
-    box-sizing:      border-box                                                 !important;
+    position:            fixed      !important;
+    inset:               0          !important;
+    height:              100%       !important;
+    width:               100%       !important;
+    /* iOS fix: overflow definido via JS ao abrir (ver abrirTelaEncerramento) */
+    overflow-y:          scroll     !important;
+    overflow-x:          hidden     !important;
+    overscroll-behavior: contain    !important;
+    -webkit-overflow-scrolling: touch !important;
+    display:             flex       !important;
+    flex-direction:      column     !important;
+    align-items:         center     !important;
+    justify-content:     flex-start !important;
+    padding-top:         max(16px, env(safe-area-inset-top, 16px))    !important;
+    padding-left:        16px       !important;
+    padding-right:       16px       !important;
+    padding-bottom:      max(48px, env(safe-area-inset-bottom, 48px)) !important;
+    box-sizing:          border-box !important;
   }
 
   /* Folhas caindo: desativadas */
@@ -1721,26 +1721,25 @@ a.ending-btn-galeria:active { transform: scale(0.98); }
 
   /* Caixa: sem card, layout aberto sobre o fundo verde */
   #ending-content {
-    /* Sem max-height: cresce livremente dentro do overlay scrollavel */
-    width:           92%             !important;
-    max-width:       92%             !important;
-    height:          auto            !important;
-    max-height:      none            !important;
-    min-height:      0               !important;
-    overflow:        visible         !important;
-    background:      none            !important;
-    border:          none            !important;
-    border-radius:   0               !important;
-    backdrop-filter: none            !important;
-    box-shadow:      none            !important;
-    padding:         8px 0           !important;
-    margin:          0               !important;
-    display:         flex            !important;
-    flex-direction:  column          !important;
-    align-items:     center          !important;
-    gap:             0               !important;
-    flex-shrink:     0               !important;
-    box-sizing:      border-box      !important;
+    width:           92%       !important;
+    max-width:       92%       !important;
+    height:          auto      !important;
+    max-height:      none      !important;
+    min-height:      0         !important;
+    overflow:        visible   !important;
+    background:      none      !important;
+    border:          none      !important;
+    border-radius:   0         !important;
+    backdrop-filter: none      !important;
+    box-shadow:      none      !important;
+    padding:         8px 0 max(20px, env(safe-area-inset-bottom, 20px)) !important;
+    margin:          0 auto    !important;
+    display:         flex      !important;
+    flex-direction:  column    !important;
+    align-items:     center    !important;
+    gap:             0         !important;
+    flex-shrink:     0         !important;
+    box-sizing:      border-box !important;
   }
 
   /* TOPO — ícones de flora */
