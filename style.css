@@ -2246,3 +2246,158 @@ a.ending-btn-galeria,
   }
 
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — Altura fluida, scroll e padding vertical
+   ISOLADO: apenas @media (max-width: 768px)
+   Nenhuma linha fora desta media query foi alterada.
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── 1. Altura fluida — containers que travavam o conteúdo ── */
+
+  html, body {
+    height: auto       !important;
+    min-height: 100vh  !important;
+    overflow-y: auto   !important;   /* permite scroll vertical global */
+    overflow-x: hidden !important;
+  }
+
+  /* Tela de início */
+  #start-screen {
+    height: auto          !important;
+    min-height: 100svh    !important; /* svh = sem barra de navegação */
+    overflow-y: auto      !important;
+    position: relative    !important; /* sai de fixed para permitir scroll */
+  }
+
+  /* Overlay de encerramento */
+  #ending-overlay {
+    height: auto          !important;
+    min-height: 100svh    !important;
+    overflow-y: auto      !important;
+  }
+
+  /* Modais de diálogo das plantas */
+  #dialog-overlay {
+    align-items: flex-start !important;  /* ancora no topo p/ scroll */
+    overflow-y: auto        !important;
+    padding: 24px 0         !important;
+  }
+  #dialog-box {
+    height: auto            !important;
+    max-height: none        !important;  /* remove teto fixo */
+    overflow-y: visible     !important;
+    margin: auto            !important;
+  }
+
+  /* Modal nome do guardião */
+  #nome-modal {
+    align-items: flex-start !important;
+    overflow-y: auto        !important;
+    padding: 24px 0         !important;
+  }
+  #nome-modal-box {
+    height: auto            !important;
+    max-height: none        !important;
+    overflow-y: visible     !important;
+    margin: auto            !important;
+  }
+
+  /* Guia de plantas — scroll interno mantido, mas altura máxima ampliada */
+  #guia-modal-box {
+    max-height: 92svh       !important;
+  }
+  #guia-conteudo {
+    overflow-y: auto        !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+
+  /* ── 2. Fontes — narrativos e instruções de fase ── */
+
+  #dlg-body         { font-size: 1.3rem !important; line-height: 1.75 !important; }
+  #dlg-title        { font-size: 1.25rem !important; }
+  .start-body       { font-size: 1.2rem !important; line-height: 1.75 !important; }
+  .start-body.secondary { font-size: 1.1rem !important; }
+  #ending-body      { font-size: 1.2rem !important; line-height: 1.80 !important; }
+  #ending-headline  { font-size: clamp(1.2rem, 5vw, 2rem) !important; }
+  #nome-modal-desc  { font-size: 1.1rem !important; }
+
+
+  /* ── 3. Scroll vertical suave ── */
+
+  #start-screen,
+  #ending-overlay,
+  #dialog-overlay,
+  #nome-modal {
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth           !important;
+  }
+
+
+  /* ── 4. Padding superior e inferior — respiro vertical ── */
+
+  .start-content {
+    padding-top:    30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  #ending-content {
+    padding-top:    30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  #dialog-box {
+    padding-top:    24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  #nome-modal-box {
+    padding-top:    30px !important;
+    padding-bottom: 30px !important;
+  }
+
+
+  /* ── 5. Centralização vertical fluida ── */
+
+  .start-step {
+    display:         flex           !important;
+    flex-direction:  column         !important;
+    justify-content: center         !important;
+    align-items:     center         !important;
+    min-height:      100svh         !important;
+    height:          auto           !important;
+  }
+
+  .start-content {
+    display:         flex           !important;
+    flex-direction:  column         !important;
+    justify-content: center         !important;
+    align-items:     center         !important;
+    width:           92vw           !important;
+    gap:             16px           !important;
+  }
+
+  #ending-overlay.open {
+    display:         flex           !important;
+    flex-direction:  column         !important;
+    justify-content: center         !important;
+    align-items:     center         !important;
+  }
+
+  #ending-content {
+    display:         flex           !important;
+    flex-direction:  column         !important;
+    align-items:     center         !important;
+    width:           92vw           !important;
+  }
+
+  #dialog-box {
+    display:         flex           !important;
+    flex-direction:  column         !important;
+    align-items:     center         !important;
+    width:           92vw           !important;
+  }
+
+}
