@@ -1066,18 +1066,15 @@ function _gerarPNGCertificado(nome) {
  * Body: { nome, data, nivel, thumbBase64 }
  */
 async function _enviarParaGaleria(dados) {
-  const API = 'https://api.cuna.com.br/v1/guardioes';  /* ← altere para o seu endpoint */
   try {
-    const resp = await fetch(API, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body:    JSON.stringify(dados),
-    });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    console.info('[Galeria] Guardião salvo:', dados.nome);
+    if (typeof salvarGuardiao === 'function') {
+      await salvarGuardiao(dados);
+      console.info('[Galeria] Guardião salvo:', dados.nome);
+    } else {
+      console.warn('[Galeria] salvarGuardiao não encontrado — galeria.js carregado?');
+    }
   } catch (err) {
-    /* Falha silenciosa — o download já foi feito, não bloqueia nada */
-    console.warn('[Galeria] Não foi possível salvar na galeria:', err.message);
+    console.warn('[Galeria] Erro ao salvar:', err.message);
   }
 }
 
