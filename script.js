@@ -1017,27 +1017,68 @@ function _fecharNomeModal() {
 function _gerarPNGCertificado(nome) {
   const nomeEl = document.getElementById('cert-nome');
   const dataEl = document.getElementById('cert-data');
+  const hoje   = new Date();
+  const dataFormatada = hoje.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
   if (nomeEl) nomeEl.textContent = nome;
-  if (dataEl) {
-    const hoje = new Date();
-    dataEl.textContent = hoje.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-  }
-  const cert = document.getElementById('certificado');
+  if (dataEl) dataEl.textContent = dataFormatada;
+
+  const cert    = document.getElementById('certificado');
   if (!cert) return;
   const btnOrig = document.getElementById('btn-certificado');
   if (btnOrig) { btnOrig.textContent = '⏳ Gerando…'; btnOrig.disabled = true; }
+
   html2canvas(cert, { scale: 1, useCORS: true, backgroundColor: null, width: 1080, height: 756, logging: false })
     .then(canvas => {
+      /* 1. Download do PNG para o usuário */
       const link = document.createElement('a');
       const nomeSanitizado = nome.replace(/[^a-zA-Z0-9À-ÿ\s-]/g, '').trim().replace(/\s+/g, '-');
       link.download = `certificado-guardiao-${nomeSanitizado}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
-      if (btnOrig) { btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião'; btnOrig.disabled = false; }
+
+      /* 2. Envia para a Galeria de Guardiões (não bloqueia o download) */
+      _enviarParaGaleria({
+        nome:        nome,
+        data:        hoje.toISOString(),
+        nivel:       'Guardião Expert',
+        thumbBase64: canvas.toDataURL('image/jpeg', 0.5),  /* thumbnail comprimido */
+      });
+
+      if (btnOrig) {
+        btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião';
+        btnOrig.disabled  = false;
+      }
     })
     .catch(() => {
-      if (btnOrig) { btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião'; btnOrig.disabled = false; }
+      if (btnOrig) {
+        btnOrig.innerHTML = '<span class="btn-icon">🏅</span> Gerar Certificado de Guardião';
+        btnOrig.disabled  = false;
+      }
     });
+}
+
+/**
+ * _enviarParaGaleria — POST para a API da Cuna.
+ * Falha silenciosa: não interrompe a experiência do jogador.
+ *
+ * Endpoint esperado: POST https://api.cuna.com.br/v1/guardioes
+ * Body: { nome, data, nivel, thumbBase64 }
+ */
+async function _enviarParaGaleria(dados) {
+  const API = 'https://api.cuna.com.br/v1/guardioes';  /* ← altere para o seu endpoint */
+  try {
+    const resp = await fetch(API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(dados),
+    });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    console.info('[Galeria] Guardião salvo:', dados.nome);
+  } catch (err) {
+    /* Falha silenciosa — o download já foi feito, não bloqueia nada */
+    console.warn('[Galeria] Não foi possível salvar na galeria:', err.message);
+  }
 }
 
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria de Guardiões · Cuna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="galeria.css" />
+</head>
+<body>
+
+  <!-- ── Cabeçalho ── -->
+  <header id="galeria-header">
+    <div id="galeria-header-inner">
+      <div id="galeria-logo">
+        <span id="galeria-logo-icon" aria-hidden="true">🌳</span>
+        <div>
+          <p id="galeria-logo-marca">Cuna</p>
+          <p id="galeria-logo-sub">Reflorestamento Urbano</p>
+        </div>
+      </div>
+      <div id="galeria-header-text">
+        <h1 id="galeria-titulo">Galeria de Guardiões</h1>
+        <p id="galeria-subtitulo">Cada nome aqui é uma planta que voltou à cidade.</p>
+      </div>
+      <a href="index.html" id="galeria-btn-jogar">
+        <span aria-hidden="true">🌱</span> Jogar
+      </a>
+    </div>
+  </header>
+
+  <!-- ── Estatísticas ── -->
+  <section id="galeria-stats" aria-label="Estatísticas">
+    <div class="stat-card">
+      <span class="stat-num" id="stat-total">—</span>
+      <span class="stat-label">Guardiões</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-hoje">—</span>
+      <span class="stat-label">Hoje</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-mes">—</span>
+      <span class="stat-label">Este mês</span>
+    </div>
+  </section>
+
+  <!-- ── Filtro / busca ── -->
+  <div id="galeria-toolbar">
+    <input id="galeria-busca" type="search" placeholder="Buscar guardião…"
+           aria-label="Buscar por nome" autocomplete="off" />
+    <select id="galeria-ordenar" aria-label="Ordenar por">
+      <option value="recente">Mais recentes</option>
+      <option value="antigo">Mais antigos</option>
+      <option value="nome">Nome A–Z</option>
+    </select>
+  </div>
+
+  <!-- ── Grade de certificados ── -->
+  <main id="galeria-grid" aria-label="Grade de guardiões">
+    <!-- Cards injetados via JS -->
+  </main>
+
+  <!-- ── Estado vazio ── -->
+  <div id="galeria-empty" class="hidden" aria-live="polite">
+    <span aria-hidden="true">🌱</span>
+    <p>Nenhum guardião encontrado.</p>
+    <p class="galeria-empty-sub">Seja o primeiro a completar a jornada!</p>
+  </div>
+
+  <!-- ── Estado de carregamento ── -->
+  <div id="galeria-loading" aria-live="polite" aria-label="Carregando guardiões">
+    <div class="loading-spinner" aria-hidden="true"></div>
+    <p>Buscando guardiões…</p>
+  </div>
+
+  <!-- ── Estado de erro ── -->
+  <div id="galeria-erro" class="hidden" role="alert">
+    <span aria-hidden="true">⚠️</span>
+    <p id="galeria-erro-msg">Não foi possível carregar a galeria.</p>
+    <button id="galeria-btn-retry">Tentar novamente</button>
+  </div>
+
+  <!-- ── Rodapé ── -->
+  <footer id="galeria-footer">
+    <p>
+      <strong>Cuna</strong> · Cada planta nativa é memória da Mata Atlântica
+    </p>
+    <p id="galeria-footer-sub">
+      © <span id="galeria-ano"></span> Cuna · Jardim Urbano · São Paulo
+    </p>
+  </footer>
+
+  <script src="galeria.js"></script>
+</body>
+</html>
